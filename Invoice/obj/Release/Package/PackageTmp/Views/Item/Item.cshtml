@@ -1,0 +1,331 @@
+﻿@{
+    ViewBag.Title = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Items
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="mt-1 text-themecolor">All your Items</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <button type="button" data-toggle="modal" data-target="#modalItem" class="mt-1 btn btn-info btn-rounded float-right">
+            <i class="fa fa-plus"></i> Add Item
+        </button>
+        <button type="button" data-toggle="modal" data-target="#modalImportItem" class="mt-1 btn btn-info btn-rounded mr-1 float-right">
+            <i class="fa fa-arrow-circle-down"></i> Import / Update Items
+        </button>
+    </div>
+}
+
+@section card_body {
+    <div id="modalItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formItem">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add / Edit Item</h4>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtItemCode" class="control-label">Item Code*</label>
+                                    <input type="text" id="txtItemCode" maxlength="100" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtItemName" class="control-label">Item Name</label>
+                                    <input type="text" id="txtItemName" maxlength="100" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtItemDescription" class="control-label">Item Description</label>
+                                    <input type="text" id="txtItemDescription" maxlength="100" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtHsnSac" class="control-label">HSN / SAC</label>
+                                    <input type="text" id="txtHsnSac" maxlength="10" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cmbTaxRate" class="control-label">Tax Rate</label>
+                                    @Html.DropDownList("cmbTaxRate", (SelectList)ViewBag.TaxList, new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cmbTaxRate" class="control-label">CESS (%)</label>
+                                    <input type="number" id="txtCess" step="0.0001" min="0" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cmbCategory" class="control-label">Category</label>
+                                    @Html.DropDownList("cmbCategory", (SelectList)ViewBag.CategoryList, new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cmbUnit" class="control-label">Unit</label>
+                                    @Html.DropDownList("cmbUnit", (SelectList)ViewBag.UnitList, new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtPurchasePrice" class="control-label">Purchase Price*</label>
+                                    <input type="number" id="txtPurchasePrice" step="0.0001" min="0" class="form-control form-control-sm" required>
+                                    <input type="checkbox" id="chkPurchasePriceInclusiveTax" />Inclusive tax
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtSalesPrice" class="control-label">Sales Price*</label>
+                                    <input type="number" id="txtSalesPrice" step="0.0001" min="0" class="form-control form-control-sm" required>
+                                    <input type="checkbox" id="chkSalesPriceInclusiveTax" />Inclusive tax
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtStockQuantity" class="control-label">Stock Quantity*</label>
+                                    <input type="number" id="txtStockQuantity" step="0.0001" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtAlertQuantity" class="control-label">Alert Quantity*</label>
+                                    <input type="number" id="txtAlertQuantity" step="0.0001" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSubmit" class="btn btn-info waves-effect waves-light">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalImportItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Import / Update Items</h4>
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>Your excel data should be in the requested format. <a href="../../Content/Sample Item.xlsx">Download sample excel file.</a></p>
+                    <input type="file" title="select CSV file" id="fileItem" name="fileItem" accept=".xlsx" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnImport" class="btn btn-info waves-effect waves-light">Upload</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tblItemList" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(itemList) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped'>");
+                $table.append("<thead><tr><th>Item Code</th><th>Item Name</th><th>HSN/SAC</th><th>Tax Rate</th><th>CESS (%)</th><th>Purchase Price</th><th>Sales Price</th><th>Category</th><th>Unit</th><th>Stock Quantity</th><th>Alert Quantity</th><th>Action</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(itemList, function (i, val) {
+                    var $row = "<tr><td>" + val.ItemCode + "</td><td>" + val.ItemName + "</td><td>" + val.HsnSac + "</td><td>" + val.TaxRate + " %</td><td>" + val.Cess + " %</td><td><span>" + val.PurchasePrice + "</span><br>(<span>" + val.PurchasePriceInclusiveTax + "</span>)" + "</td><td><span>" + val.SalesPrice + "</span><br>(<span>" + val.SalesPriceInclusiveTax + "</span>)" + "</td><td>" + val.Category + "</td><td>" + val.Unit + "</td><td>" + val.StockQuantity + "</td><td>" + val.AlertQuantity + "</td><td><button type='button' class='btnEdit btn btn-sm btn-info m-1'><i class='fa fa-edit'></i> Edit</button><button type='button' class='btnDelete btn btn-sm btn-danger m-1'><i class='fa fa-trash'></i> Delete</button></td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblItemList").html($table);
+
+                $("#foo-row-toggler").DataTable({
+                    columnDefs: [{ orderable: false, targets: -1 }]
+                });
+            }
+
+            var itemList = @Html.Raw(Json.Encode(@ViewBag.ItemList));
+            generateTable(itemList);
+
+            $("#modalItem").on("hide.bs.modal", function (e) {
+                $("#txtItemCode").removeAttr("readonly");
+                $("#txtItemCode").val("");
+                $("#txtItemName").val("");
+                $("#txtItemDescription").val("");
+                $("#txtHsnSac").val("");
+                $("#cmbTaxRate").val("0");
+                $("#txtCess").val("");
+                $("#txtPurchasePrice").val("");
+                $("#chkPurchasePriceInclusiveTax").prop("checked", false);
+                $("#txtSalesPrice").val("");
+                $("#chkSalesPriceInclusiveTax").prop("checked", false);
+                $("#cmbCategory").val("");
+                $("#cmbUnit").val("");
+                $("#txtStockQuantity").val("");
+                $("#txtAlertQuantity").val("");
+            });
+
+            $("#tblItemList").on("click", ".btnEdit", function () {
+                var itemCode = $("#tblItemList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(1)").html();
+
+                $.ajax({
+                    context: document.body,
+                    data: { ItemCode: itemCode },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            var item = data.Item;
+
+                            $("#txtItemCode").val(itemCode);
+                            $("#txtItemName").val(item.ItemName);
+                            $("#txtItemDescription").val(item.ItemDescription);
+                            $("#txtHsnSac").val(item.HsnSac);
+                            $("#cmbTaxRate").val(item.TaxRate);
+                            $("#txtCess").val(item.Cess);
+                            $("#txtPurchasePrice").val(item.PurchasePrice);
+                            $("#chkPurchasePriceInclusiveTax").attr("checked", item.PurchasePriceInclusiveTax);
+                            $("#txtSalesPrice").val(item.SalesPrice);
+                            $("#chkSalesPriceInclusiveTax").attr("checked", item.SalesPriceInclusiveTax);
+                            $("#cmbCategory").val(item.CategoryId);
+                            $("#cmbUnit").val(item.UnitId);
+                            $("#txtStockQuantity").val(item.StockQuantity);
+                            $("#txtAlertQuantity").val(item.AlertQuantity);
+
+                            $("#txtItemCode").attr("readonly", "readonly");
+                            $("#modalItem").modal("show");
+                        }
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Item/GetItem"
+                });
+            });
+
+            $(document).on("submit", "#formItem", function() {
+                $.ajax({
+                    beforeSend: function() { $("#btnSubmit").html("Please wait.."); $("#btnSubmit").attr("disabled", "disabled"); },
+                    complete: function() { $("#btnSubmit").html("Save"); $("#btnSubmit").removeAttr("disabled"); },
+                    context: document.body,
+                    data: { Action: $("#txtItemCode").prop("readonly") ? "Update" : "Add", ItemCode: $("#txtItemCode").val(), ItemName: $("#txtItemName").val(), ItemDescription: $("#txtItemDescription").val(), ItemDescription: $("#txtItemDescription").val(), HsnSac: $("#txtHsnSac").val(), TaxRate: $("#cmbTaxRate").val(), Cess: $("#txtCess").val(), PurchasePrice: $("#txtPurchasePrice").val(), PurchasePriceInclusiveTax: $("#chkPurchasePriceInclusiveTax").is(":checked"), SalesPrice: $("#txtSalesPrice").val(), SalesPriceInclusiveTax: $("#chkSalesPriceInclusiveTax").is(":checked"), UnitId: $("#cmbUnit").val(), CategoryId: $("#cmbCategory").val(), StockQuantity: $("#txtStockQuantity").val(), AlertQuantity: $("#txtAlertQuantity").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            $("#modalItem").modal("hide");
+                            swal("Saved", "", "success");
+                            generateTable(data.ItemList);
+                        }
+                        else if (data.success === false)
+                            swal("Cancelled", data.Message, "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Item/SaveItem"
+                });
+
+                return false;
+            });
+
+            $("#tblItemList").on("click", ".btnDelete", function () {
+                var itemCode = $("#tblItemList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(1)").html();
+
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to delete this item?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            data: { ItemCode: itemCode },
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Deleted", "", "success");
+
+                                    generateTable(data.ItemList);
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Item/DeleteItem"
+                        });
+                    }
+                });
+            });
+
+            $(document).on("click", "#btnImport", function () {
+                var fileName = document.getElementById("fileItem").value;
+                var idxDot = fileName.lastIndexOf(".") + 1;
+                var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+                if (extFile == "xlsx") {
+                    var file = $("#fileItem").get(0);
+                    var fileData = new FormData();
+
+                    if (file.files.length > 0) {
+                        fileData.append("file-1", file.files[0]);
+
+                        $.ajax({
+                            beforeSend: function() { $("#btnImport").html("Please wait.."); $("#btnImport").attr("disabled", "disabled"); },
+                            complete: function() { $("#btnImport").html("Save"); $("#btnImport").removeAttr("disabled"); },
+                            context: document.body,
+                            data: fileData,
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    $("#modalImportItem").modal("hide");
+                                    swal("Saved!", "Items imported successfully", "success");
+                                    generateTable(data.ItemList);
+                                }
+                                else if (data.success === false)
+                                    swal("Cancelled", data.Message, "error");
+                            },
+                            contentType: false,
+                            processData: false,
+                            type: "POST",
+                            url: "/Item/ImportItems"
+                        });
+                    }
+                } else {
+                    alert("Only xlsx files are allowed!");
+                }
+            });
+        });
+    </script>
+}

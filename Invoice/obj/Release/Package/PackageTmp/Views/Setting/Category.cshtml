@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Categories
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="mt-1 text-themecolor">All your Categories</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <button type="button" data-toggle="modal" data-target="#modalCategory" class="btn btn-info btn-rounded float-right">
+            <i class="fa fa-plus"></i> Add Category
+        </button>
+    </div>
+}
+
+@section card_body {
+    <div id="modalCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formCategory">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add / Edit Category</h4>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="hiddenCategoryId" value="0" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtCategoryName" class="control-label">Category Name*</label>
+                                    <input type="text" id="txtCategoryName" maxlength="16" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSubmit" class="btn btn-info waves-effect waves-light">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="tblCategoryList" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(categoryList) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped'>");
+                $table.append("<thead><tr><th>Category</th><th>Action</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(categoryList, function (i, val) {
+                    var $row = "<tr><td>" + val.CategoryName + "</td><td><input type='hidden' value=" + val.CategoryId + "><button type='button' class='btnEdit btn btn-sm btn-info m-1'><i class='fa fa-edit'></i> Edit</button><button type='button' class='btnDelete btn btn-sm btn-danger m-1'><i class='fa fa-trash'></i> Delete</button></td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblCategoryList").html($table);
+
+                $("#foo-row-toggler").DataTable({
+                    columnDefs: [{ orderable: false, targets: -1 }]
+                });
+            }
+
+            var categoryList = @Html.Raw(Json.Encode(@ViewBag.CategoryList));
+            generateTable(categoryList);
+
+            $("#modalCategory").on("hide.bs.modal", function (e) {
+                $("#hiddenCategoryId").val("0");
+                $("#txtCategoryName").val("");
+            });
+
+            $("#tblCategoryList").on("click", ".btnEdit", function () {
+                var categoryId = $("#tblCategoryList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(2) input[type=hidden]").val();
+
+                $.ajax({
+                    context: document.body,
+                    data: { CategoryId: categoryId },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            var category = data.Category;
+
+                            $("#hiddenCategoryId").val(categoryId);
+                            $("#txtCategoryName").val(category.CategoryName);
+
+                            $("#modalCategory").modal("show");
+                        }
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Setting/GetCategory"
+                });
+            });
+
+            $(document).on("submit", "#formCategory", function() {
+                $.ajax({
+                    beforeSend: function() { $("#btnSubmit").html("Please wait.."); $("#btnSubmit").attr("disabled", "disabled"); },
+                    complete: function() { $("#btnSubmit").html("Save"); $("#btnSubmit").removeAttr("disabled"); },
+                    context: document.body,
+                    data: { CategoryId: $("#hiddenCategoryId").val(), CategoryName: $("#txtCategoryName").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            $("#modalCategory").modal("hide");
+                            swal("Saved", "", "success");
+                            generateTable(data.CategoryList);
+                        }
+                        else if (data.success === false)
+                            swal("Cancelled", data.Message, "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Setting/SaveCategory"
+                });
+
+                return false;
+            });
+
+            $("#tblCategoryList").on("click", ".btnDelete", function () {
+                var categoryId = $("#tblCategoryList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(2) input[type=hidden]").val();
+
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to delete this category?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            data: { CategoryId: categoryId },
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Deleted", "", "success");
+
+                                    generateTable(data.CategoryList);
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Setting/DeleteCategory"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

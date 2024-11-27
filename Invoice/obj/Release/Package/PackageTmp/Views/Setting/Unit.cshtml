@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Unit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Units
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="mt-1 text-themecolor">All your Units</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <button type="button" data-toggle="modal" data-target="#modalUnit" class="btn btn-info btn-rounded float-right">
+            <i class="fa fa-plus"></i> Add Unit
+        </button>
+    </div>
+}
+
+@section card_body {
+    <div id="modalUnit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formUnit">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add / Edit Unit</h4>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="hiddenUnitId" value="0" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtUnitName" class="control-label">Unit Name*</label>
+                                    <input type="text" id="txtUnitName" maxlength="16" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSubmit" class="btn btn-info waves-effect waves-light">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="tblUnitList" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(unitList) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped'>");
+                $table.append("<thead><tr><th>Unit</th><th>Action</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(unitList, function (i, val) {
+                    var $row = "<tr><td>" + val.UnitName + "</td><td><input type='hidden' value=" + val.UnitId + "><button type='button' class='btnEdit btn btn-sm btn-info m-1'><i class='fa fa-edit'></i> Edit</button><button type='button' class='btnDelete btn btn-sm btn-danger m-1'><i class='fa fa-trash'></i> Delete</button></td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblUnitList").html($table);
+
+                $("#foo-row-toggler").DataTable({
+                    columnDefs: [{ orderable: false, targets: -1 }]
+                });
+            }
+
+            var unitList = @Html.Raw(Json.Encode(@ViewBag.UnitList));
+            generateTable(unitList);
+
+            $("#modalUnit").on("hide.bs.modal", function (e) {
+                $("#hiddenUnitId").val("0");
+                $("#txtUnitName").val("");
+            });
+
+            $("#tblUnitList").on("click", ".btnEdit", function () {
+                var unitId = $("#tblUnitList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(2) input[type=hidden]").val();
+
+                $.ajax({
+                    context: document.body,
+                    data: { UnitId: unitId },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            var unit = data.Unit;
+
+                            $("#hiddenUnitId").val(unitId);
+                            $("#txtUnitName").val(unit.UnitName);
+
+                            $("#modalUnit").modal("show");
+                        }
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Setting/GetUnit"
+                });
+            });
+
+            $(document).on("submit", "#formUnit", function() {
+                $.ajax({
+                    beforeSend: function() { $("#btnSubmit").html("Please wait.."); $("#btnSubmit").attr("disabled", "disabled"); },
+                    complete: function() { $("#btnSubmit").html("Save"); $("#btnSubmit").removeAttr("disabled"); },
+                    context: document.body,
+                    data: { UnitId: $("#hiddenUnitId").val(), UnitName: $("#txtUnitName").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            $("#modalUnit").modal("hide");
+                            swal("Saved", "", "success");
+                            generateTable(data.UnitList);
+                        }
+                        else if (data.success === false)
+                            swal("Cancelled", data.Message, "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Setting/SaveUnit"
+                });
+
+                return false;
+            });
+
+            $("#tblUnitList").on("click", ".btnDelete", function () {
+                var unitId = $("#tblUnitList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(2) input[type=hidden]").val();
+
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to delete this unit?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            data: { UnitId: unitId },
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Deleted", "", "success");
+
+                                    generateTable(data.UnitList);
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Setting/DeleteUnit"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

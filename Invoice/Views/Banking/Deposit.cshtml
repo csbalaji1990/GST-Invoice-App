@@ -1,0 +1,227 @@
+﻿@{
+    ViewBag.Title = "Deposit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Deposits
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">All your Deposits</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <button type="button" data-toggle="modal" data-target="#modalDeposit" class="btn btn-info btn-rounded float-right">
+            <i class="fa fa-plus"></i> Add Deposit
+        </button>
+    </div>
+}
+
+@section card_body {
+    <div id="modalDeposit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formDeposit">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add / Edit Deposit</h4>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="hiddenDepositId" value="0" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtDepositDate" class="control-label">Deposit Date*</label>
+                                    <input type="date" id="txtDepositDate" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="cmbBankAccount" class="control-label">Account Name*</label>
+                                    @Html.DropDownList("cmbBankAccount", (SelectList)ViewBag.BankAccountList, new { @class = "form-control form-control-sm", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="cmbPaymentMethod" class="control-label">Payment Method</label>
+                                    @Html.DropDownList("cmbPaymentMethod", (SelectList)ViewBag.PaymentMethodList, new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtPurpose" class="control-label">Purpose*</label>
+                                    <input type="text" id="txtPurpose" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtAmount" class="control-label">Amount*</label>
+                                    <input type="number" id="txtAmount" step="0.01" min="0" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtNote" class="control-label">Note</label>
+                                    <input type="text" id="txtNote" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSubmit" class="btn btn-info waves-effect waves-light">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="tblDepositList" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(depositList) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped'>");
+                $table.append("<thead><tr><th>Deposit Date</th><th>Bank Account</th><th>Payment Method</th><th>Purpose</th><th>Amount</th><th>Note</th><th>Action</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(depositList, function (i, val) {
+                    var $row = "<tr><td>" + ConvertJsonToDate(val.DepositDate) + "</td><td>" + val.BankAccount + "</td><td>" + val.PaymentMethod + "</td><td>" + val.Purpose + "</td><td>" + val.Amount + "</td><td>" + val.Note + "</td><td><input type='hidden' value=" + val.DepositId + "><button type='button' class='btnEdit btn btn-sm btn-info m-1'><i class='fa fa-edit'></i> Edit</button> <button type='button' class='btnDelete btn btn-sm btn-danger m-1'><i class='fa fa-trash'></i> Delete</button></td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblDepositList").html($table);
+
+                $("#foo-row-toggler").DataTable({
+                    columnDefs: [{ orderable: false, targets: -1 }]
+                });
+            }
+
+            $("#txtDepositDate").val(new Date().toISOString().substring(0, 10));
+
+            var depositList = @Html.Raw(Json.Encode(@ViewBag.DepositList));
+            generateTable(depositList);
+
+            function ConvertJsonToDate(date)
+            {
+                var nowDate = new Date(parseInt(date.substr(6)));
+                return result = nowDate.format("dd-mm-yyyy");
+            }
+
+            $("#modalDeposit").on("hide.bs.modal", function (e) {
+                $("#hiddenDepositId").val("0");
+                $("#txtDepositDate").val(new Date().toISOString().substring(0, 10));
+                $("#cmbBankAccount").val("");
+                $("#cmbPaymentMethod").val("Cash");
+                $("#txtPurpose").val("");
+                $("#txtAmount").val("");
+                $("#txtNote").val("");
+            });
+
+            $("#tblDepositList").on("click", ".btnEdit", function () {
+                var depositId = $("#tblDepositList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(7) input[type=hidden]").val();
+
+                $.ajax({
+                    context: document.body,
+                    data: { DepositId: depositId },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            var deposit = data.Deposit;
+
+                            $("#hiddenDepositId").val(depositId);
+                            $("#txtDepositDate").val(deposit.DepositDate);
+                            $("#cmbBankAccount").val(deposit.BankAccountId);
+                            $("#cmbPaymentMethod").val(deposit.PaymentMethod);
+                            $("#txtPurpose").val(deposit.Purpose);
+                            $("#txtAmount").val(deposit.Amount);
+                            $("#txtNote").val(deposit.Note);
+
+                            $("#modalDeposit").modal("show");
+                        }
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Banking/GetDeposit"
+                });
+            });
+
+            $(document).on("submit", "#formDeposit", function() {
+                $.ajax({
+                    beforeSend: function() { $("#btnSubmit").html("Please wait.."); $("#btnSubmit").attr("disabled", "disabled"); },
+                    complete: function() { $("#btnSubmit").html("Save"); $("#btnSubmit").removeAttr("disabled"); },
+                    context: document.body,
+                    data: { DepositId: $("#hiddenDepositId").val(), DepositDate: $("#txtDepositDate").val(), BankAccountId: $("#cmbBankAccount").val(), PaymentMethod: $("#cmbPaymentMethod").val(), Purpose: $("#txtPurpose").val(), Amount: $("#txtAmount").val(), Note: $("#txtNote").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            $("#modalDeposit").modal("hide");
+                            swal("Saved", "", "success");
+                            generateTable(data.DepositList);
+                        }
+                        else if (data.success === false)
+                            swal("Cancelled", data.Message, "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Banking/SaveDeposit"
+                });
+
+                return false;
+            });
+
+            $("#tblDepositList").on("click", ".btnDelete", function () {
+                var depositId = $("#tblDepositList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(7) input[type=hidden]").val();
+
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to delete this deposit?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            data: { DepositId: depositId },
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Deleted", "", "success");
+
+                                    generateTable(data.DepositList);
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Banking/DeleteDeposit"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

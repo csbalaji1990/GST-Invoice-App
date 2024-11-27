@@ -1,0 +1,227 @@
+﻿@{
+    ViewBag.Title = "Expense";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Expenses
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">All your Expenses</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <button type="button" data-toggle="modal" data-target="#modalExpense" class="btn btn-info btn-rounded float-right">
+            <i class="fa fa-plus"></i> Add Expense
+        </button>
+    </div>
+}
+
+@section card_body {
+    <div id="modalExpense" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formExpense">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add / Edit Expense</h4>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="hiddenExpenseId" value="0" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtExpenseDate" class="control-label">Expense Date*</label>
+                                    <input type="date" id="txtExpenseDate" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="cmbBankAccount" class="control-label">Account Name*</label>
+                                    @Html.DropDownList("cmbBankAccount", (SelectList)ViewBag.BankAccountList, new { @class = "form-control form-control-sm", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="cmbPaymentMethod" class="control-label">Payment Method</label>
+                                    @Html.DropDownList("cmbPaymentMethod", (SelectList)ViewBag.PaymentMethodList, new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtPurpose" class="control-label">Purpose*</label>
+                                    <input type="text" id="txtPurpose" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtAmount" class="control-label">Amount*</label>
+                                    <input type="number" id="txtAmount" step="0.01" min="0" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtNote" class="control-label">Note</label>
+                                    <input type="text" id="txtNote" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSubmit" class="btn btn-info waves-effect waves-light">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="tblExpenseList" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(expenseList) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped'>");
+                $table.append("<thead><tr><th>Expense Date</th><th>Bank Account</th><th>Payment Method</th><th>Purpose</th><th>Amount</th><th>Note</th><th>Action</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(expenseList, function (i, val) {
+                    var $row = "<tr><td>" + ConvertJsonToDate(val.ExpenseDate) + "</td><td>" + val.BankAccount + "</td><td>" + val.PaymentMethod + "</td><td>" + val.Purpose + "</td><td>" + val.Amount + "</td><td>" + val.Note + "</td><td><input type='hidden' value=" + val.ExpenseId + "><button type='button' class='btnEdit btn btn-sm btn-info m-1'><i class='fa fa-edit'></i> Edit</button> <button type='button' class='btnDelete btn btn-sm btn-danger m-1'><i class='fa fa-trash'></i> Delete</button></td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblExpenseList").html($table);
+
+                $("#foo-row-toggler").DataTable({
+                    columnDefs: [{ orderable: false, targets: -1 }]
+                });
+            }
+
+            $("#txtExpenseDate").val(new Date().toISOString().substring(0, 10));
+
+            var expenseList = @Html.Raw(Json.Encode(@ViewBag.ExpenseList));
+            generateTable(expenseList);
+
+            function ConvertJsonToDate(date)
+            {
+                var nowDate = new Date(parseInt(date.substr(6)));
+                return nowDate.format("dd-mm-yyyy");
+            }
+
+            $("#modalExpense").on("hide.bs.modal", function (e) {
+                $("#hiddenExpenseId").val("0");
+                $("#txtExpenseDate").val(new Date().toISOString().substring(0, 10));
+                $("#cmbBankAccount").val("");
+                $("#cmbPaymentMethod").val("Cash");
+                $("#txtPurpose").val("");
+                $("#txtAmount").val("");
+                $("#txtNote").val("");
+            });
+
+            $("#tblExpenseList").on("click", ".btnEdit", function () {
+                var expenseId = $("#tblExpenseList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(7) input[type=hidden]").val();
+
+                $.ajax({
+                    context: document.body,
+                    data: { ExpenseId: expenseId },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            var expense = data.Expense;
+
+                            $("#hiddenExpenseId").val(expenseId);
+                            $("#txtExpenseDate").val(expense.ExpenseDate);
+                            $("#cmbBankAccount").val(expense.BankAccountId);
+                            $("#cmbPaymentMethod").val(expense.PaymentMethod);
+                            $("#txtPurpose").val(expense.Purpose);
+                            $("#txtAmount").val(expense.Amount);
+                            $("#txtNote").val(expense.Note);
+
+                            $("#modalExpense").modal("show");
+                        }
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Expense/GetExpense"
+                });
+            });
+
+            $(document).on("submit", "#formExpense", function() {
+                $.ajax({
+                    beforeSend: function() { $("#btnSubmit").html("Please wait.."); $("#btnSubmit").attr("disabled", "disabled"); },
+                    complete: function() { $("#btnSubmit").html("Save"); $("#btnSubmit").removeAttr("disabled"); },
+                    context: document.body,
+                    data: { ExpenseId: $("#hiddenExpenseId").val(), ExpenseDate: $("#txtExpenseDate").val(), BankAccountId: $("#cmbBankAccount").val(), PaymentMethod: $("#cmbPaymentMethod").val(), Purpose: $("#txtPurpose").val(), Amount: $("#txtAmount").val(), Note: $("#txtNote").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            $("#modalExpense").modal("hide");
+                            swal("Saved", "", "success");
+                            generateTable(data.ExpenseList);
+                        }
+                        else if (data.success === false)
+                            swal("Cancelled", data.Message, "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Expense/SaveExpense"
+                });
+
+                return false;
+            });
+
+            $("#tblExpenseList").on("click", ".btnDelete", function () {
+                var expenseId = $("#tblExpenseList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(7) input[type=hidden]").val();
+
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to delete this expense?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            data: { ExpenseId: expenseId },
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Deleted", "", "success");
+
+                                    generateTable(data.ExpenseList);
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Expense/DeleteExpense"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

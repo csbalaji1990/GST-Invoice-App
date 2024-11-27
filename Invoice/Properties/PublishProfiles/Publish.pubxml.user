@@ -1,0 +1,1797 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>G:\My Drive\Backup\Project\Invoice\Publish</_PublishTargetUrl>
+    <History>True|2023-06-10T01:27:49.0745735Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/EPPlus.dll">
+      <publishTime>09/20/2019 10:34:45</publishTime>
+    </File>
+    <File Include="bin/Invoice.dll">
+      <publishTime>06/10/2023 06:55:43</publishTime>
+    </File>
+    <File Include="bin/Invoice.pdb">
+      <publishTime>06/10/2023 06:55:43</publishTime>
+    </File>
+    <File Include="bin/IronPdf.dll">
+      <publishTime>02/12/2019 11:14:06</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>09/20/2019 10:25:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Mvc.FixedDisplayModes.dll">
+      <publishTime>09/20/2019 10:26:38</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>09/20/2019 10:25:34</publishTime>
+    </File>
+    <File Include="bin/Select.Html.dep">
+      <publishTime>09/20/2019 10:45:31</publishTime>
+    </File>
+    <File Include="bin/Select.HtmlToPdf.dll">
+      <publishTime>09/20/2019 10:46:04</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.dll">
+      <publishTime>03/28/2019 02:11:14</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>09/20/2019 10:26:54</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.WebRequest.dll">
+      <publishTime>03/28/2019 02:11:14</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>09/20/2019 10:24:51</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>09/20/2019 10:27:06</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>09/20/2019 10:27:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>09/20/2019 10:26:46</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>09/20/2019 10:26:51</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>09/20/2019 10:24:53</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>09/20/2019 10:24:57</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>09/20/2019 10:24:58</publishTime>
+    </File>
+    <File Include="Content/css/animate.css">
+      <publishTime>09/20/2019 10:23:27</publishTime>
+    </File>
+    <File Include="Content/css/blue.css">
+      <publishTime>09/20/2019 10:23:28</publishTime>
+    </File>
+    <File Include="Content/css/bootstrap.min.css">
+      <publishTime>09/20/2019 10:23:29</publishTime>
+    </File>
+    <File Include="Content/css/browser-not-supported.css">
+      <publishTime>09/20/2019 10:23:29</publishTime>
+    </File>
+    <File Include="Content/css/jquery-ui.min.css">
+      <publishTime>09/20/2019 10:23:29</publishTime>
+    </File>
+    <File Include="Content/css/select2.min.css">
+      <publishTime>09/20/2019 10:23:30</publishTime>
+    </File>
+    <File Include="Content/css/spinners.css">
+      <publishTime>09/20/2019 10:23:30</publishTime>
+    </File>
+    <File Include="Content/css/style.css">
+      <publishTime>09/20/2019 10:23:31</publishTime>
+    </File>
+    <File Include="Content/css/sweetalert.css">
+      <publishTime>09/20/2019 10:23:32</publishTime>
+    </File>
+    <File Include="Content/images/browser-not-supported.gif">
+      <publishTime>09/20/2019 10:23:20</publishTime>
+    </File>
+    <File Include="Content/images/custom-select.png">
+      <publishTime>09/20/2019 10:23:21</publishTime>
+    </File>
+    <File Include="Content/images/login-register.jpg">
+      <publishTime>09/20/2019 10:23:21</publishTime>
+    </File>
+    <File Include="Content/PurchaseInvoice_Item_Template.txt">
+      <publishTime>09/20/2019 10:22:13</publishTime>
+    </File>
+    <File Include="Content/Quotation_Item_Template.txt">
+      <publishTime>09/20/2019 10:22:16</publishTime>
+    </File>
+    <File Include="Content/SalesInvoice_Item_Template.txt">
+      <publishTime>09/20/2019 10:22:17</publishTime>
+    </File>
+    <File Include="Content/Sales_Item_Template.txt">
+      <publishTime>07/06/2018 13:15:14</publishTime>
+    </File>
+    <File Include="Content/Sample Item.xlsx">
+      <publishTime>09/20/2019 10:22:17</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flag-icon.min.css">
+      <publishTime>09/20/2019 10:28:00</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ad.svg">
+      <publishTime>09/20/2019 10:28:09</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ae.svg">
+      <publishTime>09/20/2019 10:28:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/af.svg">
+      <publishTime>09/20/2019 10:28:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ag.svg">
+      <publishTime>09/20/2019 10:28:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ai.svg">
+      <publishTime>09/20/2019 10:28:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/al.svg">
+      <publishTime>09/20/2019 10:28:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/am.svg">
+      <publishTime>09/20/2019 10:28:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ao.svg">
+      <publishTime>09/20/2019 10:28:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/aq.svg">
+      <publishTime>09/20/2019 10:28:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ar.svg">
+      <publishTime>09/20/2019 10:28:18</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/as.svg">
+      <publishTime>09/20/2019 10:28:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/at.svg">
+      <publishTime>09/20/2019 10:28:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/au.svg">
+      <publishTime>09/20/2019 10:28:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/aw.svg">
+      <publishTime>09/20/2019 10:28:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ax.svg">
+      <publishTime>09/20/2019 10:28:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/az.svg">
+      <publishTime>09/20/2019 10:28:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ba.svg">
+      <publishTime>09/20/2019 10:28:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bb.svg">
+      <publishTime>09/20/2019 10:28:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bd.svg">
+      <publishTime>09/20/2019 10:28:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/be.svg">
+      <publishTime>09/20/2019 10:28:24</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bf.svg">
+      <publishTime>09/20/2019 10:28:25</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bg.svg">
+      <publishTime>09/20/2019 10:28:25</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bh.svg">
+      <publishTime>09/20/2019 10:28:25</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bi.svg">
+      <publishTime>09/20/2019 10:28:25</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bj.svg">
+      <publishTime>09/20/2019 10:28:25</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bl.svg">
+      <publishTime>09/20/2019 10:28:25</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bm.svg">
+      <publishTime>09/20/2019 10:28:25</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bn.svg">
+      <publishTime>09/20/2019 10:28:27</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bo.svg">
+      <publishTime>09/20/2019 10:28:27</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bq.svg">
+      <publishTime>09/20/2019 10:28:30</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/br.svg">
+      <publishTime>09/20/2019 10:28:31</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bs.svg">
+      <publishTime>09/20/2019 10:28:31</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bt.svg">
+      <publishTime>09/20/2019 10:28:33</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bv.svg">
+      <publishTime>09/20/2019 10:28:33</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bw.svg">
+      <publishTime>09/20/2019 10:28:33</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/by.svg">
+      <publishTime>09/20/2019 10:28:33</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/bz.svg">
+      <publishTime>09/20/2019 10:28:33</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ca.svg">
+      <publishTime>09/20/2019 10:28:33</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cc.svg">
+      <publishTime>09/20/2019 10:28:34</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cd.svg">
+      <publishTime>09/20/2019 10:28:38</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cf.svg">
+      <publishTime>09/20/2019 10:28:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cg.svg">
+      <publishTime>09/20/2019 10:28:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ch.svg">
+      <publishTime>09/20/2019 10:28:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ci.svg">
+      <publishTime>09/20/2019 10:28:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ck.svg">
+      <publishTime>09/20/2019 10:28:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cl.svg">
+      <publishTime>09/20/2019 10:28:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cm.svg">
+      <publishTime>09/20/2019 10:28:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cn.svg">
+      <publishTime>09/20/2019 10:28:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/co.svg">
+      <publishTime>09/20/2019 10:28:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cr.svg">
+      <publishTime>09/20/2019 10:28:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cu.svg">
+      <publishTime>09/20/2019 10:28:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cv.svg">
+      <publishTime>09/20/2019 10:28:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cw.svg">
+      <publishTime>09/20/2019 10:28:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cx.svg">
+      <publishTime>09/20/2019 10:28:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cy.svg">
+      <publishTime>09/20/2019 10:28:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/cz.svg">
+      <publishTime>09/20/2019 10:28:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/de.svg">
+      <publishTime>09/20/2019 10:28:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/dj.svg">
+      <publishTime>09/20/2019 10:28:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/dk.svg">
+      <publishTime>09/20/2019 10:28:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/dm.svg">
+      <publishTime>09/20/2019 10:28:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/do.svg">
+      <publishTime>09/20/2019 10:28:56</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/dz.svg">
+      <publishTime>09/20/2019 10:28:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ec.svg">
+      <publishTime>09/20/2019 10:28:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ee.svg">
+      <publishTime>09/20/2019 10:28:48</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/eg.svg">
+      <publishTime>09/20/2019 10:29:00</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/eh.svg">
+      <publishTime>09/20/2019 10:28:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/er.svg">
+      <publishTime>09/20/2019 10:28:57</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/es.svg">
+      <publishTime>09/20/2019 10:29:00</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/et.svg">
+      <publishTime>09/20/2019 10:28:57</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/fi.svg">
+      <publishTime>09/20/2019 10:29:06</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/fj.svg">
+      <publishTime>09/20/2019 10:29:06</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/fk.svg">
+      <publishTime>09/20/2019 10:29:06</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/fm.svg">
+      <publishTime>09/20/2019 10:29:06</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/fo.svg">
+      <publishTime>09/20/2019 10:29:06</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/fr.svg">
+      <publishTime>09/20/2019 10:29:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ga.svg">
+      <publishTime>09/20/2019 10:29:06</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gb.svg">
+      <publishTime>09/20/2019 10:29:06</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gd.svg">
+      <publishTime>09/20/2019 10:29:06</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ge.svg">
+      <publishTime>09/20/2019 10:29:06</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gf.svg">
+      <publishTime>09/20/2019 10:29:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gg.svg">
+      <publishTime>09/20/2019 10:29:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gh.svg">
+      <publishTime>09/20/2019 10:29:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gi.svg">
+      <publishTime>09/20/2019 10:29:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gl.svg">
+      <publishTime>09/20/2019 10:29:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gm.svg">
+      <publishTime>09/20/2019 10:29:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gn.svg">
+      <publishTime>09/20/2019 10:29:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gp.svg">
+      <publishTime>09/20/2019 10:29:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gq.svg">
+      <publishTime>09/20/2019 10:29:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gr.svg">
+      <publishTime>09/20/2019 10:29:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gs.svg">
+      <publishTime>09/20/2019 10:29:21</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gt.svg">
+      <publishTime>09/20/2019 10:29:23</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gu.svg">
+      <publishTime>09/20/2019 10:29:21</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gw.svg">
+      <publishTime>09/20/2019 10:29:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/gy.svg">
+      <publishTime>09/20/2019 10:29:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/hk.svg">
+      <publishTime>09/20/2019 10:29:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/hm.svg">
+      <publishTime>09/20/2019 10:29:21</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/hn.svg">
+      <publishTime>09/20/2019 10:29:21</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/hr.svg">
+      <publishTime>09/20/2019 10:29:21</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ht.svg">
+      <publishTime>09/20/2019 10:29:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/hu.svg">
+      <publishTime>09/20/2019 10:29:28</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/id.svg">
+      <publishTime>09/20/2019 10:29:28</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ie.svg">
+      <publishTime>09/20/2019 10:29:27</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/il.svg">
+      <publishTime>09/20/2019 10:29:28</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/im.svg">
+      <publishTime>09/20/2019 10:29:30</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/in.svg">
+      <publishTime>09/20/2019 10:29:30</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/io.svg">
+      <publishTime>09/20/2019 10:29:28</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/iq.svg">
+      <publishTime>09/20/2019 10:29:30</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ir.svg">
+      <publishTime>09/20/2019 10:29:30</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/is.svg">
+      <publishTime>09/20/2019 10:29:28</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/it.svg">
+      <publishTime>09/20/2019 10:29:36</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/je.svg">
+      <publishTime>09/20/2019 10:29:36</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/jm.svg">
+      <publishTime>09/20/2019 10:29:36</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/jo.svg">
+      <publishTime>09/20/2019 10:29:36</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/jp.svg">
+      <publishTime>09/20/2019 10:29:35</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ke.svg">
+      <publishTime>09/20/2019 10:29:34</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/kg.svg">
+      <publishTime>09/20/2019 10:29:36</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/kh.svg">
+      <publishTime>09/20/2019 10:29:36</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ki.svg">
+      <publishTime>09/20/2019 10:29:36</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/km.svg">
+      <publishTime>09/20/2019 10:29:36</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/kn.svg">
+      <publishTime>09/20/2019 10:29:41</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/kp.svg">
+      <publishTime>09/20/2019 10:29:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/kr.svg">
+      <publishTime>09/20/2019 10:29:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/kw.svg">
+      <publishTime>09/20/2019 10:29:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ky.svg">
+      <publishTime>09/20/2019 10:29:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/kz.svg">
+      <publishTime>09/20/2019 10:29:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/la.svg">
+      <publishTime>09/20/2019 10:29:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/lb.svg">
+      <publishTime>09/20/2019 10:29:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/lc.svg">
+      <publishTime>09/20/2019 10:29:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/li.svg">
+      <publishTime>09/20/2019 10:29:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/lk.svg">
+      <publishTime>09/20/2019 10:29:48</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/lr.svg">
+      <publishTime>09/20/2019 10:29:50</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ls.svg">
+      <publishTime>09/20/2019 10:29:50</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/lt.svg">
+      <publishTime>09/20/2019 10:29:50</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/lu.svg">
+      <publishTime>09/20/2019 10:29:50</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/lv.svg">
+      <publishTime>09/20/2019 10:29:50</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ly.svg">
+      <publishTime>09/20/2019 10:29:50</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ma.svg">
+      <publishTime>09/20/2019 10:29:50</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mc.svg">
+      <publishTime>09/20/2019 10:29:50</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/md.svg">
+      <publishTime>09/20/2019 10:29:50</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/me.svg">
+      <publishTime>09/20/2019 10:29:57</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mf.svg">
+      <publishTime>09/20/2019 10:29:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mg.svg">
+      <publishTime>09/20/2019 10:29:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mh.svg">
+      <publishTime>09/20/2019 10:29:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mk.svg">
+      <publishTime>09/20/2019 10:29:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ml.svg">
+      <publishTime>09/20/2019 10:29:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mm.svg">
+      <publishTime>09/20/2019 10:29:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mn.svg">
+      <publishTime>09/20/2019 10:29:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mo.svg">
+      <publishTime>09/20/2019 10:29:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mp.svg">
+      <publishTime>09/20/2019 10:29:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mq.svg">
+      <publishTime>09/20/2019 10:30:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mr.svg">
+      <publishTime>09/20/2019 10:30:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ms.svg">
+      <publishTime>09/20/2019 10:30:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mt.svg">
+      <publishTime>09/20/2019 10:30:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mu.svg">
+      <publishTime>09/20/2019 10:30:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mv.svg">
+      <publishTime>09/20/2019 10:30:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mw.svg">
+      <publishTime>09/20/2019 10:30:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mx.svg">
+      <publishTime>09/20/2019 10:30:07</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/my.svg">
+      <publishTime>09/20/2019 10:30:07</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/mz.svg">
+      <publishTime>09/20/2019 10:30:07</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/na.svg">
+      <publishTime>09/20/2019 10:30:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/nc.svg">
+      <publishTime>09/20/2019 10:30:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ne.svg">
+      <publishTime>09/20/2019 10:30:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/nf.svg">
+      <publishTime>09/20/2019 10:30:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ng.svg">
+      <publishTime>09/20/2019 10:30:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ni.svg">
+      <publishTime>09/20/2019 10:30:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/nl.svg">
+      <publishTime>09/20/2019 10:30:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/no.svg">
+      <publishTime>09/20/2019 10:30:14</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/np.svg">
+      <publishTime>09/20/2019 10:30:14</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/nr.svg">
+      <publishTime>09/20/2019 10:30:14</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/nu.svg">
+      <publishTime>09/20/2019 10:30:18</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/nz.svg">
+      <publishTime>09/20/2019 10:30:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/om.svg">
+      <publishTime>09/20/2019 10:30:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pa.svg">
+      <publishTime>09/20/2019 10:30:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pe.svg">
+      <publishTime>09/20/2019 10:30:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pf.svg">
+      <publishTime>09/20/2019 10:30:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pg.svg">
+      <publishTime>09/20/2019 10:30:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ph.svg">
+      <publishTime>09/20/2019 10:30:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pk.svg">
+      <publishTime>09/20/2019 10:30:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pl.svg">
+      <publishTime>09/20/2019 10:30:20</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pm.svg">
+      <publishTime>09/20/2019 10:30:25</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pn.svg">
+      <publishTime>09/20/2019 10:30:29</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pr.svg">
+      <publishTime>09/20/2019 10:30:26</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ps.svg">
+      <publishTime>09/20/2019 10:30:26</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pt.svg">
+      <publishTime>09/20/2019 10:30:26</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/pw.svg">
+      <publishTime>09/20/2019 10:30:26</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/py.svg">
+      <publishTime>09/20/2019 10:30:26</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/qa.svg">
+      <publishTime>09/20/2019 10:30:26</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/re.svg">
+      <publishTime>09/20/2019 10:30:26</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ro.svg">
+      <publishTime>09/20/2019 10:30:26</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/rs.svg">
+      <publishTime>09/20/2019 10:30:40</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ru.svg">
+      <publishTime>09/20/2019 10:30:41</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/rw.svg">
+      <publishTime>09/20/2019 10:30:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sa.svg">
+      <publishTime>09/20/2019 10:30:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sb.svg">
+      <publishTime>09/20/2019 10:30:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sc.svg">
+      <publishTime>09/20/2019 10:30:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sd.svg">
+      <publishTime>09/20/2019 10:30:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/se.svg">
+      <publishTime>09/20/2019 10:30:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sg.svg">
+      <publishTime>09/20/2019 10:30:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sh.svg">
+      <publishTime>09/20/2019 10:30:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/si.svg">
+      <publishTime>09/20/2019 10:30:48</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sj.svg">
+      <publishTime>09/20/2019 10:30:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sk.svg">
+      <publishTime>09/20/2019 10:30:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sl.svg">
+      <publishTime>09/20/2019 10:30:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sm.svg">
+      <publishTime>09/20/2019 10:30:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sn.svg">
+      <publishTime>09/20/2019 10:30:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/so.svg">
+      <publishTime>09/20/2019 10:30:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sr.svg">
+      <publishTime>09/20/2019 10:30:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ss.svg">
+      <publishTime>09/20/2019 10:30:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/st.svg">
+      <publishTime>09/20/2019 10:30:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sv.svg">
+      <publishTime>09/20/2019 10:30:55</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sx.svg">
+      <publishTime>09/20/2019 10:30:57</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sy.svg">
+      <publishTime>09/20/2019 10:30:57</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/sz.svg">
+      <publishTime>09/20/2019 10:30:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tc.svg">
+      <publishTime>09/20/2019 10:30:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/td.svg">
+      <publishTime>09/20/2019 10:30:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tf.svg">
+      <publishTime>09/20/2019 10:30:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tg.svg">
+      <publishTime>09/20/2019 10:30:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/th.svg">
+      <publishTime>09/20/2019 10:30:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tj.svg">
+      <publishTime>09/20/2019 10:30:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tk.svg">
+      <publishTime>09/20/2019 10:31:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tl.svg">
+      <publishTime>09/20/2019 10:31:02</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tm.svg">
+      <publishTime>09/20/2019 10:31:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tn.svg">
+      <publishTime>09/20/2019 10:31:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/to.svg">
+      <publishTime>09/20/2019 10:31:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tr.svg">
+      <publishTime>09/20/2019 10:31:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tt.svg">
+      <publishTime>09/20/2019 10:31:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tv.svg">
+      <publishTime>09/20/2019 10:31:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tw.svg">
+      <publishTime>09/20/2019 10:31:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/tz.svg">
+      <publishTime>09/20/2019 10:31:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ua.svg">
+      <publishTime>09/20/2019 10:31:09</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ug.svg">
+      <publishTime>09/20/2019 10:31:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/um.svg">
+      <publishTime>09/20/2019 10:31:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/us.svg">
+      <publishTime>09/20/2019 10:31:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/uy.svg">
+      <publishTime>09/20/2019 10:31:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/uz.svg">
+      <publishTime>09/20/2019 10:31:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/va.svg">
+      <publishTime>09/20/2019 10:31:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/vc.svg">
+      <publishTime>09/20/2019 10:31:12</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ve.svg">
+      <publishTime>09/20/2019 10:31:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/vg.svg">
+      <publishTime>09/20/2019 10:31:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/vi.svg">
+      <publishTime>09/20/2019 10:31:17</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/vn.svg">
+      <publishTime>09/20/2019 10:31:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/vu.svg">
+      <publishTime>09/20/2019 10:31:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/wf.svg">
+      <publishTime>09/20/2019 10:31:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ws.svg">
+      <publishTime>09/20/2019 10:31:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/ye.svg">
+      <publishTime>09/20/2019 10:31:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/yt.svg">
+      <publishTime>09/20/2019 10:31:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/za.svg">
+      <publishTime>09/20/2019 10:31:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/zm.svg">
+      <publishTime>09/20/2019 10:31:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/flag-icon-css/flags/zw.svg">
+      <publishTime>09/20/2019 10:31:19</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/css/font-awesome.css">
+      <publishTime>09/20/2019 10:31:24</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/css/font-awesome.min.css">
+      <publishTime>09/20/2019 10:31:25</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/fonts/fontawesome-webfont.eot">
+      <publishTime>09/20/2019 10:31:27</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/fonts/fontawesome-webfont.svg">
+      <publishTime>09/20/2019 10:31:32</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/fonts/fontawesome-webfont.ttf">
+      <publishTime>09/20/2019 10:31:34</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/fonts/fontawesome-webfont.woff">
+      <publishTime>09/20/2019 10:31:36</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/fonts/fontawesome-webfont.woff2">
+      <publishTime>09/20/2019 10:31:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/fonts/FontAwesome.otf">
+      <publishTime>09/20/2019 10:31:37</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/animated.less">
+      <publishTime>09/20/2019 10:31:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/bordered-pulled.less">
+      <publishTime>09/20/2019 10:31:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/core.less">
+      <publishTime>09/20/2019 10:31:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/fixed-width.less">
+      <publishTime>09/20/2019 10:31:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/font-awesome.less">
+      <publishTime>09/20/2019 10:31:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/icons.less">
+      <publishTime>09/20/2019 10:31:43</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/larger.less">
+      <publishTime>09/20/2019 10:31:45</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/list.less">
+      <publishTime>09/20/2019 10:31:45</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/mixins.less">
+      <publishTime>09/20/2019 10:31:45</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/path.less">
+      <publishTime>09/20/2019 10:31:45</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/rotated-flipped.less">
+      <publishTime>09/20/2019 10:31:45</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/screen-reader.less">
+      <publishTime>09/20/2019 10:31:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/stacked.less">
+      <publishTime>09/20/2019 10:31:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/less/variables.less">
+      <publishTime>09/20/2019 10:31:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/.bower.json">
+      <publishTime>09/20/2019 10:31:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/.gitignore">
+      <publishTime>09/20/2019 10:31:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/.npmignore">
+      <publishTime>09/20/2019 10:31:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/bower.json">
+      <publishTime>09/20/2019 10:31:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/css/font-awesome.css">
+      <publishTime>09/20/2019 10:34:46</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/css/font-awesome.min.css">
+      <publishTime>09/20/2019 10:34:46</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/fonts/fontawesome-webfont-old.ttf">
+      <publishTime>09/20/2019 10:34:29</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/fonts/fontawesome-webfont.eot">
+      <publishTime>09/20/2019 10:34:35</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/fonts/fontawesome-webfont.svg">
+      <publishTime>09/20/2019 10:34:31</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/fonts/fontawesome-webfont.ttf">
+      <publishTime>09/20/2019 10:34:32</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/fonts/fontawesome-webfont.woff">
+      <publishTime>09/20/2019 10:34:34</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/fonts/fontawesome-webfont.woff2">
+      <publishTime>09/20/2019 10:34:38</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/fonts/FontAwesome.otf">
+      <publishTime>09/20/2019 10:34:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/HELP-US-OUT.txt">
+      <publishTime>09/20/2019 10:31:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/animated.less">
+      <publishTime>09/20/2019 10:34:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/bordered-pulled.less">
+      <publishTime>09/20/2019 10:34:40</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/core.less">
+      <publishTime>09/20/2019 10:34:40</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/extras.less">
+      <publishTime>09/20/2019 10:34:40</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/fixed-width.less">
+      <publishTime>09/20/2019 10:34:40</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/font-awesome.less">
+      <publishTime>09/20/2019 10:34:40</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/icons.less">
+      <publishTime>09/20/2019 10:34:40</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/larger.less">
+      <publishTime>09/20/2019 10:34:40</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/list.less">
+      <publishTime>09/20/2019 10:34:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/mixins.less">
+      <publishTime>09/20/2019 10:34:46</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/path.less">
+      <publishTime>09/20/2019 10:34:46</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/rotated-flipped.less">
+      <publishTime>09/20/2019 10:34:46</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/spinning.less">
+      <publishTime>09/20/2019 10:34:46</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/stacked.less">
+      <publishTime>09/20/2019 10:34:46</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/less/variables.less">
+      <publishTime>09/20/2019 10:34:46</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/font-awesome.scss">
+      <publishTime>09/20/2019 10:34:46</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_animated.scss">
+      <publishTime>09/20/2019 10:34:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_bordered-pulled.scss">
+      <publishTime>09/20/2019 10:34:52</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_core.scss">
+      <publishTime>09/20/2019 10:34:52</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_extras.scss">
+      <publishTime>09/20/2019 10:34:52</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_fixed-width.scss">
+      <publishTime>09/20/2019 10:34:52</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_icons.scss">
+      <publishTime>09/20/2019 10:34:52</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_larger.scss">
+      <publishTime>09/20/2019 10:34:53</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_list.scss">
+      <publishTime>09/20/2019 10:34:53</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_mixins.scss">
+      <publishTime>09/20/2019 10:34:53</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_path.scss">
+      <publishTime>09/20/2019 10:34:53</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_rotated-flipped.scss">
+      <publishTime>09/20/2019 10:34:55</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_spinning.scss">
+      <publishTime>09/20/2019 10:34:56</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_stacked.scss">
+      <publishTime>09/20/2019 10:34:56</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/old/scss/_variables.scss">
+      <publishTime>09/20/2019 10:34:56</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/font-awesome.scss">
+      <publishTime>09/20/2019 10:31:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_animated.scss">
+      <publishTime>09/20/2019 10:31:50</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_bordered-pulled.scss">
+      <publishTime>09/20/2019 10:31:56</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_core.scss">
+      <publishTime>09/20/2019 10:31:57</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_fixed-width.scss">
+      <publishTime>09/20/2019 10:31:57</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_icons.scss">
+      <publishTime>09/20/2019 10:31:57</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_larger.scss">
+      <publishTime>09/20/2019 10:31:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_list.scss">
+      <publishTime>09/20/2019 10:31:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_mixins.scss">
+      <publishTime>09/20/2019 10:31:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_path.scss">
+      <publishTime>09/20/2019 10:31:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_rotated-flipped.scss">
+      <publishTime>09/20/2019 10:31:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_screen-reader.scss">
+      <publishTime>09/20/2019 10:31:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_stacked.scss">
+      <publishTime>09/20/2019 10:32:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/font-awesome/scss/_variables.scss">
+      <publishTime>09/20/2019 10:32:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-arrows-10.eot">
+      <publishTime>09/20/2019 10:32:46</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-arrows-10.svg">
+      <publishTime>09/20/2019 10:32:47</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-arrows-10.ttf">
+      <publishTime>09/20/2019 10:32:47</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-arrows-10.woff">
+      <publishTime>09/20/2019 10:32:47</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-basic-10.eot">
+      <publishTime>09/20/2019 10:32:48</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-basic-10.svg">
+      <publishTime>09/20/2019 10:32:48</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-basic-10.ttf">
+      <publishTime>09/20/2019 10:32:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-basic-10.woff">
+      <publishTime>09/20/2019 10:32:57</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-basic-elaboration-10.eot">
+      <publishTime>09/20/2019 10:32:57</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-basic-elaboration-10.svg">
+      <publishTime>09/20/2019 10:32:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-basic-elaboration-10.ttf">
+      <publishTime>09/20/2019 10:32:56</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-basic-elaboration-10.woff">
+      <publishTime>09/20/2019 10:32:56</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-ecommerce-10.eot">
+      <publishTime>09/20/2019 10:32:56</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-ecommerce-10.svg">
+      <publishTime>09/20/2019 10:32:54</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-ecommerce-10.ttf">
+      <publishTime>09/20/2019 10:32:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-ecommerce-10.woff">
+      <publishTime>09/20/2019 10:32:55</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-music-10.eot">
+      <publishTime>09/20/2019 10:33:02</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-music-10.svg">
+      <publishTime>09/20/2019 10:33:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-music-10.ttf">
+      <publishTime>09/20/2019 10:33:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-music-10.woff">
+      <publishTime>09/20/2019 10:33:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-software-10.eot">
+      <publishTime>09/20/2019 10:33:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-software-10.svg">
+      <publishTime>09/20/2019 10:33:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-software-10.ttf">
+      <publishTime>09/20/2019 10:33:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-software-10.woff">
+      <publishTime>09/20/2019 10:33:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-weather-10.eot">
+      <publishTime>09/20/2019 10:33:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-weather-10.svg">
+      <publishTime>09/20/2019 10:33:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-weather-10.ttf">
+      <publishTime>09/20/2019 10:33:09</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/fonts/linea-weather-10.woff">
+      <publishTime>09/20/2019 10:33:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/linea.css">
+      <publishTime>09/20/2019 10:28:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/linea.less">
+      <publishTime>09/20/2019 10:28:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/linea-icons/linea.scss">
+      <publishTime>09/20/2019 10:28:04</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/css/material-design-iconic-font.css">
+      <publishTime>09/20/2019 10:33:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/css/material-design-iconic-font.min.css">
+      <publishTime>09/20/2019 10:33:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/css/materialdesignicons.min.css">
+      <publishTime>09/20/2019 10:33:14</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/fonts/Material-Design-Iconic-Font.eot">
+      <publishTime>09/20/2019 10:33:14</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/fonts/Material-Design-Iconic-Font.svg">
+      <publishTime>09/20/2019 10:33:16</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/fonts/Material-Design-Iconic-Font.ttf">
+      <publishTime>09/20/2019 10:33:18</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/fonts/Material-Design-Iconic-Font.woff">
+      <publishTime>09/20/2019 10:33:17</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/fonts/Material-Design-Iconic-Font.woff2">
+      <publishTime>09/20/2019 10:33:17</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/fonts/materialdesignicons-webfont.eot">
+      <publishTime>09/20/2019 10:33:25</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/fonts/materialdesignicons-webfont.svg">
+      <publishTime>09/20/2019 10:56:37</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/fonts/materialdesignicons-webfont.ttf">
+      <publishTime>09/20/2019 10:33:28</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/fonts/materialdesignicons-webfont.woff">
+      <publishTime>09/20/2019 10:33:29</publishTime>
+    </File>
+    <File Include="Content/scss/icons/material-design-iconic-font/fonts/materialdesignicons-webfont.woff2">
+      <publishTime>09/20/2019 10:33:31</publishTime>
+    </File>
+    <File Include="Content/scss/icons/simple-line-icons/css/simple-line-icons.css">
+      <publishTime>09/20/2019 10:33:31</publishTime>
+    </File>
+    <File Include="Content/scss/icons/simple-line-icons/fonts/Simple-Line-Icons.eot">
+      <publishTime>09/20/2019 10:33:52</publishTime>
+    </File>
+    <File Include="Content/scss/icons/simple-line-icons/fonts/Simple-Line-Icons.svg">
+      <publishTime>09/20/2019 10:33:56</publishTime>
+    </File>
+    <File Include="Content/scss/icons/simple-line-icons/fonts/Simple-Line-Icons.ttf">
+      <publishTime>09/20/2019 10:34:00</publishTime>
+    </File>
+    <File Include="Content/scss/icons/simple-line-icons/fonts/Simple-Line-Icons.woff">
+      <publishTime>09/20/2019 10:34:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/simple-line-icons/fonts/Simple-Line-Icons.woff2">
+      <publishTime>09/20/2019 10:34:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/simple-line-icons/less/simple-line-icons.less">
+      <publishTime>09/20/2019 10:34:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/simple-line-icons/scss/simple-line-icons.scss">
+      <publishTime>09/20/2019 10:34:06</publishTime>
+    </File>
+    <File Include="Content/scss/icons/themify-icons/fonts/themify.eot">
+      <publishTime>09/20/2019 10:34:08</publishTime>
+    </File>
+    <File Include="Content/scss/icons/themify-icons/fonts/themify.svg">
+      <publishTime>09/20/2019 10:34:09</publishTime>
+    </File>
+    <File Include="Content/scss/icons/themify-icons/fonts/themify.ttf">
+      <publishTime>09/20/2019 10:34:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/themify-icons/fonts/themify.woff">
+      <publishTime>09/20/2019 10:34:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/themify-icons/ie7/ie7.css">
+      <publishTime>09/20/2019 10:34:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/themify-icons/ie7/ie7.js">
+      <publishTime>09/20/2019 10:34:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/themify-icons/themify-icons.css">
+      <publishTime>09/20/2019 10:28:02</publishTime>
+    </File>
+    <File Include="Content/scss/icons/themify-icons/themify-icons.less">
+      <publishTime>09/20/2019 10:28:01</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/css/weather-icons-core.css">
+      <publishTime>09/20/2019 10:34:13</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/css/weather-icons-variables.css">
+      <publishTime>09/20/2019 10:34:14</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/css/weather-icons-wind.css">
+      <publishTime>09/20/2019 10:34:14</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/css/weather-icons-wind.min.css">
+      <publishTime>09/20/2019 10:34:15</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/css/weather-icons.css">
+      <publishTime>09/20/2019 10:34:15</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/css/weather-icons.min.css">
+      <publishTime>09/20/2019 10:34:15</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/fonts/weathericons-regular-webfont.eot">
+      <publishTime>09/20/2019 10:34:16</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/fonts/weathericons-regular-webfont.svg">
+      <publishTime>09/20/2019 10:34:17</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/fonts/weathericons-regular-webfont.ttf">
+      <publishTime>09/20/2019 10:34:18</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/fonts/weathericons-regular-webfont.woff">
+      <publishTime>09/20/2019 10:34:18</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/fonts/weathericons-regular-webfont.woff2">
+      <publishTime>09/20/2019 10:34:22</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/css/variables-beaufort.css">
+      <publishTime>09/20/2019 10:35:39</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/css/variables-day.css">
+      <publishTime>09/20/2019 10:35:42</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/css/variables-direction.css">
+      <publishTime>09/20/2019 10:35:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/css/variables-misc.css">
+      <publishTime>09/20/2019 10:35:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/css/variables-moon.css">
+      <publishTime>09/20/2019 10:35:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/css/variables-neutral.css">
+      <publishTime>09/20/2019 10:35:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/css/variables-night.css">
+      <publishTime>09/20/2019 10:35:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/css/variables-time.css">
+      <publishTime>09/20/2019 10:35:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/css/variables-wind-names.css">
+      <publishTime>09/20/2019 10:35:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-beaufort.less">
+      <publishTime>09/20/2019 10:35:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-day.less">
+      <publishTime>09/20/2019 10:35:44</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-direction.less">
+      <publishTime>09/20/2019 10:35:48</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-misc.less">
+      <publishTime>09/20/2019 10:35:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-moon-aliases.less">
+      <publishTime>09/20/2019 10:35:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-moon.less">
+      <publishTime>09/20/2019 10:35:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-neutral.less">
+      <publishTime>09/20/2019 10:35:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-night.less">
+      <publishTime>09/20/2019 10:35:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-time.less">
+      <publishTime>09/20/2019 10:35:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-wind-aliases.less">
+      <publishTime>09/20/2019 10:35:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-wind-degrees.less">
+      <publishTime>09/20/2019 10:35:49</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-classes/classes-wind.less">
+      <publishTime>09/20/2019 10:35:51</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-variables/variables-beaufort.less">
+      <publishTime>09/20/2019 10:35:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-variables/variables-day.less">
+      <publishTime>09/20/2019 10:35:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-variables/variables-direction.less">
+      <publishTime>09/20/2019 10:35:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-variables/variables-misc.less">
+      <publishTime>09/20/2019 10:35:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-variables/variables-moon.less">
+      <publishTime>09/20/2019 10:35:54</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-variables/variables-neutral.less">
+      <publishTime>09/20/2019 10:35:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-variables/variables-night.less">
+      <publishTime>09/20/2019 10:35:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-variables/variables-time.less">
+      <publishTime>09/20/2019 10:35:56</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/icon-variables/variables-wind-names.less">
+      <publishTime>09/20/2019 10:35:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/mappings/wi-forecast-io.less">
+      <publishTime>09/20/2019 10:35:58</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/mappings/wi-owm.less">
+      <publishTime>09/20/2019 10:36:02</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/mappings/wi-wmo4680.less">
+      <publishTime>09/20/2019 10:36:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/mappings/wi-yahoo.less">
+      <publishTime>09/20/2019 10:36:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/weather-icons-classes.less">
+      <publishTime>09/20/2019 10:34:24</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/weather-icons-core.less">
+      <publishTime>09/20/2019 10:34:24</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/weather-icons-variables.less">
+      <publishTime>09/20/2019 10:34:24</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/weather-icons-wind.less">
+      <publishTime>09/20/2019 10:34:24</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/weather-icons-wind.min.less">
+      <publishTime>09/20/2019 10:34:24</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/weather-icons.less">
+      <publishTime>09/20/2019 10:34:24</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/less/weather-icons.min.less">
+      <publishTime>09/20/2019 10:34:23</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-beaufort.scss">
+      <publishTime>09/20/2019 10:36:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-day.scss">
+      <publishTime>09/20/2019 10:36:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-direction.scss">
+      <publishTime>09/20/2019 10:36:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-misc.scss">
+      <publishTime>09/20/2019 10:36:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-moon-aliases.scss">
+      <publishTime>09/20/2019 10:36:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-moon.scss">
+      <publishTime>09/20/2019 10:36:03</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-neutral.scss">
+      <publishTime>09/20/2019 10:36:05</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-night.scss">
+      <publishTime>09/20/2019 10:36:09</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-time.scss">
+      <publishTime>09/20/2019 10:36:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-wind-aliases.scss">
+      <publishTime>09/20/2019 10:36:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-wind-degrees.scss">
+      <publishTime>09/20/2019 10:36:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-classes/classes-wind.scss">
+      <publishTime>09/20/2019 10:36:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-variables/variables-beaufort.scss">
+      <publishTime>09/20/2019 10:36:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-variables/variables-day.scss">
+      <publishTime>09/20/2019 10:36:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-variables/variables-direction.scss">
+      <publishTime>09/20/2019 10:36:10</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-variables/variables-misc.scss">
+      <publishTime>09/20/2019 10:36:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-variables/variables-moon.scss">
+      <publishTime>09/20/2019 10:36:11</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-variables/variables-neutral.scss">
+      <publishTime>09/20/2019 10:36:15</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-variables/variables-night.scss">
+      <publishTime>09/20/2019 10:36:16</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-variables/variables-time.scss">
+      <publishTime>09/20/2019 10:36:16</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/icon-variables/variables-wind-names.scss">
+      <publishTime>09/20/2019 10:36:16</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/mappings/wi-forecast-io.scss">
+      <publishTime>09/20/2019 10:36:16</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/mappings/wi-owm.scss">
+      <publishTime>09/20/2019 10:36:15</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/mappings/wi-wmo4680.scss">
+      <publishTime>09/20/2019 10:36:16</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/mappings/wi-yahoo.scss">
+      <publishTime>09/20/2019 10:36:16</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/weather-icons-classes.scss">
+      <publishTime>09/20/2019 10:34:24</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/weather-icons-core.scss">
+      <publishTime>09/20/2019 10:34:24</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/weather-icons-variables.scss">
+      <publishTime>09/20/2019 10:34:27</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/weather-icons-wind.min.scss">
+      <publishTime>09/20/2019 10:34:27</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/weather-icons-wind.scss">
+      <publishTime>09/20/2019 10:34:27</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/weather-icons.min.scss">
+      <publishTime>09/20/2019 10:34:27</publishTime>
+    </File>
+    <File Include="Content/scss/icons/weather-icons/sass/weather-icons.scss">
+      <publishTime>09/20/2019 10:34:27</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>09/20/2019 10:20:14</publishTime>
+    </File>
+    <File Include="Logo/Profile.png">
+      <publishTime>09/20/2019 10:22:27</publishTime>
+    </File>
+    <File Include="Models/Entities.dbml">
+      <publishTime>09/20/2019 10:22:31</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>06/10/2023 06:39:57</publishTime>
+    </File>
+    <File Include="Scripts/app/PurchaseInvoice.js">
+      <publishTime>09/20/2019 10:24:09</publishTime>
+    </File>
+    <File Include="Scripts/app/Quotation.js">
+      <publishTime>09/20/2019 10:24:09</publishTime>
+    </File>
+    <File Include="Scripts/app/Sales.js">
+      <publishTime>07/19/2018 15:37:04</publishTime>
+    </File>
+    <File Include="Scripts/app/SalesInvoice.js">
+      <publishTime>10/28/2019 21:56:54</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>09/20/2019 10:22:33</publishTime>
+    </File>
+    <File Include="Scripts/buttons.flash.min.js">
+      <publishTime>09/20/2019 10:22:33</publishTime>
+    </File>
+    <File Include="Scripts/buttons.html5.min.js">
+      <publishTime>09/20/2019 10:22:34</publishTime>
+    </File>
+    <File Include="Scripts/buttons.print.min.js">
+      <publishTime>09/20/2019 10:22:34</publishTime>
+    </File>
+    <File Include="Scripts/custom.min.js">
+      <publishTime>09/20/2019 10:22:34</publishTime>
+    </File>
+    <File Include="Scripts/dataTables.buttons.min.js">
+      <publishTime>09/20/2019 10:22:35</publishTime>
+    </File>
+    <File Include="Scripts/date.format.js">
+      <publishTime>09/20/2019 10:22:35</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.min.js">
+      <publishTime>09/20/2019 10:22:39</publishTime>
+    </File>
+    <File Include="Scripts/jquery.dataTables.min.js">
+      <publishTime>09/20/2019 10:22:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.min.js">
+      <publishTime>09/20/2019 10:22:45</publishTime>
+    </File>
+    <File Include="Scripts/jquery.slimscroll.js">
+      <publishTime>09/20/2019 10:22:46</publishTime>
+    </File>
+    <File Include="Scripts/jquery.sparkline.min.js">
+      <publishTime>09/20/2019 10:22:46</publishTime>
+    </File>
+    <File Include="Scripts/jQuery.style.switcher.js">
+      <publishTime>09/20/2019 10:22:47</publishTime>
+    </File>
+    <File Include="Scripts/jszip.min.js">
+      <publishTime>09/20/2019 10:22:47</publishTime>
+    </File>
+    <File Include="Scripts/pdfmake.min.js">
+      <publishTime>09/20/2019 10:22:50</publishTime>
+    </File>
+    <File Include="Scripts/popper.min.js">
+      <publishTime>09/20/2019 10:22:51</publishTime>
+    </File>
+    <File Include="Scripts/select2.full.min.js">
+      <publishTime>09/20/2019 10:22:52</publishTime>
+    </File>
+    <File Include="Scripts/sidebarmenu.js">
+      <publishTime>09/20/2019 10:22:52</publishTime>
+    </File>
+    <File Include="Scripts/sticky-kit.min.js">
+      <publishTime>09/20/2019 10:22:56</publishTime>
+    </File>
+    <File Include="Scripts/sweetalert.min.js">
+      <publishTime>09/20/2019 10:23:08</publishTime>
+    </File>
+    <File Include="Scripts/vfs_fonts.js">
+      <publishTime>09/20/2019 10:23:08</publishTime>
+    </File>
+    <File Include="Scripts/waves.js">
+      <publishTime>09/20/2019 10:23:08</publishTime>
+    </File>
+    <File Include="Views/Banking/BankAccount.cshtml">
+      <publishTime>09/20/2019 10:24:19</publishTime>
+    </File>
+    <File Include="Views/Banking/Deposit.cshtml">
+      <publishTime>09/20/2019 10:24:20</publishTime>
+    </File>
+    <File Include="Views/Banking/History.cshtml">
+      <publishTime>09/20/2019 10:24:20</publishTime>
+    </File>
+    <File Include="Views/Banking/PrintHistory.cshtml">
+      <publishTime>09/20/2019 10:24:20</publishTime>
+    </File>
+    <File Include="Views/Dashboard/Index.cshtml">
+      <publishTime>02/09/2018 14:03:49</publishTime>
+    </File>
+    <File Include="Views/Expense/Index.cshtml">
+      <publishTime>09/20/2019 10:24:20</publishTime>
+    </File>
+    <File Include="Views/GstReturn/Gstr1.cshtml">
+      <publishTime>09/20/2019 10:24:21</publishTime>
+    </File>
+    <File Include="Views/GstReturn/Gstr2.cshtml">
+      <publishTime>09/20/2019 10:24:21</publishTime>
+    </File>
+    <File Include="Views/GstReturn/PrintGstr1.cshtml">
+      <publishTime>09/20/2019 10:24:21</publishTime>
+    </File>
+    <File Include="Views/GstReturn/PrintGstr2.cshtml">
+      <publishTime>09/20/2019 10:24:21</publishTime>
+    </File>
+    <File Include="Views/Home/BrowserNotSupported.cshtml">
+      <publishTime>09/20/2019 10:24:21</publishTime>
+    </File>
+    <File Include="Views/Home/Customer.cshtml">
+      <publishTime>05/12/2018 14:16:40</publishTime>
+    </File>
+    <File Include="Views/Home/Dashboard.cshtml">
+      <publishTime>02/09/2018 14:03:49</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>09/20/2019 10:24:25</publishTime>
+    </File>
+    <File Include="Views/Home/Item.cshtml">
+      <publishTime>05/12/2018 14:16:59</publishTime>
+    </File>
+    <File Include="Views/Home/Login.cshtml">
+      <publishTime>09/20/2019 10:24:26</publishTime>
+    </File>
+    <File Include="Views/Home/PrintSales.cshtml">
+      <publishTime>07/19/2018 18:08:18</publishTime>
+    </File>
+    <File Include="Views/Home/Profile.cshtml">
+      <publishTime>07/06/2018 14:34:43</publishTime>
+    </File>
+    <File Include="Views/Home/Sales.cshtml">
+      <publishTime>07/19/2018 15:52:09</publishTime>
+    </File>
+    <File Include="Views/Home/SalesList.cshtml">
+      <publishTime>07/19/2018 12:26:24</publishTime>
+    </File>
+    <File Include="Views/Home/UpdateProfile.cshtml">
+      <publishTime>09/20/2019 10:24:26</publishTime>
+    </File>
+    <File Include="Views/Item/Index.cshtml">
+      <publishTime>07/26/2018 14:08:51</publishTime>
+    </File>
+    <File Include="Views/Item/Inventory.cshtml">
+      <publishTime>02/09/2019 11:04:59</publishTime>
+    </File>
+    <File Include="Views/Item/Item.cshtml">
+      <publishTime>05/19/2022 14:46:13</publishTime>
+    </File>
+    <File Include="Views/Item/PrintInventory.cshtml">
+      <publishTime>09/20/2019 10:24:27</publishTime>
+    </File>
+    <File Include="Views/Ledger/Customer.cshtml">
+      <publishTime>09/20/2019 10:24:27</publishTime>
+    </File>
+    <File Include="Views/Ledger/PrintCustomer.cshtml">
+      <publishTime>09/20/2019 10:24:27</publishTime>
+    </File>
+    <File Include="Views/Ledger/PrintSupplier.cshtml">
+      <publishTime>09/20/2019 10:24:27</publishTime>
+    </File>
+    <File Include="Views/Ledger/Supplier.cshtml">
+      <publishTime>09/20/2019 10:24:27</publishTime>
+    </File>
+    <File Include="Views/Pending/Payable.cshtml">
+      <publishTime>09/20/2019 10:24:27</publishTime>
+    </File>
+    <File Include="Views/Pending/PrintPayable.cshtml">
+      <publishTime>09/20/2019 10:24:31</publishTime>
+    </File>
+    <File Include="Views/Pending/PrintReceivable.cshtml">
+      <publishTime>09/20/2019 10:24:33</publishTime>
+    </File>
+    <File Include="Views/Pending/Receivable.cshtml">
+      <publishTime>09/20/2019 10:24:33</publishTime>
+    </File>
+    <File Include="Views/People/Customer.cshtml">
+      <publishTime>09/20/2019 10:24:33</publishTime>
+    </File>
+    <File Include="Views/People/Supplier.cshtml">
+      <publishTime>09/20/2019 10:24:34</publishTime>
+    </File>
+    <File Include="Views/Purchase/InvoiceEntry.cshtml">
+      <publishTime>09/20/2019 10:24:34</publishTime>
+    </File>
+    <File Include="Views/Purchase/InvoiceList.cshtml">
+      <publishTime>09/20/2019 10:24:34</publishTime>
+    </File>
+    <File Include="Views/Purchase/PrintInvoice.cshtml">
+      <publishTime>09/20/2019 10:24:34</publishTime>
+    </File>
+    <File Include="Views/Sale/InvoiceEntry.cshtml">
+      <publishTime>09/20/2019 10:24:34</publishTime>
+    </File>
+    <File Include="Views/Sale/InvoiceList.cshtml">
+      <publishTime>09/20/2019 10:24:34</publishTime>
+    </File>
+    <File Include="Views/Sale/PrintInvoice.cshtml">
+      <publishTime>04/04/2019 18:23:28</publishTime>
+    </File>
+    <File Include="Views/Sale/PrintInvoiceTemplate1.cshtml">
+      <publishTime>06/10/2023 06:54:27</publishTime>
+    </File>
+    <File Include="Views/Sale/PrintInvoiceTemplate2.cshtml">
+      <publishTime>06/10/2023 06:54:27</publishTime>
+    </File>
+    <File Include="Views/Sale/PrintQuotation.cshtml">
+      <publishTime>06/10/2023 06:54:22</publishTime>
+    </File>
+    <File Include="Views/Sale/QuotationEntry.cshtml">
+      <publishTime>09/20/2019 10:24:42</publishTime>
+    </File>
+    <File Include="Views/Sale/QuotationList.cshtml">
+      <publishTime>09/20/2019 10:24:43</publishTime>
+    </File>
+    <File Include="Views/Setting/Category.cshtml">
+      <publishTime>09/20/2019 10:24:43</publishTime>
+    </File>
+    <File Include="Views/Setting/Unit.cshtml">
+      <publishTime>09/20/2019 10:24:43</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>09/20/2019 10:24:43</publishTime>
+    </File>
+    <File Include="Views/Transaction/Payment.cshtml">
+      <publishTime>09/20/2019 10:24:43</publishTime>
+    </File>
+    <File Include="Views/Transaction/Receipt.cshtml">
+      <publishTime>09/20/2019 10:24:43</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>09/20/2019 10:23:15</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>06/10/2023 06:57:05</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

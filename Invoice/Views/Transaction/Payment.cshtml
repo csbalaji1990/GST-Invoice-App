@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Payments
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">All your Payments</h3>
+    </div>
+}
+
+@section card_body {
+    <div id="modalPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formPayment">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Payment</h4>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="hiddenSupplierLedgerId" value="" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtInvoiceNo" class="control-label">Invoice No</label>
+                                    <input type="text" id="txtInvoiceNo" class="form-control form-control-sm" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="cmbBankAccount" class="control-label">To Bank Account*</label>
+                                    @Html.DropDownList("cmbBankAccount", (SelectList)ViewBag.BankAccountList, new { @class = "form-control form-control-sm", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="cmbPaymentMethod" class="control-label">Payment Method*</label>
+                                    @Html.DropDownList("cmbPaymentMethod", (SelectList)ViewBag.PaymentMethodList, new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtAmount" class="control-label">Amount*</label>
+                                    <input type="number" id="txtAmount" step="0.01" min="1" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtPaymentDate" class="control-label">Date*</label>
+                                    <input type="date" id="txtPaymentDate" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtNote" class="control-label">Note</label>
+                                    <input type="text" id="txtNote" maxlength="50" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSubmit" class="btn btn-info waves-effect waves-light">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="tblPaymentList" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(paymentList) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped'>");
+                $table.append("<thead><tr><th>Payment No</th><th>Payment Date</th><th>Invoice No</th><th>Supplier Name</th><th>Account Name</th><th>Payment Method</th><th>Amount</th><th>Action</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(paymentList, function (i, val) {
+                    var $row = "<tr><td>" + val.PaymentNo + "</td><td>" + ConvertJsonToDate(val.PaymentDate) + "</td><td>" + val.InvoiceName + "</td><td>" + val.SupplierName + "</td><td>" + val.AccountName + "</td><td>" + val.PaymentMethod + "</td><td>" + val.Debit + "</td><td><input type='hidden' value=" + val.SupplierLedgerId + "><button type='button' class='btnEdit btn btn-sm btn-info m-1'><i class='fa fa-edit'></i> Edit</button> <button type='button' class='btnDelete btn btn-sm btn-danger m-1'><i class='fa fa-trash'></i> Delete</button></td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblPaymentList").html($table);
+
+                $("#foo-row-toggler").DataTable({
+                    "order": [[0, "desc"]],
+                    columnDefs: [{ orderable: false, targets: -1 }]
+                });
+            }
+
+            function ConvertJsonToDate(date)
+            {
+                var nowDate = new Date(parseInt(date.substr(6)));
+                return nowDate.format("dd-mm-yyyy");
+            }
+
+            $("#modalPayment").on("hide.bs.modal", function (e) {
+                $("#hiddenSupplierLedgerId").val("");
+                $("#txtInvoiceNo").val("");
+                $("#cmbBankAccount").val("");
+                $("#cmbPaymentMethod").val("Cash");
+                $("#txtAmount").val("");
+                $("#txtPaymentDate").val("");
+                $("#txtNote").val("");
+
+                $("#txtAmount").removeAttr("max");
+            });
+
+            var paymentList = @Html.Raw(Json.Encode(@ViewBag.PaymentList));
+            generateTable(paymentList);
+
+            $("#tblPaymentList").on("click", ".btnEdit", function () {
+                var supplierLedgerId = $("#tblPaymentList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(8) input[type=hidden]").val();
+
+                $.ajax({
+                    context: document.body,
+                    data: { SupplierLedgerId: supplierLedgerId },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            var ledger = data.Ledger;
+
+                            $("#hiddenSupplierLedgerId").val(supplierLedgerId);
+                            $("#txtInvoiceNo").val(ledger.InvoiceName);
+                            $("#cmbBankAccount").val(ledger.BankAccountId);
+                            $("#cmbPaymentMethod").val(ledger.PaymentMethod);
+                            $("#txtAmount").val(ledger.Debit);
+                            $("#txtPaymentDate").val(ledger.PaymentDate);
+                            $("#txtAmount").attr("max", data.Balance);
+                            $("#txtNote").val(ledger.Note);
+
+                            $("#modalPayment").modal("show");
+                        }
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Transaction/GetPayment"
+                });
+            });
+
+            $(document).on("submit", "#formPayment", function() {
+                $.ajax({
+                    context: document.body,
+                    data: { SupplierLedgerId: $("#hiddenSupplierLedgerId").val(), PaymentMethod: $("#cmbPaymentMethod").val(), PaymentDate: $("#txtPaymentDate").val(), BankAccountId: $("#cmbBankAccount").val(), Amount: $("#txtAmount").val(), Note: $("#txtNote").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            $("#modalPayment").modal("hide");
+                            swal("Saved", "", "success");
+
+                            generateTable(data.PaymentList);
+                        }
+                        else if (data.success === false)
+                            swal("Cancelled", data.Message, "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Transaction/UpdatePayment"
+                });
+
+                return false;
+            });
+
+            $("#tblPaymentList").on("click", ".btnDelete", function () {
+                var supplierLedgerId = $("#tblPaymentList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(8) input[type=hidden]").val();
+
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to delete this payment?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            data: { SupplierLedgerId: supplierLedgerId },
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Deleted", "", "success");
+
+                                    generateTable(data.PaymentList);
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Transaction/DeletePayment"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SimpleGstInvoicer" Class="EntitiesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=SimpleGstInvoicer;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="InvoiceConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.DbBankAccount" Member="DbBankAccounts">
+    <Type Name="DbBankAccount">
+      <Column Name="BankAccountId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AccountNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AccountName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AccountType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BankName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Branch" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Ifsc" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Balance" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Association Name="DbBankAccount_DbBankTransaction" Member="DbBankTransactions" ThisKey="BankAccountId" OtherKey="BankAccountId" Type="DbBankTransaction" />
+      <Association Name="DbBankAccount_DbCustomerLedger" Member="DbCustomerLedgers" ThisKey="BankAccountId" OtherKey="BankAccountId" Type="DbCustomerLedger" />
+      <Association Name="DbBankAccount_DbDeposit" Member="DbDeposits" ThisKey="BankAccountId" OtherKey="BankAccountId" Type="DbDeposit" />
+      <Association Name="DbBankAccount_DbExpense" Member="DbExpenses" ThisKey="BankAccountId" OtherKey="BankAccountId" Type="DbExpense" />
+      <Association Name="DbBankAccount_DbSupplierLedger" Member="DbSupplierLedgers" ThisKey="BankAccountId" OtherKey="BankAccountId" Type="DbSupplierLedger" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbUnit" Member="DbUnits">
+    <Type Name="DbUnit">
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UnitName" Type="System.String" DbType="VarChar(16) NOT NULL" CanBeNull="false" />
+      <Association Name="DbUnit_DbItem" Member="DbItems" ThisKey="UnitId" OtherKey="UnitId" Type="DbItem" />
+      <Association Name="DbUnit_DbPurchaseInvoiceItemDetail" Member="DbPurchaseInvoiceItemDetails" ThisKey="UnitId" OtherKey="UnitId" Type="DbPurchaseInvoiceItemDetail" />
+      <Association Name="DbUnit_DbQuotationItemDetail" Member="DbQuotationItemDetails" ThisKey="UnitId" OtherKey="UnitId" Type="DbQuotationItemDetail" />
+      <Association Name="DbUnit_DbSalesInvoiceItemDetail" Member="DbSalesInvoiceItemDetails" ThisKey="UnitId" OtherKey="UnitId" Type="DbSalesInvoiceItemDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbBankTransaction" Member="DbBankTransactions">
+    <Type Name="DbBankTransaction">
+      <Column Name="BankTransactionId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BankAccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Debit" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Credit" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="DbBankTransaction_DbCustomerLedger" Member="DbCustomerLedgers" ThisKey="BankTransactionId" OtherKey="BankTransactionId" Type="DbCustomerLedger" />
+      <Association Name="DbBankTransaction_DbDeposit" Member="DbDeposits" ThisKey="BankTransactionId" OtherKey="BankTransactionId" Type="DbDeposit" />
+      <Association Name="DbBankTransaction_DbExpense" Member="DbExpenses" ThisKey="BankTransactionId" OtherKey="BankTransactionId" Type="DbExpense" />
+      <Association Name="DbBankTransaction_DbSupplierLedger" Member="DbSupplierLedgers" ThisKey="BankTransactionId" OtherKey="BankTransactionId" Type="DbSupplierLedger" />
+      <Association Name="DbBankAccount_DbBankTransaction" Member="DbBankAccount" ThisKey="BankAccountId" OtherKey="BankAccountId" Type="DbBankAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbCategory" Member="DbCategories">
+    <Type Name="DbCategory">
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CategoryName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="DbCategory_DbItem" Member="DbItems" ThisKey="CategoryId" OtherKey="CategoryId" Type="DbItem" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbCompany" Member="DbCompanies">
+    <Type Name="DbCompany">
+      <Column Name="CompanyId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="LogoPath" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Gstin" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Pan" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Landline" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Website" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Pincode" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="State" Type="System.String" DbType="VarChar(27) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="AccountNo" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="AccountName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="AccountType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BankName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Ifsc" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Branch" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbCountry" Member="DbCountries">
+    <Type Name="DbCountry">
+      <Column Name="CountryCode" Type="System.String" DbType="VarChar(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CountryName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbCustomer" Member="DbCustomers">
+    <Type Name="DbCustomer">
+      <Column Name="CustomerId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CustomerName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Gstin" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Pan" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Landline" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Pincode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="State" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Country" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="DbCustomer_DbCustomerLedger" Member="DbCustomerLedgers" ThisKey="CustomerId" OtherKey="CustomerId" Type="DbCustomerLedger" />
+      <Association Name="DbCustomer_DbCustomerLedger1" Member="DbCustomerLedgers1" ThisKey="CustomerId" OtherKey="CustomerId" Type="DbCustomerLedger" />
+      <Association Name="DbCustomer_DbQuotationHeader" Member="DbQuotationHeaders" ThisKey="CustomerId" OtherKey="CustomerId" Type="DbQuotationHeader" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbCustomerLedger" Member="DbCustomerLedgers">
+    <Type Name="DbCustomerLedger">
+      <Column Name="CustomerLedgerId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CustomerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InvoiceNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Prefix" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ReceiptNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PaymentMethod" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PaymentDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="BankAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Credit" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Debit" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BankTransactionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="DbBankAccount_DbCustomerLedger" Member="DbBankAccount" ThisKey="BankAccountId" OtherKey="BankAccountId" Type="DbBankAccount" IsForeignKey="true" />
+      <Association Name="DbBankTransaction_DbCustomerLedger" Member="DbBankTransaction" ThisKey="BankTransactionId" OtherKey="BankTransactionId" Type="DbBankTransaction" IsForeignKey="true" />
+      <Association Name="DbCustomer_DbCustomerLedger" Member="DbCustomer" ThisKey="CustomerId" OtherKey="CustomerId" Type="DbCustomer" IsForeignKey="true" />
+      <Association Name="DbCustomer_DbCustomerLedger1" Member="DbCustomer1" ThisKey="CustomerId" OtherKey="CustomerId" Type="DbCustomer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbDeposit" Member="DbDeposits">
+    <Type Name="DbDeposit">
+      <Column Name="DepositId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DepositDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="BankAccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentMethod" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Purpose" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BankTransactionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="DbBankAccount_DbDeposit" Member="DbBankAccount" ThisKey="BankAccountId" OtherKey="BankAccountId" Type="DbBankAccount" IsForeignKey="true" />
+      <Association Name="DbBankTransaction_DbDeposit" Member="DbBankTransaction" ThisKey="BankTransactionId" OtherKey="BankTransactionId" Type="DbBankTransaction" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbExpense" Member="DbExpenses">
+    <Type Name="DbExpense">
+      <Column Name="ExpenseId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ExpenseDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="BankAccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentMethod" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Purpose" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BankTransactionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="DbBankAccount_DbExpense" Member="DbBankAccount" ThisKey="BankAccountId" OtherKey="BankAccountId" Type="DbBankAccount" IsForeignKey="true" />
+      <Association Name="DbBankTransaction_DbExpense" Member="DbBankTransaction" ThisKey="BankTransactionId" OtherKey="BankTransactionId" Type="DbBankTransaction" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbItem" Member="DbItems">
+    <Type Name="DbItem">
+      <Column Name="ItemCode" Type="System.String" DbType="NVarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ItemName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemDescription" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="HsnSac" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TaxRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Cess" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PurchasePrice" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PurchasePriceInclusiveTax" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SalesPrice" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SalesPriceInclusiveTax" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StockQuantity" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="AlertQuantity" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Association Name="DbItem_DbPurchaseInvoiceItemDetail" Member="DbPurchaseInvoiceItemDetails" ThisKey="ItemCode" OtherKey="ItemCode" Type="DbPurchaseInvoiceItemDetail" />
+      <Association Name="DbItem_DbQuotationItemDetail" Member="DbQuotationItemDetails" ThisKey="ItemCode" OtherKey="ItemCode" Type="DbQuotationItemDetail" />
+      <Association Name="DbItem_DbSalesInvoiceItemDetail" Member="DbSalesInvoiceItemDetails" ThisKey="ItemCode" OtherKey="ItemCode" Type="DbSalesInvoiceItemDetail" />
+      <Association Name="DbCategory_DbItem" Member="DbCategory" ThisKey="CategoryId" OtherKey="CategoryId" Type="DbCategory" IsForeignKey="true" />
+      <Association Name="DbUnit_DbItem" Member="DbUnit" ThisKey="UnitId" OtherKey="UnitId" Type="DbUnit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbPaymentMethod" Member="DbPaymentMethods">
+    <Type Name="DbPaymentMethod">
+      <Column Name="PaymentMethodId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PaymentMethodName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbPaymentTerm" Member="DbPaymentTerms">
+    <Type Name="DbPaymentTerm">
+      <Column Name="PaymentTermId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PaymentTermName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DueDays" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbPurchaseInvoiceHeader" Member="DbPurchaseInvoiceHeaders">
+    <Type Name="DbPurchaseInvoiceHeader">
+      <Column Name="InvoiceNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Prefix" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="InvoiceName" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="InvoiceDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlaceOfSupply" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="ReverseCharge" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountOnAll" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="DeliveryNote" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="DeliveryNoteDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="PaymentMethod" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentTerm" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DueDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SupplierReference" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="OtherReference" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="PoNo" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="PoDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DespatchDocumentNo" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="DespatchedThrough" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="TotalValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscountRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalTaxableValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalCgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalSgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalIgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalTaxValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalCessRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="RoundOff" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RoundOffValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Total" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Terms" Type="System.String" DbType="VarChar(112)" CanBeNull="true" />
+      <Column Name="Paid" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Balance" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(14) NOT NULL" CanBeNull="false" />
+      <Association Name="DbPurchaseInvoiceHeader_DbPurchaseInvoiceHsnSacDetail" Member="DbPurchaseInvoiceHsnSacDetails" ThisKey="InvoiceNo" OtherKey="InvoiceNo" Type="DbPurchaseInvoiceHsnSacDetail" />
+      <Association Name="DbPurchaseInvoiceHeader_DbSupplierLedger" Member="DbSupplierLedgers" ThisKey="InvoiceNo" OtherKey="InvoiceNo" Type="DbSupplierLedger" />
+      <Association Name="DbSupplier_DbPurchaseInvoiceHeader" Member="DbSupplier" ThisKey="SupplierId" OtherKey="SupplierId" Type="DbSupplier" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbPurchaseInvoiceHsnSacDetails" Member="DbPurchaseInvoiceHsnSacDetails">
+    <Type Name="DbPurchaseInvoiceHsnSacDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="InvoiceNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HsnSac" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TaxableValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Association Name="DbPurchaseInvoiceHeader_DbPurchaseInvoiceHsnSacDetail" Member="DbPurchaseInvoiceHeader" ThisKey="InvoiceNo" OtherKey="InvoiceNo" Type="DbPurchaseInvoiceHeader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbPurchaseInvoiceItemDetails" Member="DbPurchaseInvoiceItemDetails">
+    <Type Name="DbPurchaseInvoiceItemDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="InvoiceNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ItemCode" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemDescription" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="HsnSac" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="InclusiveTax" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TaxablePrice" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TaxableValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TaxRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Cess" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CessRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Association Name="DbPurchaseInvoiceItemDetail_DbPurchaseInvoiceItemDetail" Member="DbPurchaseInvoiceItemDetail2" ThisKey="Id,InvoiceNo" OtherKey="Id,InvoiceNo" Type="DbPurchaseInvoiceItemDetail" Cardinality="One" />
+      <Association Name="DbItem_DbPurchaseInvoiceItemDetail" Member="DbItem" ThisKey="ItemCode" OtherKey="ItemCode" Type="DbItem" IsForeignKey="true" />
+      <Association Name="DbPurchaseInvoiceItemDetail_DbPurchaseInvoiceItemDetail" Member="DbPurchaseInvoiceItemDetail1" ThisKey="Id,InvoiceNo" OtherKey="Id,InvoiceNo" Type="DbPurchaseInvoiceItemDetail" IsForeignKey="true" />
+      <Association Name="DbUnit_DbPurchaseInvoiceItemDetail" Member="DbUnit" ThisKey="UnitId" OtherKey="UnitId" Type="DbUnit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbQuotationHeader" Member="DbQuotationHeaders">
+    <Type Name="DbQuotationHeader">
+      <Column Name="QuotationNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Prefix" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="QuotationName" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="QuotationDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="CustomerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlaceOfSupply" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="ReverseCharge" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountOnAll" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="DeliveryNote" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="DeliveryNoteDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="PaymentMethod" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentTerm" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DueDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SupplierReference" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="OtherReference" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="PoNo" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="PoDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DespatchDocumentNo" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="DespatchedThrough" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="TotalValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscountRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalTaxableValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalCgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalSgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalIgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalTaxValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalCessRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="RoundOff" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RoundOffValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Total" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Terms" Type="System.String" DbType="VarChar(112)" CanBeNull="true" />
+      <Association Name="DbQuotationHeader_DbQuotationHsnSacDetail" Member="DbQuotationHsnSacDetails" ThisKey="QuotationNo" OtherKey="QuotationNo" Type="DbQuotationHsnSacDetail" />
+      <Association Name="DbQuotationHeader_DbQuotationItemDetail" Member="DbQuotationItemDetails" ThisKey="QuotationNo" OtherKey="QuotationNo" Type="DbQuotationItemDetail" />
+      <Association Name="DbCustomer_DbQuotationHeader" Member="DbCustomer" ThisKey="CustomerId" OtherKey="CustomerId" Type="DbCustomer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbQuotationHsnSacDetails" Member="DbQuotationHsnSacDetails">
+    <Type Name="DbQuotationHsnSacDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QuotationNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HsnSac" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TaxableValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Association Name="DbQuotationHeader_DbQuotationHsnSacDetail" Member="DbQuotationHeader" ThisKey="QuotationNo" OtherKey="QuotationNo" Type="DbQuotationHeader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbQuotationItemDetails" Member="DbQuotationItemDetails">
+    <Type Name="DbQuotationItemDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QuotationNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ItemCode" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemDescription" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="HsnSac" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="InclusiveTax" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TaxablePrice" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TaxableValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TaxRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Cess" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CessRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Association Name="DbItem_DbQuotationItemDetail" Member="DbItem" ThisKey="ItemCode" OtherKey="ItemCode" Type="DbItem" IsForeignKey="true" />
+      <Association Name="DbQuotationHeader_DbQuotationItemDetail" Member="DbQuotationHeader" ThisKey="QuotationNo" OtherKey="QuotationNo" Type="DbQuotationHeader" IsForeignKey="true" />
+      <Association Name="DbUnit_DbQuotationItemDetail" Member="DbUnit" ThisKey="UnitId" OtherKey="UnitId" Type="DbUnit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbSalesInvoiceHeader" Member="DbSalesInvoiceHeaders">
+    <Type Name="DbSalesInvoiceHeader">
+      <Column Name="InvoiceNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Prefix" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="InvoiceName" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="InvoiceDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="CustomerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlaceOfSupply" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="ReverseCharge" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountOnAll" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="DeliveryNote" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="DeliveryNoteDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="PaymentMethod" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentTerm" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DueDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SupplierReference" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="OtherReference" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="PoNo" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="PoDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DespatchDocumentNo" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="DespatchedThrough" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="TotalValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscountRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalTaxableValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalCgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalSgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalIgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalTaxValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TotalCessRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="RoundOff" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RoundOffValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Total" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Terms" Type="System.String" DbType="VarChar(112)" CanBeNull="true" />
+      <Column Name="Paid" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Balance" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(14) NOT NULL" CanBeNull="false" />
+      <Column Name="SfcNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="DbSalesInvoiceHeader_DbSalesInvoiceHsnSacDetail" Member="DbSalesInvoiceHsnSacDetails" ThisKey="InvoiceNo" OtherKey="InvoiceNo" Type="DbSalesInvoiceHsnSacDetail" />
+      <Association Name="DbSalesInvoiceHeader_DbSalesInvoiceItemDetail" Member="DbSalesInvoiceItemDetails" ThisKey="InvoiceNo" OtherKey="InvoiceNo" Type="DbSalesInvoiceItemDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbSalesInvoiceHsnSacDetails" Member="DbSalesInvoiceHsnSacDetails">
+    <Type Name="DbSalesInvoiceHsnSacDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="InvoiceNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HsnSac" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TaxableValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Association Name="DbSalesInvoiceHeader_DbSalesInvoiceHsnSacDetail" Member="DbSalesInvoiceHeader" ThisKey="InvoiceNo" OtherKey="InvoiceNo" Type="DbSalesInvoiceHeader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbSalesInvoiceItemDetails" Member="DbSalesInvoiceItemDetails">
+    <Type Name="DbSalesInvoiceItemDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="InvoiceNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ItemCode" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ItemDescription" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="HsnSac" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="InclusiveTax" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TaxablePrice" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TaxableValue" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="TaxRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="IgstAmount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Cess" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CessRs" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Association Name="DbItem_DbSalesInvoiceItemDetail" Member="DbItem" ThisKey="ItemCode" OtherKey="ItemCode" Type="DbItem" IsForeignKey="true" />
+      <Association Name="DbSalesInvoiceHeader_DbSalesInvoiceItemDetail" Member="DbSalesInvoiceHeader" ThisKey="InvoiceNo" OtherKey="InvoiceNo" Type="DbSalesInvoiceHeader" IsForeignKey="true" />
+      <Association Name="DbUnit_DbSalesInvoiceItemDetail" Member="DbUnit" ThisKey="UnitId" OtherKey="UnitId" Type="DbUnit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbState" Member="DbStates">
+    <Type Name="DbState">
+      <Column Name="StateId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StateName" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbStateCode" Member="DbStateCodes">
+    <Type Name="DbStateCode">
+      <Column Name="StateCode" Type="System.String" DbType="VarChar(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StateName" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbSupplier" Member="DbSuppliers">
+    <Type Name="DbSupplier">
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SupplierName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Gstin" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Pan" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Landline" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Pincode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="State" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Country" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="DbSupplier_DbPurchaseInvoiceHeader" Member="DbPurchaseInvoiceHeaders" ThisKey="SupplierId" OtherKey="SupplierId" Type="DbPurchaseInvoiceHeader" />
+      <Association Name="DbSupplier_DbSupplierLedger" Member="DbSupplierLedgers" ThisKey="SupplierId" OtherKey="SupplierId" Type="DbSupplierLedger" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbSupplierLedger" Member="DbSupplierLedgers">
+    <Type Name="DbSupplierLedger">
+      <Column Name="SupplierLedgerId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InvoiceNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Prefix" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="PaymentNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PaymentMethod" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PaymentDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="BankAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Credit" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Debit" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BankTransactionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="DbBankAccount_DbSupplierLedger" Member="DbBankAccount" ThisKey="BankAccountId" OtherKey="BankAccountId" Type="DbBankAccount" IsForeignKey="true" />
+      <Association Name="DbBankTransaction_DbSupplierLedger" Member="DbBankTransaction" ThisKey="BankTransactionId" OtherKey="BankTransactionId" Type="DbBankTransaction" IsForeignKey="true" />
+      <Association Name="DbPurchaseInvoiceHeader_DbSupplierLedger" Member="DbPurchaseInvoiceHeader" ThisKey="InvoiceNo" OtherKey="InvoiceNo" Type="DbPurchaseInvoiceHeader" IsForeignKey="true" />
+      <Association Name="DbSupplier_DbSupplierLedger" Member="DbSupplier" ThisKey="SupplierId" OtherKey="SupplierId" Type="DbSupplier" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DbTax" Member="DbTaxes">
+    <Type Name="DbTax">
+      <Column Name="TaxId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TaxName" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="TaxRate" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

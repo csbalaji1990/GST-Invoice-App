@@ -1,0 +1,491 @@
+﻿@model Invoice.ViewModel.SalesInvoicePrintViewModel
+
+@{
+    ViewBag.Title = "Print Invoice";
+    Layout = null;
+}
+
+<title>Sales Invoice</title>
+
+<style>
+    html, body {
+        width: 848px;
+    }
+
+    body, table, input[type=text], input[type=email], select {
+        font-family: Arial;
+        font-size: 10pt;
+        line-height: normal;
+    }
+
+    textarea {
+        font-family: Arial;
+        font-size: 10pt;
+        line-height: normal;
+    }
+
+    .page-width {
+        width: 846px;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .half-width {
+        width: 50%;
+    }
+
+    .all-border {
+        border: 1px solid black;
+    }
+
+    .top-border {
+        border-top: 1px solid black;
+    }
+
+    .right-border {
+        border-right: 1px solid black;
+    }
+
+    .bottom-border {
+        border-bottom: 1px solid black;
+    }
+
+    .left-border {
+        border-left: 1px solid black;
+    }
+
+    .no-margin {
+        margin: 0;
+    }
+
+    .no-padding {
+        padding: 0;
+    }
+
+    .padding-2 {
+        padding: 2px;
+    }
+
+    .padding-5 {
+        padding: 5px;
+    }
+
+    .float-left {
+        float: left;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .title {
+        font-weight: bold;
+        color: grey;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .text-middle {
+        vertical-align: middle;
+    }
+
+    .printable div {
+        box-sizing: content-box;
+    }
+
+    table {
+        border-spacing: 0;
+        border-collapse: separate;
+    }
+
+        table tr td {
+            box-sizing: border-box;
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        div, table tr td {
+            word-break: break-all;
+        }
+
+    .divControls {
+        background-color: beige;
+        padding: 20px 0 20px 0;
+        margin-bottom: 10px;
+    }
+
+    .logo {
+        max-width: 100px;
+    }
+</style>
+
+<div class="full-width divControls">
+    <table class="full-width">
+        <tr>
+            <td class="text-center">
+                Choose template:
+                <select id="cmbTemplate">
+                    <option value="template1">Template1</option>
+                    <option value="template2" selected>Template2</option>
+                </select>
+
+                <span style="margin-left: 10px;">Document Label:</span>
+                <select id="cmbDocumentLabel">
+                    <option value="&nbsp;">Show Nothing</option>
+                    <option value="(Original for Recipient)">Original for Recipient</option>
+                    <option value="(Duplicate for Transporter)">Duplicate for Transporter</option>
+                    <option value="(Triplicate for Transporter)">Triplicate for Transporter</option>
+                    <option value="(Quadruplicate)">Quadruplicate</option>
+                </select>
+                <input type="button" id="btnPrint" value="Print" onclick="printContent('printable')" />
+                <input type="button" id="btnDownloadPdf" value="Download as PDF" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="printable">
+    <div class="page-width all-border">
+        <table class="page-width">
+            <tr>
+                <td colspan="2" class="full-width">
+                    <div class="full-width text-center underline">Tax Invoice</div>
+                    <div class="full-width text-right italic documentLabel" style="position: relative; top: -17px;">&nbsp;</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="full-width bottom-border no-padding">
+                    <div class="text-center" style="display: flex; justify-content: center;">
+                        <div class="padding-5">
+                            <img src="@Model.CompanyLogo" class="logo" />
+                        </div>
+                        <div class="padding-5">
+                            <h1 class="no-margin title">@Model.CompanyName</h1>
+                            <p style="line-height: 5px;">@Model.CompanyAddress, @Model.CompanyCity@Model.CompanyPincode@Model.CompanyState, Code: @Model.CompanyStateCode</p>
+                            <p class="CompanyGstin" style="line-height: 5px;">GSTIN: @Model.CompanyGstin</p>
+                            <p style="line-height: 5px;">@Model.CompanyMobile@Model.CompanyLandline</p>
+                            <p style="line-height: 5px;">@Model.CompanyEmail</p>
+                            <p style="line-height: 5px;">@Model.CompanyWebsite</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="half-width right-border bottom-border">
+                    <div class="bold underline">Buyer:</div>
+                    <div class="bold">@Model.CustomerName</div>
+                    <div>@Model.CustomerAddress</div>
+                    <div>@Model.CustomerCity@Model.CustomerPincode</div>
+                    <div>@Model.CustomerState, Code: @Model.CustomerStateCode</div>
+                    <div class="customerGstin">GSTIN: @Model.CustomerGstin</div>
+                </td>
+                <td class="half-width bottom-border no-padding">
+                    <table class="full-width">
+                        <tr>
+                            <td>
+                                <div class="bold">Invoice No.</div>
+                            </td>
+                            <td>
+                                @Model.Prefix@Model.InvoiceName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="bold">Dated</div>
+                            </td>
+                            <td>
+                                @Model.InvoiceDate
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="page-width">
+            <tr>
+                <td class="right-border bottom-border text-center" style="width: 50px;">S No.</td>
+                <td class="right-border bottom-border text-center description" style="width: 298px;">Description of Goods</td>
+                <td class="right-border bottom-border text-center" style="width: 100px;">HSN/SAC</td>
+                <td class="right-border bottom-border text-center" style="width: 100px;">Quantity</td>
+                <td class="right-border bottom-border text-center" style="width: 100px;">Rate</td>
+                <td class="right-border bottom-border text-center" style="width: 100px;">Per</td>
+                <td class="bottom-border text-center" style="width: 100px;">Amount</td>
+            </tr>
+            @foreach (var d in @Model.SalesInvoicePrintItemDetails)
+            {
+                <tr>
+                    <td class="right-border">@d.Id</td>
+                    <td class="right-border description">
+                        <div class="bold">@d.ItemName</div>
+                        <div>@d.ItemDescription</div>
+                    </td>
+                    <td class="right-border">@d.HsnSac</td>
+                    <td class="right-border text-right bold">@d.Quantity @d.Unit</td>
+                    <td class="right-border text-right bold">@d.TaxablePrice</td>
+                    <td class="right-border">@d.Unit</td>
+                    <td class="text-right bold">@d.SubAmount</td>
+                </tr>
+            }
+            <tr>
+                <td class="top-border right-border no-padding" colspan="5">
+                    <div class="bottom-border padding-5 bold">INR @Model.TotalInWords</div>
+                    <table class="full-width bank">
+                        <tr>
+                            <td colspan="2" class="bold">Company's Bank Details</td>
+                        </tr>
+                        <tr class="accountName">
+                            <td>A/C Name</td>
+                            <td>: @Model.CompanyAccountName</td>
+                        </tr>
+                        <tr class="bankName">
+                            <td>Bank Name</td>
+                            <td>: @Model.CompanyBankName</td>
+                        </tr>
+                        <tr class="accountNo">
+                            <td>A/C No</td>
+                            <td>: @Model.CompanyAccountNo</td>
+                        </tr>
+                        <tr class="accountType">
+                            <td>A/C Type</td>
+                            <td>: @Model.CompanyAccountType</td>
+                        </tr>
+                        <tr class="ifsc">
+                            <td>IFSC Code</td>
+                            <td>: @Model.CompanyIfsc</td>
+                        </tr>
+                        <tr class="branch">
+                            <td>Branch</td>
+                            <td>: @Model.CompanyBranch</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="top-border no-padding">
+                    <table class="full-width">
+                        <tr class="totalDiscount">
+                            <td class="right-border bottom-border text-middle bold">Discount</td>
+                        </tr>
+                        <tr class="cgst">
+                            <td class="right-border bottom-border text-middle bold">CGST</td>
+                        </tr>
+                        <tr class="sgst">
+                            <td class="right-border bottom-border text-middle bold">SGST</td>
+                        </tr>
+                        <tr class="igst">
+                            <td class="right-border bottom-border text-middle bold">IGST</td>
+                        </tr>
+                        <tr class="cess">
+                            <td class="right-border bottom-border text-middle bold">CESS</td>
+                        </tr>
+                        <tr class="roundOff">
+                            <td class="right-border bottom-border text-middle bold">Round Off</td>
+                        </tr>
+                        <tr>
+                            <td class="right-border bottom-border text-middle bold">Total</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="top-border no-padding">
+                    <table class="full-width">
+                        <tr class="totalDiscount">
+                            <td class="bottom-border text-right text-middle bold">-@Model.TotalDiscountRs</td>
+                        </tr>
+                        <tr class="cgst">
+                            <td class="bottom-border text-right text-middle bold">@Model.TotalCgstAmount</td>
+                        </tr>
+                        <tr class="sgst">
+                            <td class="bottom-border text-right text-middle bold">@Model.TotalSgstAmount</td>
+                        </tr>
+                        <tr class="igst">
+                            <td class="bottom-border text-right text-middle bold">@Model.TotalIgstAmount</td>
+                        </tr>
+                        <tr class="cess">
+                            <td class="bottom-border text-right text-middle bold">@Model.TotalCessRs</td>
+                        </tr>
+                        <tr class="roundOff">
+                            <td class="bottom-border text-right text-middle bold">@Model.RoundOffValue</td>
+                        </tr>
+                        <tr>
+                            <td class="bottom-border text-right text-middle bold">@Model.Total</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="page-width top-border text-right">
+            <div class="padding-5 bold">For @Model.CompanyName</div>
+            <div class="padding-5"><br /><br /><br />Authorized Signatory</div>
+        </div>
+    </div>
+    <div class="full-width text-center bold">This is a Computer Generated Invoice</div>
+</div>
+
+<script src="../../Scripts/jquery.min.js"></script>
+
+<script>
+    function getParameterByName(sParam) {
+        var sPageUrl = window.location.search.substring(1);
+        var sUrlVariables = sPageUrl.split("&");
+
+        for (var i = 0; i < sUrlVariables.length; i++) {
+            var sParameterName = sUrlVariables[i].split("=");
+            if (sParameterName[0].toLowerCase() == sParam.toLowerCase()) {
+                return decodeURI(sParameterName[1]).toUpperCase();
+            }
+        }
+        return null;
+    }
+
+    $(document).ready(function(){
+        var sessionCompanyState = "@Session["CompanyState"]";
+        var placeOfSupply = "@Model.PlaceOfSupply";
+        var companyGstin = "@Model.CompanyGstin";
+        var customerGstin = "@Model.CustomerGstin";
+
+        var cgst = "@Model.TotalCgstAmount";
+        var sgst = "@Model.TotalSgstAmount";
+        var igst = "@Model.TotalIgstAmount";
+
+        var cess = "@Model.TotalCessRs";
+
+        var roundOff = "@Model.RoundOff";
+
+        var totalDiscountRs = "@Model.TotalDiscountRs";
+        var roundOffValue = "@Model.RoundOffValue";
+
+        if(placeOfSupply == sessionCompanyState)
+        {
+            $(".cgst").show();
+            $(".sgst").show();
+            $(".igst").hide();
+        }
+        else
+        {
+            $(".cgst").hide();
+            $(".sgst").hide();
+            $(".igst").show();
+        }
+
+        if(companyGstin == "")
+            $(".companyGstin").hide();
+
+        if(customerGstin == "")
+            $(".customerGstin").hide();
+
+        if(cgst == 0)
+            $(".cgst").hide();
+
+        if(sgst == 0)
+            $(".sgst").hide();
+
+        if(igst == 0)
+            $(".igst").hide();
+
+        if(cess == 0)
+            $(".cess").hide();
+
+        if(roundOff == "True")
+            $(".roundOff").show();
+        else
+            $(".roundOff").hide();
+
+        if(totalDiscountRs == 0)
+            $(".totalDiscount").hide();
+
+        if(roundOffValue == 0)
+            $(".roundOff").hide();
+
+        if("@Model.CompanyAccountNo" == "")
+            $(".accountNo").hide();
+
+        if("@Model.CompanyAccountName" == "")
+            $(".accountName").hide();
+
+        if("@Model.CompanyAccountType" == "")
+            $(".accountType").hide();
+
+        if("@Model.CompanyBankName" == "")
+            $(".bankName").hide();
+
+        if("@Model.CompanyIfsc" == "")
+            $(".ifsc").hide();
+
+        if("@Model.CompanyBranch" == "")
+            $(".branch").hide();
+
+        if("@Model.CompanyAccountNo" == "" && "@Model.CompanyAccountName" == "" && "@Model.CompanyAccountType" == "" && "@Model.CompanyBankName" == "" && "@Model.CompanyIfsc" == "" && "@Model.CompanyBranch" == "")
+            $(".bank").hide();
+
+        $("#cmbTemplate").change(function(){
+            if($("#cmbTemplate").val() == "template1")
+                window.location = "/Sale/PrintInvoiceTemplate1?InvoiceNo=" + getParameterByName("InvoiceNo");
+
+            if($("#cmbTemplate").val() == "template2")
+                window.location = "/Sale/PrintInvoiceTemplate2?InvoiceNo=" + getParameterByName("InvoiceNo");
+        });
+
+        $("#cmbDocumentLabel").change(function(){
+            $(".documentLabel").html($("#cmbDocumentLabel").val());
+        });
+    });
+
+    function printContent(el) {
+        var restorepage = $("body").html();
+        var selectedDocumentLabel = $("#cmbDocumentLabel").val();
+        var printcontent = $("." + el).clone();
+        $("body").empty().html(printcontent);
+        window.print();
+        $("body").html(restorepage);
+        $("#cmbDocumentLabel").val(selectedDocumentLabel);
+    }
+
+    $("#btnDownloadPdf").click(function () {
+        var restorepage = $("body").html();
+        var printcontent = $(".printable").clone();
+        $("body").empty().html(printcontent);
+
+        var logoUrl = @Html.Raw(Json.Encode(@Server.MapPath(Model.CompanyLogo)));
+        $(".logo").attr("src", logoUrl);
+
+        if ("@Model.CompanyLogo" == "")
+            $(".logo").css("display", "none");
+
+        var html = escape($("html").html().toString().replace(/130px/g, "136px").replaceAll("₹", "Rs."));
+        $("body").html(restorepage);
+
+        $.ajax({
+            beforeSend: function () { $("#btnDownloadPdf").val("Please wait.."); $("#btnDownloadPdf").attr("disabled", "disabled"); },
+            complete: function () { $("#btnDownloadPdf").val("Download as PDF"); $("#btnDownloadPdf").removeAttr("disabled"); },
+            context: document.body,
+            data: { Html: html, Title: "Sales_Invoice" },
+            success: function (data) {
+                var link = document.createElement('a');
+                link.href = data.FileName;
+                link.download = data.FileName;
+                link.dispatchEvent(new MouseEvent("click"));
+            },
+            dataType: "json",
+            type: "POST",
+            url: "/Home/DownloadPdf"
+        });
+    });
+</script>

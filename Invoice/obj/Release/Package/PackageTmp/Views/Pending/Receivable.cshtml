@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Receivables";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Receivables
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Receivables</h3>
+    </div>
+}
+
+@section card_body {
+    <form id="formPending">
+        <div class="row form-group">
+            <div class="col-md-6">
+                @Html.DropDownList("cmbCustomer", (SelectList)ViewBag.CustomerList, new { @class = "mt-1 form-control form-control-sm", @required = "required" })
+            </div>
+            <div class="col-md-6">
+                <button type="submit" id="btnSubmit" class="mt-1 btn btn-sm btn-info waves-effect waves-light">Submit</button>
+                <button type="button" id="btnPrint" class="mt-1 btn btn-sm btn-info waves-effect waves-light float-right">Print</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="tblPendings" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(pendings) {
+                var $table = $("<table class='display nowrap table table-hover table-striped table-bordered' cellspacing='0' width='100%'>");
+                $table.append("<thead><tr><th>Invoice No</th><th>Date</th><th>Customer Name</th><th>Total</th><th>Paid</th><th>Balance</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(pendings, function (i, val) {
+                    var $row = "<tr><td>" + val.InvoiceName + "</td><td>" + ConvertJsonToDate(val.InvoiceDate) + "</td><td>" + val.CustomerName + "</td><td>" + val.Total + "</td><td>" + val.Paid + "</td><td>" + val.Balance + "</td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblPendings").html($table);
+
+                $("#tblPendings table").DataTable({
+                    dom: "Bfrtip",
+                    buttons: [
+                        "copy", "csv", "excel"
+                    ]
+                });
+            }
+
+            function ConvertJsonToDate(date) {
+                return new Date(date).format("dd-mm-yyyy");
+            }
+
+            var pendings = @Html.Raw(Json.Encode(@ViewBag.Pendings));
+            generateTable(pendings);
+
+            $("#formPending").submit(function () {
+                $.ajax({
+                    context: document.body,
+                    data: { CustomerId: $("#cmbCustomer").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        $("#btnPrint").removeClass("d-none");
+
+                        if (data.success === true)
+                            generateTable(data.Pendings);
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Pending/GetReceivable"
+                });
+
+                return false;
+            });
+
+            $("#cmbCustomer").change(function () {
+                $("#btnPrint").addClass("d-none");
+            });
+
+            $("#btnPrint").click(function () {
+                window.open("PrintReceivable?CustomerId=" + $("#cmbCustomer").val(), "_blank");
+            });
+        });
+    </script>
+}

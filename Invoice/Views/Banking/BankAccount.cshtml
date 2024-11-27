@@ -1,0 +1,228 @@
+﻿@{
+    ViewBag.Title = "Bank Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Bank Accounts
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">All your Bank Accounts</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <button type="button" data-toggle="modal" data-target="#modalBankAccount" class="btn btn-info btn-rounded float-right">
+            <i class="fa fa-plus"></i> Add Bank Account
+        </button>
+    </div>
+}
+
+@section card_body {
+    <div id="modalBankAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formBankAccount">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add / Edit Bank Account</h4>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="hiddenBankAccountId" value="0" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtAccountName" class="control-label">Account Name*</label>
+                                    <input type="text" id="txtAccountName" maxlength="50" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtAccountNo" class="control-label">Account No</label>
+                                    <input type="text" id="txtAccountNo" maxlength="50" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtAccountType" class="control-label">Account Type</label>
+                                    <input type="text" id="txtAccountType" maxlength="50" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBankName" class="control-label">Bank Name</label>
+                                    <input type="text" id="txtBankName" maxlength="50" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBranch" class="control-label">Branch</label>
+                                    <input type="text" id="txtBranch" maxlength="50" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtIfsc" class="control-label">IFSC Code</label>
+                                    <input type="text" id="txtIfsc" maxlength="50" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtBalance" class="control-label">Balance</label>
+                                    <input type="number" id="txtBalance" step="0.01" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSubmit" class="btn btn-info waves-effect waves-light">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="tblBankAccountList" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(bankAccountList) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped'>");
+                $table.append("<thead><tr><th>Account Name</th><th>Account No</th><th>Account Type</th><th>Bank Name</th><th>Branch</th><th>IFSC Code</th><th>Balance</th><th>Action</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(bankAccountList, function (i, val) {
+                    var $row = "<tr><td>" + val.AccountName + "</td><td>" + val.AccountNo + "</td><td>" + val.AccountType + "</td><td>" + val.BankName + "</td><td>" + val.Branch + "</td><td>" + val.Ifsc + "</td><td>" + val.Balance + "</td><td><input type='hidden' value=" + val.BankAccountId + "><button type='button' class='btnEdit btn btn-sm btn-info m-1'><i class='fa fa-edit'></i> Edit</button> <button type='button' class='btnDelete btn btn-sm btn-danger m-1'><i class='fa fa-trash'></i> Delete</button></td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblBankAccountList").html($table);
+
+                $("#foo-row-toggler").DataTable({
+                    columnDefs: [{ orderable: false, targets: -1 }]
+                });
+            }
+
+            var bankAccountList = @Html.Raw(Json.Encode(@ViewBag.BankAccountList));
+            generateTable(bankAccountList);
+
+            $("#modalBankAccount").on("hide.bs.modal", function (e) {
+                $("#hiddenBankAccountId").val("0");
+                $("#txtAccountName").val("");
+                $("#txtAccountNo").val("");
+                $("#txtAccountType").val("");
+                $("#txtBankName").val("");
+                $("#txtBranch").val("");
+                $("#txtIfsc").val("");
+                $("#txtBalance").val("");
+            });
+
+            $("#tblBankAccountList").on("click", ".btnEdit", function () {
+                var bankAccountId = $("#tblBankAccountList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(8) input[type=hidden]").val();
+
+                $.ajax({
+                    context: document.body,
+                    data: { BankAccountId: bankAccountId },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            var bankAccount = data.BankAccount;
+
+                            $("#hiddenBankAccountId").val(bankAccountId);
+                            $("#txtAccountName").val(bankAccount.AccountName);
+                            $("#txtAccountNo").val(bankAccount.AccountNo);
+                            $("#txtAccountType").val(bankAccount.AccountType);
+                            $("#txtBankName").val(bankAccount.BankName);
+                            $("#txtBranch").val(bankAccount.Branch);
+                            $("#txtIfsc").val(bankAccount.Ifsc);
+                            $("#txtBalance").val(bankAccount.Balance);
+
+                            $("#modalBankAccount").modal("show");
+                        }
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Banking/GetBankAccount"
+                });
+            });
+
+            $(document).on("submit", "#formBankAccount", function() {
+                $.ajax({
+                    beforeSend: function() { $("#btnSubmit").html("Please wait.."); $("#btnSubmit").attr("disabled", "disabled"); },
+                    complete: function() { $("#btnSubmit").html("Save"); $("#btnSubmit").removeAttr("disabled"); },
+                    context: document.body,
+                    data: { BankAccountId: $("#hiddenBankAccountId").val(), AccountName: $("#txtAccountName").val(), AccountNo: $("#txtAccountNo").val(), AccountType: $("#txtAccountType").val(), BankName: $("#txtBankName").val(), Branch: $("#txtBranch").val(), Ifsc: $("#txtIfsc").val(), Balance: $("#txtBalance").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            $("#modalBankAccount").modal("hide");
+                            swal("Saved", "", "success");
+                            generateTable(data.BankAccountList);
+                        }
+                        else if (data.success === false)
+                            swal("Cancelled", data.Message, "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Banking/SaveBankAccount"
+                });
+
+                return false;
+            });
+
+            $("#tblBankAccountList").on("click", ".btnDelete", function () {
+                var bankAccountId = $("#tblBankAccountList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(8) input[type=hidden]").val();
+
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to delete this bank account?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            data: { BankAccountId: bankAccountId },
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Deleted", "", "success");
+
+                                    generateTable(data.BankAccountList);
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Banking/DeleteBankAccount"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

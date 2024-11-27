@@ -1,0 +1,114 @@
+D:\Project\Invoice\Invoice\bin\Invoice.dll.config
+D:\Project\Invoice\Invoice\bin\Invoice.dll
+D:\Project\Invoice\Invoice\bin\Invoice.pdb
+D:\Project\Invoice\Invoice\bin\Microsoft.Web.Infrastructure.dll
+D:\Project\Invoice\Invoice\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+D:\Project\Invoice\Invoice\bin\Newtonsoft.Json.dll
+D:\Project\Invoice\Invoice\bin\System.Net.Http.dll
+D:\Project\Invoice\Invoice\bin\System.Net.Http.WebRequest.dll
+D:\Project\Invoice\Invoice\bin\System.Web.Helpers.dll
+D:\Project\Invoice\Invoice\bin\System.Web.Mvc.dll
+D:\Project\Invoice\Invoice\bin\System.Web.Razor.dll
+D:\Project\Invoice\Invoice\bin\System.Web.WebPages.Deployment.dll
+D:\Project\Invoice\Invoice\bin\System.Web.WebPages.dll
+D:\Project\Invoice\Invoice\bin\System.Web.WebPages.Razor.dll
+D:\Project\Invoice\Invoice\bin\Newtonsoft.Json.xml
+D:\Project\Invoice\Invoice\bin\System.Net.Http.xml
+D:\Project\Invoice\Invoice\bin\System.Net.Http.WebRequest.xml
+D:\Project\Invoice\Invoice\bin\System.Web.Helpers.xml
+D:\Project\Invoice\Invoice\bin\System.Web.Mvc.xml
+D:\Project\Invoice\Invoice\bin\System.Web.Razor.xml
+D:\Project\Invoice\Invoice\bin\System.Web.WebPages.xml
+D:\Project\Invoice\Invoice\bin\System.Web.WebPages.Deployment.xml
+D:\Project\Invoice\Invoice\bin\System.Web.WebPages.Razor.xml
+D:\Project\Invoice\Invoice\obj\Release\Invoice.dll
+D:\Project\Invoice\Invoice\obj\Release\Invoice.pdb
+D:\Project\Invoice\Invoice\bin\System.Net.Http.Formatting.dll
+D:\Project\Invoice\Invoice\bin\System.Web.Http.dll
+D:\Project\Invoice\Invoice\bin\System.Web.Http.WebHost.dll
+D:\Project\Invoice\Invoice\bin\System.Net.Http.Formatting.xml
+D:\Project\Invoice\Invoice\bin\System.Web.Http.xml
+D:\Project\Invoice\Invoice\bin\System.Web.Http.WebHost.xml
+D:\Project\Invoice\Invoice\bin\EPPlus.dll
+D:\Project\Invoice\Invoice\bin\EPPlus.xml
+D:\Project\Invoice\Invoice\obj\Release\Invoice.csproj.ResolveComReference.cache
+D:\Project\Invoice\Invoice\bin\Select.HtmlToPdf.dll
+D:\Project\Invoice\Invoice\bin\Select.HtmlToPdf.xml
+D:\Project\Invoice\Invoice\bin\Select.Html.dep
+D:\Project\Invoice\Invoice\obj\Release\Invoice.csprojResolveAssemblyReference.cache
+D:\Projects\Invoice\Invoice\bin\Invoice.dll.config
+D:\Projects\Invoice\Invoice\bin\Invoice.dll
+D:\Projects\Invoice\Invoice\bin\Invoice.pdb
+D:\Projects\Invoice\Invoice\bin\EPPlus.dll
+D:\Projects\Invoice\Invoice\bin\Microsoft.Web.Infrastructure.dll
+D:\Projects\Invoice\Invoice\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+D:\Projects\Invoice\Invoice\bin\Newtonsoft.Json.dll
+D:\Projects\Invoice\Invoice\bin\Select.HtmlToPdf.dll
+D:\Projects\Invoice\Invoice\bin\System.Net.Http.dll
+D:\Projects\Invoice\Invoice\bin\System.Net.Http.Formatting.dll
+D:\Projects\Invoice\Invoice\bin\System.Net.Http.WebRequest.dll
+D:\Projects\Invoice\Invoice\bin\System.Web.Helpers.dll
+D:\Projects\Invoice\Invoice\bin\System.Web.Http.dll
+D:\Projects\Invoice\Invoice\bin\System.Web.Http.WebHost.dll
+D:\Projects\Invoice\Invoice\bin\System.Web.Mvc.dll
+D:\Projects\Invoice\Invoice\bin\System.Web.Razor.dll
+D:\Projects\Invoice\Invoice\bin\System.Web.WebPages.Deployment.dll
+D:\Projects\Invoice\Invoice\bin\System.Web.WebPages.dll
+D:\Projects\Invoice\Invoice\bin\System.Web.WebPages.Razor.dll
+D:\Projects\Invoice\Invoice\bin\EPPlus.xml
+D:\Projects\Invoice\Invoice\bin\Select.HtmlToPdf.xml
+D:\Projects\Invoice\Invoice\bin\Newtonsoft.Json.xml
+D:\Projects\Invoice\Invoice\bin\System.Net.Http.xml
+D:\Projects\Invoice\Invoice\bin\System.Net.Http.Formatting.xml
+D:\Projects\Invoice\Invoice\bin\System.Net.Http.WebRequest.xml
+D:\Projects\Invoice\Invoice\bin\System.Web.Helpers.xml
+D:\Projects\Invoice\Invoice\bin\System.Web.Http.xml
+D:\Projects\Invoice\Invoice\bin\System.Web.Http.WebHost.xml
+D:\Projects\Invoice\Invoice\bin\System.Web.Mvc.xml
+D:\Projects\Invoice\Invoice\bin\System.Web.Razor.xml
+D:\Projects\Invoice\Invoice\bin\System.Web.WebPages.xml
+D:\Projects\Invoice\Invoice\bin\System.Web.WebPages.Deployment.xml
+D:\Projects\Invoice\Invoice\bin\System.Web.WebPages.Razor.xml
+D:\Projects\Invoice\Invoice\bin\Select.Html.dep
+D:\Projects\Invoice\Invoice\obj\Release\Invoice.csprojResolveAssemblyReference.cache
+D:\Projects\Invoice\Invoice\obj\Release\Invoice.csproj.ResolveComReference.cache
+D:\Projects\Invoice\Invoice\obj\Release\Invoice.dll
+D:\Projects\Invoice\Invoice\obj\Release\Invoice.pdb
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\Invoice.dll.config
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\Invoice.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\Invoice.pdb
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\EPPlus.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\Microsoft.Web.Infrastructure.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\Newtonsoft.Json.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\Select.HtmlToPdf.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Net.Http.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Net.Http.Formatting.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Net.Http.WebRequest.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.Helpers.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.Http.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.Http.WebHost.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.Mvc.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.Razor.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.WebPages.Deployment.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.WebPages.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.WebPages.Razor.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\EPPlus.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\Select.HtmlToPdf.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\Newtonsoft.Json.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Net.Http.Formatting.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.Helpers.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.Http.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.Http.WebHost.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.Mvc.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.Razor.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.WebPages.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.WebPages.Deployment.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\System.Web.WebPages.Razor.xml
+G:\My Drive\Backup\Project\Invoice\Invoice\bin\Select.Html.dep
+G:\My Drive\Backup\Project\Invoice\Invoice\obj\Release\Invoice.csproj.AssemblyReference.cache
+G:\My Drive\Backup\Project\Invoice\Invoice\obj\Release\Invoice.csproj.ResolveComReference.cache
+G:\My Drive\Backup\Project\Invoice\Invoice\obj\Release\Invoice.csproj.CoreCompileInputs.cache
+G:\My Drive\Backup\Project\Invoice\Invoice\obj\Release\Invoice.csproj.CopyComplete
+G:\My Drive\Backup\Project\Invoice\Invoice\obj\Release\Invoice.dll
+G:\My Drive\Backup\Project\Invoice\Invoice\obj\Release\Invoice.pdb

@@ -1,0 +1,271 @@
+﻿@model Invoice.ViewModel.LedgerPrintViewModel
+
+@{
+    ViewBag.Title = "Supplier Ledger";
+    Layout = null;
+}
+
+<title>Supplier Ledger</title>
+
+<style>
+    html, body {
+        width: 848px;
+    }
+
+    body, table, input[type=text], input[type=email], select {
+        font-family: Arial;
+        font-size: 10pt;
+        line-height: normal;
+    }
+
+    textarea {
+        font-family: Arial;
+        font-size: 10pt;
+        line-height: normal;
+    }
+
+    .page-width {
+        width: 846px;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .half-width {
+        width: 50%;
+    }
+
+    .all-border {
+        border: 1px solid black;
+    }
+
+    .top-border {
+        border-top: 1px solid black;
+    }
+
+    .right-border {
+        border-right: 1px solid black;
+    }
+
+    .bottom-border {
+        border-bottom: 1px solid black;
+    }
+
+    .left-border {
+        border-left: 1px solid black;
+    }
+
+    .no-padding {
+        padding: 0;
+    }
+
+    .float-left {
+        float: left;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .title {
+        font-size: 12pt;
+        font-weight: bold;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .text-middle {
+        vertical-align: middle;
+    }
+
+    .printable div {
+        box-sizing: content-box;
+    }
+
+    table {
+        border-spacing: 0;
+        border-collapse: separate;
+    }
+
+        table tr td {
+            box-sizing: border-box;
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        div, table tr td {
+            word-break: break-all;
+        }
+
+    .divControls {
+        background-color: beige;
+        padding: 20px 0 20px 0;
+        margin-bottom: 10px;
+    }
+
+    .logo {
+        max-width: 100px;
+    }
+</style>
+
+<div class="full-width divControls">
+    <table class="full-width">
+        <tr>
+            <td class="text-center">
+                <input type="button" id="btnPrint" value="Print" onclick="printContent('printable')" />
+                <input type="button" id="btnDownloadPdf" value="Download as PDF" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="printable">
+    <div class="page-width top-border right-border left-border">
+        <table class="full-width">
+            <tr>
+                <td class="half-width bottom-border"></td>
+                <td class="half-width bottom-border no-padding">
+                    <table class="float-right">
+                        <tr>
+                            <td class="text-middle">
+                                <img src="@Model.CompanyLogo" class="logo" />
+                            </td>
+                            <td class="text-middle">
+                                <div class="title">@Model.CompanyName</div>
+                                <div>@Model.CompanyAddress</div>
+                                <div>@Model.CompanyCity@Model.CompanyPincode@Model.CompanyState</div>
+                                <div>@Model.CompanyMobile@Model.CompanyLandline</div>
+                                <div>@Model.CompanyEmail</div>
+                                <div>@Model.CompanyWebsite</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="full-width">
+            <tr>
+                <td class="half-width">
+                    <div>To:</div>
+                    <div class="title">@Model.SupplierName</div>
+                    <div>@Model.SupplierAddress</div>
+                    <div>@Model.SupplierCity</div>
+                    <div>@Model.SupplierState</div>
+                </td>
+                <td class="half-width text-right">
+                    <div class="title">Supplier Ledger</div>
+                    <div class="italic">@Model.FromDate To @Model.ToDate</div>
+                    <table class="full-width top-border">
+                        <tr>
+                            <td>Beginning Balance :</td>
+                            <td class="text-right">@Model.OpeningBalance</td>
+                        </tr>
+                        <tr>
+                            <td>Invoice Amount :</td>
+                            <td class="text-right">@Model.TotalDebit</td>
+                        </tr>
+                        <tr>
+                            <td>Amount Paid :</td>
+                            <td class="text-right">@Model.TotalCredit</td>
+                        </tr>
+                        <tr>
+                            <td>Balance Due :</td>
+                            <td class="text-right">@Model.Balance</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="bottom-border text-center italic">
+                    Showing all Invoices and Payments between @Model.FromDate and @Model.ToDate
+                </td>
+            </tr>
+        </table>
+        <table class="full-width">
+            <tr>
+                <td class="right-border bottom-border bold">Date</td>
+                <td class="right-border bottom-border bold">Details</td>
+                <td class="right-border bottom-border bold">Debit</td>
+                <td class="bottom-border bold">Credit</td>
+            </tr>
+            @foreach (var d in @Model.LedgerViewModel)
+            {
+                <tr>
+                    @if (d.PaymentDate == "")
+                    {
+                        <td class="right-border bottom-border"></td>
+                    }
+                    else
+                    {
+                        <td class="right-border bottom-border">@DateTime.Parse(d.PaymentDate).ToString("dd-MM-yyyy")</td>
+                    }
+                    <td class="right-border bottom-border">@d.Description</td>
+                    <td class="right-border bottom-border text-right">@d.Debit</td>
+                    <td class="bottom-border text-right">@d.Credit</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<script src="../../Scripts/jquery.min.js"></script>
+
+<script>
+    function printContent(el) {
+        var restorepage = $("body").html();
+        var printcontent = $("." + el).clone();
+        $("body").empty().html(printcontent);
+        window.print();
+        $("body").html(restorepage);
+    }
+
+    $("#btnDownloadPdf").click(function () {
+        var restorepage = $("body").html();
+        var printcontent = $(".printable").clone();
+        $("body").empty().html(printcontent);
+
+        var logoUrl = @Html.Raw(Json.Encode(@Server.MapPath(Model.CompanyLogo)));
+        $(".logo").attr("src", logoUrl);
+
+        if ("@Model.CompanyLogo" == "")
+            $(".logo").css("display", "none");
+
+        var html = escape($("html").html());
+        $("body").html(restorepage);
+
+        $.ajax({
+            beforeSend: function () { $("#btnDownloadPdf").val("Please wait.."); $("#btnDownloadPdf").attr("disabled", "disabled"); },
+            complete: function () { $("#btnDownloadPdf").val("Download as PDF"); $("#btnDownloadPdf").removeAttr("disabled"); },
+            context: document.body,
+            data: { Html: html, Title: "Supplier_Ledger" },
+            success: function (data) {
+                var link = document.createElement('a');
+                link.href = data.FileName;
+                link.download = data.FileName;
+                link.dispatchEvent(new MouseEvent("click"));
+            },
+            dataType: "json",
+            type: "POST",
+            url: "/Home/DownloadPdf"
+        });
+    });
+</script>

@@ -1,0 +1,333 @@
+﻿@model Invoice.ViewModel.SalesInvoiceViewModel
+
+@{
+    ViewBag.Title = "Invoice Entry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Sales Invoice
+}
+
+@section card_body {
+    <form id="formSalesInvoice">
+        <div class="invoice-header row form-group">
+            <div class="col-md-6">
+                <div class="row">
+                    <div style="width: 95px; padding-left: 15px;">
+                        <label>Sales Invoice No</label>
+                    </div>
+                    <div class="col-8 form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                @Html.TextBoxFor(m => m.Prefix, new { @maxlength = "10", @class = "form-control form-control-sm", @required = "required" })
+                            </div>
+                            <div class="col-6">
+                                @Html.TextBoxFor(m => m.InvoiceName, new { @maxlength = "5", @class = "form-control form-control-sm", @required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div style="width: 95px; padding-left: 15px;">
+                        <label>Invoice Date</label>
+                    </div>
+                    <div class="col-8 form-group">
+                        @Html.TextBoxFor(m => m.InvoiceDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control form-control-sm", @required = "required" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div style="width: 95px; padding-left: 15px;">
+                        <label>Customer</label>
+                    </div>
+                    <div class="col-8 form-group">
+                        @Html.DropDownListFor(m => m.CustomerId, Model.CustomerList, new { @class = "form-control form-control-sm", @required = "required" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div style="width: 95px; padding-left: 15px;">
+                        <label>Place of Supply</label>
+                    </div>
+                    <div class="col-8 form-group">
+                        @Html.DropDownListFor(m => m.PlaceOfSupply, Model.PlaceOfSupplyList, new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-none d-xl-block">
+            <div class="row p-3 mb-2 bg-info text-white">
+                <div class="col-xl-1 col-sm-12"></div>
+                <div class="col-xl-2 col-sm-12 pl-0">Description</div>
+                <div class="col-xl-1 col-sm-12 pl-0">HSN / SAC</div>
+                <div class="col-xl-1 col-sm-12 pl-0 text-right">Price</div>
+                <div class="col-xl-1 col-sm-12 pl-0 text-right">Quantity</div>
+                <div class="col-xl-2 col-sm-12 pl-0 text-right">Discount</div>
+                <div class="col-xl-1 col-sm-12 pl-0 pr-0 text-right">Taxable Value</div>
+                <div class="col-xl-2 col-sm-12 pl-0 pr-0 text-right">Tax Values</div>
+                <div class="col-xl-1 col-sm-12 pl-0 pr-0 text-right">Amount</div>
+            </div>
+        </div>
+
+        <div class="dropdown-divider d-block d-xl-none" style="border-top: 2px solid #1976d2;"></div>
+
+        <div id="tblItems"></div>
+
+        <div id="btnAddRow" class="btn">
+            <i class="fa fa-plus-square text-info"></i>
+        </div>
+
+        <div class="dropdown-divider" style="border-top: 2px solid #1976d2;"></div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="float-left">
+                    <div><div id="btnAdditionalDetails" data-toggle="modal" data-target="#modalAdditionalDetails" class="btn text-info pl-4" style="margin-right: 30px; font-size: 14px;">Edit Additional Details</div></div>
+                    <div><input type="checkbox" id="ReverseCharge" style="margin: 10px;" />Subject to Reverse Charges</div>
+                    <div class="row form-group">
+                        <div class="col-5">
+                            <input type="checkbox" id="DiscountOnAll" style="margin: 10px;" />Discount on All
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group input-group-sm">
+                                @Html.TextBoxFor(m => m.TotalDiscount, new { @type = "number", step = "0.0001", min = "0", @class = "form-control form-control-sm", @required = "required" })
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary float-right">
+                    <div class="row form-group">
+                        <div class="col-6">Total Value</div>
+                        <div class="col-6 text-right">
+                            <div class="input-group">
+                                <span class="input-group-addon">₹</span>
+                                @Html.TextBoxFor(m => m.TotalValue, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-6">Discount</div>
+                        <div class="col-6 text-right">
+                            <div class="input-group">
+                                <span class="input-group-addon">₹</span>
+                                @Html.TextBoxFor(m => m.TotalDiscountRs, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group d-none">
+                        <div class="col-6">Total Taxable Value</div>
+                        <div class="col-6 text-right">
+                            <div class="input-group">
+                                <span class="input-group-addon">₹</span>
+                                @Html.TextBoxFor(m => m.TotalTaxableValue, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group d-none">
+                        <div class="col-6">CGST</div>
+                        <div class="col-6 text-right">
+                            <div class="input-group">
+                                <span class="input-group-addon">₹</span>
+                                @Html.TextBoxFor(m => m.TotalCgstAmount, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group d-none">
+                        <div class="col-6">SGST</div>
+                        <div class="col-6 text-right">
+                            <div class="input-group">
+                                <span class="input-group-addon">₹</span>
+                                @Html.TextBoxFor(m => m.TotalSgstAmount, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group d-none">
+                        <div class="col-6">IGST</div>
+                        <div class="col-6 text-right">
+                            <div class="input-group">
+                                <span class="input-group-addon">₹</span>
+                                @Html.TextBoxFor(m => m.TotalIgstAmount, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-6">Total Tax</div>
+                        <div class="col-6 text-right">
+                            <div class="input-group">
+                                <span class="input-group-addon">₹</span>
+                                @Html.TextBoxFor(m => m.TotalTaxValue, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-6">CESS</div>
+                        <div class="col-6 text-right">
+                            <div class="input-group">
+                                <span class="input-group-addon">₹</span>
+                                @Html.TextBoxFor(m => m.TotalCessRs, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-6">
+                            <input type="checkbox" id="RoundOff" />Round Off
+                        </div>
+                        <div class="col-6 text-right">
+                            <div class="input-group">
+                                <span class="input-group-addon">₹</span>
+                                @Html.TextBoxFor(m => m.RoundOffValue, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-6">Total</div>
+                        <div class="col-6">
+                            <div style="background-color: #1976d2; color: white; padding: 5px; font-weight: bold;">
+                                ₹ <span id="Total">@Model.Total</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                Terms of Delivery
+                @Html.TextAreaFor(m => m.Terms, new { @maxlength = "112", @class = "form-control form-control-sm" })
+            </div>
+        </div>
+
+        <div id="modalAdditionalDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"> Edit Additional Details</h4>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                Delivery Note
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.DeliveryNote, new { @maxlength = "25", @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                Delivery Note Date
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.DeliveryNoteDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                Payment Method
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.PaymentMethod, Model.PaymentMethodList, new { @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                Payment Term
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DropDownList("PaymentTerm", (SelectList)Model.PaymentTermList, new { @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                Due Date
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.DueDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                Supplier's Reference
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.SupplierReference, new { @maxlength = "25", @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                Other Reference(s)
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.OtherReference, new { @maxlength = "25", @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                P.O. No
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.PoNo, new { @maxlength = "25", @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                P.O. Date
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.PoDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                Despatch Document No.
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.DespatchDocumentNo, new { @maxlength = "25", @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                Despatched Through
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.DespatchedThrough, new { @maxlength = "25", @class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-info waves-effect waves-light">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-6 text-right">
+                <input type="submit" id="btnSubmit" class="btn btn-info" value="Save Invoice" />
+            </div>
+        </div>
+    </form>
+}
+
+@section scripts {
+    <script>
+        var itemList = @Html.Raw(Json.Encode(@ViewBag.ItemList));
+        var taxList = @Html.Raw(Json.Encode(@ViewBag.TaxList));
+        var unitList = @Html.Raw(Json.Encode(@ViewBag.UnitList));
+        var itemDetails = @Html.Raw(Json.Encode(@Model.SalesInvoiceItemDetails));
+        var modelDiscountOnAll = @Html.Raw(Json.Encode(@Model.DiscountOnAll));
+        var modelRoundOff = @Html.Raw(Json.Encode(@Model.RoundOff));
+        var sessionCompanyState = "@Session["companyState"]";
+        $("#PaymentTerm option:contains(" + @Html.Raw(Json.Encode(@Model.PaymentTerm)) + ")").attr('selected', 'selected');
+    </script>
+    <script src="~/Scripts/app/SalesInvoice.js"></script>
+}

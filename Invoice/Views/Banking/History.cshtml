@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Bank Transaction History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Bank Transaction History
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Bank Transaction History</h3>
+    </div>
+}
+
+@section card_body {
+    <form id="formHistory">
+        <div class="row form-group">
+            <div class="col-md-3">
+                <input type="date" id="txtFromDate" class="mt-1 form-control form-control-sm" required />
+            </div>
+            <div class="col-md-3">
+                <input type="date" id="txtToDate" class="mt-1 form-control form-control-sm" required />
+            </div>
+            <div class="col-md-3">
+                @Html.DropDownList("cmbBankAccount", (SelectList)ViewBag.BankAccountList, new { @class = "mt-1 form-control form-control-sm", @required = "required" })
+            </div>
+            <div class="col-md-3">
+                <button type="submit" id="btnSubmit" class="mt-1 btn btn-sm btn-info waves-effect waves-light">Submit</button>
+                <button type="button" id="btnPrint" class="mt-1 btn btn-sm btn-info waves-effect waves-light d-none float-right">Print</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="tblHistory" class="table-responsive m-t-40"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(history) {
+                var $table = $("<table class='display nowrap table table-hover table-striped table-bordered' cellspacing='0' width='100%'>");
+                $table.append("<thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Debit</th><th>Credit</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(history, function (i, val) {
+                    var $row = "<tr><td>" + ConvertJsonToDate(val.TransactionDate, null) + "</td><td>" + val.TransactionType + "</td><td>" + val.Description + "</td><td>" + val.Debit + "</td><td>" + val.Credit + "</td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblHistory").html($table);
+
+                $("#tblHistory table").DataTable({
+                    "ordering": false,
+                    dom: "Bfrtip",
+                    buttons: [
+                        "copy", "csv", "excel"
+                    ]
+                });
+            }
+
+            function ConvertJsonToDate(date, format) {
+                if(format == null)
+                    return new Date(date).format("dd-mm-yyyy");
+                else
+                {
+                    var nowDate = new Date(parseInt(date.substr(6)));
+                    return nowDate.format(format);
+                }
+            }
+
+            $("#txtFromDate").val(ConvertJsonToDate(@Html.Raw(Json.Encode(@ViewBag.FromDate)), "yyyy-mm-dd"));
+            $("#txtToDate").val(ConvertJsonToDate(@Html.Raw(Json.Encode(@ViewBag.ToDate)), "yyyy-mm-dd"));
+
+            $(document).on("submit", "#formHistory", function () {
+                $.ajax({
+                    beforeSend: function () { $("#btnSubmit").html("Please wait.."); $("#btnSubmit").attr("disabled", "disabled"); },
+                    complete: function () { $("#btnSubmit").html("Submit"); $("#btnSubmit").removeAttr("disabled"); },
+                    context: document.body,
+                    data: { FromDate: $("#txtFromDate").val(), ToDate: $("#txtToDate").val(), BankAccountId: $("#cmbBankAccount").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        $("#btnPrint").removeClass("d-none");
+
+                        if (data.success === true)
+                            generateTable(data.History);
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Banking/GetHistory"
+                });
+
+                return false;
+            });
+
+            $("#txtFromDate, #txtToDate, #cmbBankAccount").change(function () {
+                $("#btnPrint").addClass("d-none");
+            });
+
+            $("#btnPrint").click(function () {
+                window.open("PrintHistory?FromDate=" + $("#txtFromDate").val() + "&ToDate=" + $("#txtToDate").val() + "&BankAccountId=" + $("#cmbBankAccount").val(), "_blank");
+            });
+        });
+    </script>
+}

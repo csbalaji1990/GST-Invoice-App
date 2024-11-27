@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "GSTR2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    GSTR2
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">GSTR2</h3>
+    </div>
+}
+
+@section card_body {
+    <form id="formGstr">
+        <div class="row form-group">
+            <div class="col-md-4">
+                <select id="cmbMonth" class="mt-1 form-control form-control-sm" required>
+                    <option value="">Select Month</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="number" id="txtYear" class="mt-1 form-control form-control-sm" required />
+            </div>
+            <div class="col-md-4">
+                <button type="submit" id="btnSubmit" class="mt-1 btn btn-sm btn-info waves-effect waves-light">Submit</button>
+                <button type="button" id="btnPrint" class="mt-1 btn btn-sm btn-info waves-effect waves-light float-right">Print</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="tblGstr" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(gstr) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped' style='font-size: smaller;'>");
+                $table.append("<thead><tr><th>Invoice No</th><th>Date</th><th>Supplier Name</th><th>Supplier GSTIN</th><th>Phone</th><th>Taxable Amount</th><th>Discount Value</th><th>CGST</th><th>SGST</th><th>IGST</th><th>Tax Amount</th><th>Purchase Amount</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(gstr, function (i, val) {
+                    var $row = "<tr><td>" + val.InvoiceName + "</td><td>" + ConvertJsonToDate(val.InvoiceDate) + "</td><td>" + val.SupplierName + "</td><td>" + val.Gstin + "</td><td>" + val.Mobile + "</td><td>" + val.TotalValue + "</td><td>" + val.TotalDiscountRs + "</td><td>" + val.TotalCgstAmount + "</td><td>" + val.TotalSgstAmount + "</td><td>" + val.TotalIgstAmount + "</td><td>" + val.TotalTaxValue + "</td><td>" + val.Total + "</td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblGstr").html($table);
+
+                $("#tblGstr table").DataTable({
+                    "ordering": false,
+                    dom: "Bfrtip",
+                    buttons: [
+                        "copy", "csv", "excel"
+                    ]
+                });
+            }
+
+            function ConvertJsonToDate(date) {
+                return new Date(date).format("dd-mm-yyyy");
+            }
+
+            $("#cmbMonth").val(@Html.Raw(Json.Encode(@ViewBag.CurrentMonth)));
+            $("#txtYear").val(@Html.Raw(Json.Encode(@ViewBag.CurrentYear)));
+
+            var gstr = @Html.Raw(Json.Encode(@ViewBag.Gstr));
+            generateTable(gstr);
+
+            $("#formGstr").submit(function () {
+                $.ajax({
+                    context: document.body,
+                    data: { Month: $("#cmbMonth").val(), Year: $("#txtYear").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        $("#btnPrint").removeClass("d-none");
+
+                        if (data.success === true)
+                            generateTable(data.Gstr);
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/GstReturn/GetGstr2"
+                });
+
+                return false;
+            });
+
+            $("#cmbMonth, #txtYear").change(function () {
+                $("#btnPrint").addClass("d-none");
+            });
+
+            $("#btnPrint").click(function () {
+                window.open("PrintGstr2?Month=" + $("#cmbMonth").val() + "&MonthName=" + $("#cmbMonth option:selected").text() + "&Year=" + $("#txtYear").val(), "_blank");
+            });
+        });
+    </script>
+}

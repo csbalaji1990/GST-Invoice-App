@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Quotation List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Quotation
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Quotation List</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <a href="~/Sale/QuotationEntry" class="btn btn-info btn-rounded float-right">
+            <i class="fa fa-plus"></i> New Quotation
+        </a>
+    </div>
+}
+
+@section card_body {
+    <div id="tblQuotationList" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(list) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped'>");
+                $table.append("<thead><tr><th>Quotation No</th><th>Date</th><th>Customer</th><th>Total</th><th>Action</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(list, function (i, val) {
+                    var $row = "<tr><td>" + val.QuotationName + "</td><td>" + ConvertJsonToDate(val.QuotationDate) + "</td><td>" + val.CustomerName + "</td><td>" + val.Total + "</td><td><input type='hidden' value=" + val.QuotationNo + "><div class='input-group-btn'><button type='button' class='btn btn-secondary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Action</button><div class='dropdown-menu'><a class='dropdown-item' href='/Sale/QuotationEntry?QuotationNo=" + val.QuotationNo +"'>Edit Quotation</a><button type='button' class='dropdown-item btnDelete'>Delete Quotation</button><a class='dropdown-item' href='/Sale/PrintQuotation?QuotationNo=" + val.QuotationNo +"' target='_blank'>Print</a></div></div></td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblQuotationList").html($table);
+
+                $("#foo-row-toggler").DataTable({
+                    "order": [[0, "desc"]],
+                    columnDefs: [{ orderable: false, targets: -1 }]
+                });
+            }
+
+            var list = @Html.Raw(Json.Encode(@ViewBag.List));
+            generateTable(list);
+
+            function ConvertJsonToDate(date)
+            {
+                var nowDate = new Date(parseInt(date.substr(6)));
+                return nowDate.format("dd-mm-yyyy");
+            }
+
+            $("#tblQuotationList").on("click", ".btnDelete", function () {
+                var rowIndex = this.closest("tr").rowIndex;
+                var quotationNo = $("#tblQuotationList table tbody tr:nth-child(" + rowIndex + ") td:nth-child(5) input[type=hidden]:nth-child(1)").val();
+
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to delete this quotation?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            data: { QuotationNo: quotationNo },
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Deleted", "", "success");
+
+                                    generateTable(data.List);
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Sale/DeleteQuotation"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

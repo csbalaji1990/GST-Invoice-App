@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@RenderSection("title", false)</title>
+
+    <link href="../../Content/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="../../Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../Content/css/style.css" rel="stylesheet">
+    <link href="../../Content/css/blue.css" id="theme" rel="stylesheet">
+    <link href="../../Content/css/sweetalert.css" rel="stylesheet">
+    <link href="../../Content/css/select2.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .invoice-header, .quotation-header, .rowItem .form-group, .summary .form-group, #modalAdditionalDetails .form-group {
+            margin-bottom: 5px;
+        }
+
+        .modal-body .form-group {
+            margin-bottom: 5px;
+        }
+
+        .tblLedger tr:first-child td, .tblLedger tr:last-child td {
+            font-weight: bold;
+        }
+    </style>
+
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../Scripts/jquery.min.js"></script>
+
+</head>
+<body class="fix-header card-no-border logo-center">
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+
+    <div id="modalLogo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Upload your Logo</h4>
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" title="select image" id="fileLogo" name="fileLogo" accept="image/*" onchange="showLogo(this)" />
+                    <img id="imgLogo" src=@Session["companyLogo"] style="border:solid; width: 100px" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnRemove" class="btn btn-danger waves-effect waves-light">Remove</button>
+                    <button type="button" id="btnUpload" class="btn btn-info waves-effect waves-light">Upload</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <div class="navbar-header">
+                    <h2 class="text-white">GST Invoice App</h2>
+                </div>
+                <div class="navbar-collapse">
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                    </ul>
+                    <ul class="navbar-nav my-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src=@Session["companyLogo"] alt="user" class="profile-pic" /></a>
+                            <div class="dropdown-menu dropdown-menu-right scale-up">
+                                <ul class="dropdown-user">
+                                    <li>
+                                        <div class="dw-user-box">
+                                            <div class="u-img"><img src=@Session["companyLogo"] alt="user"><div data-toggle="modal" data-target="#modalLogo" style="background-color: rgba(255, 0, 0, 0.4); color: white; font-size: 10pt; position: relative; top: -19px; text-align: center; cursor: pointer">Change</div></div>
+                                            <div class="u-text">
+                                                <h4>@HttpContext.Current.Session["companyName"].ToString()</h4>
+                                                <a href="~/Home/UpdateProfile" class="btn btn-rounded btn-danger btn-sm">Company Settings</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a id="btnLogout" href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <aside class="left-sidebar">
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li>
+                            <a href="~/Home/Index"><i class="mdi mdi-view-dashboard"></i>Home</a>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-keyboard-return"></i><span class="hide-menu">GST Return</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/GstReturn/Gstr1">GSTR1</a></li>
+                                <li><a href="~/GstReturn/Gstr2">GSTR2</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-note"></i><span class="hide-menu">Ledger</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/Ledger/Customer">Customer</a></li>
+                                <li><a href="~/Ledger/Supplier">Supplier</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-nature-people"></i><span class="hide-menu">People</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/People/Customer">Customer</a></li>
+                                <li><a href="~/People/Supplier">Supplier</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-cube"></i><span class="hide-menu">Items</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/Item/Item">Items</a></li>
+                                <li><a href="~/Item/PrintInventory" target="_blank">Inventory</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="~/Purchase/InvoiceList"><i class="mdi mdi-cart"></i>Purchase</a>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-truck"></i><span class="hide-menu">Sales</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/Sale/InvoiceList">Invoice</a></li>
+                                <li><a href="~/Sale/QuotationList">Quotation</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-alert-circle-outline"></i><span class="hide-menu">Pendings</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/Pending/Payable">Payables</a></li>
+                                <li><a href="~/Pending/Receivable">Receivables</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-stackexchange"></i><span class="hide-menu">Transaction</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/Transaction/Payment">Payment</a></li>
+                                <li><a href="~/Transaction/Receipt">Receipt</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-bank"></i><span class="hide-menu">Banking</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/Banking/BankAccount">Bank Account</a></li>
+                                <li><a href="~/Banking/Deposit">Deposit</a></li>
+                                <li><a href="~/Banking/History">Transaction History</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="~/Expense/Index"><i class="mdi mdi-currency-inr"></i>Expenses</a>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-settings"></i><span class="hide-menu">Settings</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/Setting/Category">Category</a></li>
+                                <li><a href="~/Setting/Unit">Unit</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="row page-titles">
+                @RenderSection("card_body_header", false)
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                @RenderSection("card_body", false)
+                            </div>
+                        </div>
+                        @RenderSection("card_body_footer", false)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../Scripts/jquery.min.js"></script>
+    <script src="../../Scripts/jquery-ui.min.js"></script>
+    <script src="../../Scripts/popper.min.js"></script>
+    <script src="../../Scripts/bootstrap.min.js"></script>
+    <script src="../../Scripts/jquery.slimscroll.js"></script>
+    <script src="../../Scripts/waves.js"></script>
+    <script src="../../Scripts/sidebarmenu.js"></script>
+    <script src="../../Scripts/sticky-kit.min.js"></script>
+    <script src="../../Scripts/jquery.sparkline.min.js"></script>
+    <script src="../../Scripts/custom.min.js"></script>
+    <script src="../../Scripts/jquery.dataTables.min.js"></script>
+    <script src="../../Scripts/jQuery.style.switcher.js"></script>
+    <script src="../../Scripts/sweetalert.min.js"></script>
+    <script src="../../Scripts/select2.full.min.js"></script>
+    <script src="../../Scripts/date.format.js"></script>
+
+    <!-- start - This is for export functionality only -->
+    <script src="../../Scripts/dataTables.buttons.min.js"></script>
+    <script src="../../Scripts/buttons.flash.min.js"></script>
+    <script src="../../Scripts/jszip.min.js"></script>
+    <script src="../../Scripts/pdfmake.min.js"></script>
+    <script src="../../Scripts/vfs_fonts.js"></script>
+    <script src="../../Scripts/buttons.html5.min.js"></script>
+    <script src="../../Scripts/buttons.print.min.js"></script>
+    <!-- end - This is for export functionality only -->
+
+    <script>
+        function showLogo(input) {
+            var fileName = document.getElementById("fileLogo").value;
+            var idxDot = fileName.lastIndexOf(".") + 1;
+            var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+            if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+                if (input.files && input.files[0]) {
+                    var filerdr = new FileReader();
+                    filerdr.onload = function (e) {
+                        $("#imgLogo").attr("src", e.target.result);
+                    }
+                    filerdr.readAsDataURL(input.files[0]);
+                }
+            } else {
+                alert("Only jpg/jpeg and png files are allowed!");
+            }
+        }
+
+        $(document).ready(function () {
+            $(document).on("click", "#btnRemove", function () {
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to remove the logo?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, remove it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Saved!", "Logo removed successfully. Please reload the page.", "success");
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Home/RemoveLogo"
+                        });
+                    }
+                });
+            });
+
+            $(document).on("click", "#btnUpload", function () {
+                var fileName = document.getElementById("fileLogo").value;
+                var idxDot = fileName.lastIndexOf(".") + 1;
+                var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+                if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+                    var file = $("#fileLogo").get(0);
+                    var fileData = new FormData();
+
+                    if (file.files.length > 0) {
+                        fileData.append("file-1", file.files[0]);
+
+                        $.ajax({
+                            beforeSend: function () { $("#btnUpload").html("Please wait.."); $("#btnUpload").attr("disabled", "disabled"); },
+                            complete: function () { $("#btnUpload").html("Save"); $("#btnUpload").removeAttr("disabled"); },
+                            context: document.body,
+                            data: fileData,
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    $("#modalLogo").modal("hide");
+                                    swal("Saved!", "Logo uploaded successfully. Please reload the page.", "success");
+                                }
+                                else if (data.success === false)
+                                    swal("Cancelled", data.Message, "error");
+                            },
+                            contentType: false,
+                            processData: false,
+                            type: "POST",
+                            url: "/Home/UploadLogo"
+                        });
+                    }
+                } else {
+                    alert("Only jpg/jpeg and png files are allowed!");
+                }
+            });
+
+            $("#btnLogout").click(function () {
+                swal({
+                    title: "Are you sure?",
+                    text: "Do you want to logout?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, logout!",
+                    closeOnConfirm: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        window.location = "/Home/Login";
+                    }
+                });
+            });
+        });
+    </script>
+
+    @RenderSection("scripts", false)
+    @RenderBody()
+</body>
+</html>

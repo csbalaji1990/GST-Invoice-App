@@ -1,0 +1,636 @@
+﻿@model Invoice.ViewModel.QuotationPrintViewModel
+
+@{
+    ViewBag.Title = "Print Quotation";
+    Layout = null;
+}
+
+<title>Quotation</title>
+
+<style>
+    html, body {
+        width: 848px;
+    }
+
+    body, table, input[type=text], input[type=email], select {
+        font-family: Arial;
+        font-size: 10pt;
+        line-height: normal;
+    }
+
+    textarea {
+        font-family: Arial;
+        font-size: 10pt;
+        line-height: normal;
+    }
+
+    .page-width {
+        width: 846px;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .half-width {
+        width: 50%;
+    }
+
+    .all-border {
+        border: 1px solid black;
+    }
+
+    .top-border {
+        border-top: 1px solid black;
+    }
+
+    .right-border {
+        border-right: 1px solid black;
+    }
+
+    .bottom-border {
+        border-bottom: 1px solid black;
+    }
+
+    .left-border {
+        border-left: 1px solid black;
+    }
+
+    .no-padding {
+        padding: 0;
+    }
+
+    .float-left {
+        float: left;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .title {
+        font-size: 12pt;
+        font-weight: bold;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .text-middle {
+        vertical-align: middle;
+    }
+
+    .printable div {
+        box-sizing: content-box;
+    }
+
+    table {
+        border-spacing: 0;
+        border-collapse: separate;
+    }
+
+        table tr td {
+            box-sizing: border-box;
+            padding: 2px;
+            vertical-align: top;
+        }
+
+        div, table tr td {
+            word-break: break-all;
+        }
+
+    .divControls {
+        background-color: beige;
+        padding: 20px 0 20px 0;
+        margin-bottom: 10px;
+    }
+
+    .logo {
+        max-width: 100px;
+    }
+</style>
+
+<div class="full-width divControls">
+    <table class="full-width">
+        <tr>
+            <td class="text-center">
+                Document Label:
+                <select id="cmbDocumentLabel">
+                    <option value="&nbsp;">Show Nothing</option>
+                    <option value="(Original for Recipient)">Original for Recipient</option>
+                </select>
+                <input type="button" id="btnPrint" value="Print" onclick="printContent('printable')" />
+                <input type="button" id="btnDownloadPdf" value="Download as PDF" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="full-width divControls">
+    <form id="formEmail">
+        <table class="full-width">
+            <tr>
+                <td>To</td>
+                <td>
+                    @Html.TextBoxFor(m => m.CustomerEmail, new { @maxlength = "100", @type = "email", @required = "required", @class = "full-width" })
+                </td>
+            </tr>
+            <tr>
+                <td>Subject</td>
+                <td>
+                    <input type="text" id="txtSubject" value="Quotation" class="full-width" />
+                </td>
+            </tr>
+            <tr>
+                <td>Message</td>
+                <td>
+                    <textarea id="txtMessage" class="full-width" style="height: 100px;">
+                        Dear @Model.CustomerName,
+                        PFA quotation for @Model.Prefix@Model.QuotationName.
+                        Thank you for your business!
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" id="btnSendEmail" value="Send Email" />
+                    <label id="lblMessage"></label>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div class="printable">
+    <div class="full-width text-center bold">Quotation</div>
+    <div class="full-width text-right italic documentLabel" style="position: relative; top: -17px;">&nbsp;</div>
+
+    <div class="page-width all-border" style="position: relative; top: -15px;">
+        <table class="page-width">
+            <tr>
+                <td class="half-width no-padding">
+                    <table class="full-width">
+                        <tr>
+                            <td class="right-border bottom-border no-padding" style="height: 150px;">
+                                <table class="full-width">
+                                    <tr>
+                                        <td class="text-middle">
+                                            <img src="@Model.CompanyLogo" class="logo" />
+                                        </td>
+                                        <td class="text-middle">
+                                            <div class="title">@Model.CompanyName</div>
+                                            <div>@Model.CompanyAddress</div>
+                                            <div>@Model.CompanyCity@Model.CompanyPincode@Model.CompanyState, Code: @Model.CompanyStateCode</div>
+                                            <div class="CompanyGstin">GSTIN: @Model.CompanyGstin</div>
+                                            <div>@Model.CompanyMobile@Model.CompanyLandline</div>
+                                            <div>@Model.CompanyEmail</div>
+                                            <div>@Model.CompanyWebsite</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right-border bottom-border" style="height: 150px;">
+                                <div>Buyer</div>
+                                <div class="title">@Model.CustomerName</div>
+                                <div>@Model.CustomerAddress</div>
+                                <div>@Model.CustomerCity@Model.CustomerPincode</div>
+                                <div>@Model.CustomerState, Code: @Model.CustomerStateCode</div>
+                                <div class="customerGstin">GSTIN: @Model.CustomerGstin</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="half-width no-padding">
+                    <table class="full-width">
+                        <tr>
+                            <td class="right-border bottom-border" style="width: 212px; height: 40px;">
+                                <div class="bold">Quotation No.</div>
+                                @Model.Prefix@Model.QuotationName &nbsp;
+                            </td>
+                            <td class="bottom-border" style="width: 211px; height: 40px;">
+                                <div class="bold">Dated</div>
+                                @Model.QuotationDate &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right-border bottom-border" style="width: 212px; height: 40px;">
+                                <div class="bold">Delivery Note</div>
+                                @Model.DeliveryNote &nbsp;
+                            </td>
+                            <td class="bottom-border" style="width: 211px; height: 40px;">
+                                <div class="bold">Mode/Terms of Payment</div>
+                                @Model.PaymentMethod/@Model.PaymentTerm &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right-border bottom-border" style="width: 212px; height: 40px;">
+                                <div class="bold">Supplier's Ref.</div>
+                                @Model.SupplierReference &nbsp;
+                            </td>
+                            <td class="bottom-border" style="width: 211px; height: 40px;">
+                                <div class="bold">Other Reference(s)</div>
+                                @Model.OtherReference &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right-border bottom-border" style="width: 212px; height: 40px;">
+                                <div class="bold">Buyer's Order No.</div>
+                                @Model.PoNo &nbsp;
+                            </td>
+                            <td class="bottom-border" style="width: 211px; height: 40px;">
+                                <div class="bold">Dated</div>
+                                @Model.PoDate &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right-border bottom-border" style="width: 212px; height: 40px;">
+                                <div class="bold">Despatch Document No.</div>
+                                @Model.DespatchDocumentNo &nbsp;
+                            </td>
+                            <td class="bottom-border" style="width: 211px; height: 40px;">
+                                <div class="bold">Delivery Note Date</div>
+                                @Model.DeliveryNoteDate &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right-border bottom-border" style="width: 212px; height: 40px;">
+                                <div class="bold">Despatched through</div>
+                                @Model.DespatchedThrough &nbsp;
+                            </td>
+                            <td class="bottom-border" style="width: 211px; height: 40px;">
+                                <div class="bold">Destination</div>
+                                @Model.PlaceOfSupply &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="bottom-border" style="width: 423px; height: 60px;">
+                                <div class="bold">Terms of Delivery</div>
+                                @Model.Terms
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="page-width">
+            <tr style="height: 35px;">
+                <td class="right-border bottom-border text-center" style="width: 30px;">Sl.<br />No.</td>
+                <td class="right-border bottom-border text-center description" style="width: 318px;">Description of Goods</td>
+                <td class="right-border bottom-border text-center" style="width: 100px;">HSN/SAC</td>
+                <td class="right-border bottom-border text-center" style="width: 100px;">Quantity</td>
+                <td class="right-border bottom-border text-center" style="width: 100px;">Rate</td>
+                <td class="right-border bottom-border text-center" style="width: 100px;">Per</td>
+                <td class="bottom-border text-center" style="width: 100px;">Amount</td>
+            </tr>
+            @foreach (var d in @Model.QuotationPrintItemDetails)
+            {
+                <tr>
+                    <td class="right-border">@d.Id</td>
+                    <td class="right-border description">
+                        <div class="bold">@d.ItemName</div>
+                        <div>@d.ItemDescription</div>
+                    </td>
+                    <td class="right-border">@d.HsnSac</td>
+                    <td class="right-border text-right bold">@d.Quantity</td>
+                    <td class="right-border text-right bold">@d.TaxablePrice</td>
+                    <td class="right-border">@d.Unit</td>
+                    <td class="text-right bold">@d.SubAmount</td>
+                </tr>
+            }
+            <tr style="height: 217px;">
+                <td class="right-border"></td>
+                <td class="right-border text-right text-middle bold description">
+                    <div class="totalDiscount">Discount</div>
+                    <div class="cgst">CGST</div>
+                    <div class="sgst">SGST</div>
+                    <div class="igst">IGST</div>
+                    <div class="cess">CESS</div>
+                    <div class="roundOff">Round Off</div>
+                </td>
+                <td class="right-border"></td>
+                <td class="right-border"></td>
+                <td class="right-border"></td>
+                <td class="right-border"></td>
+                <td class="text-right text-middle bold">
+                    <div class="totalDiscount">-@Model.TotalDiscountRs</div>
+                    <div class="cgst">@Model.TotalCgstAmount</div>
+                    <div class="sgst">@Model.TotalSgstAmount</div>
+                    <div class="igst">@Model.TotalIgstAmount</div>
+                    <div class="cess">@Model.TotalCessRs</div>
+                    <div class="roundOff">@Model.RoundOffValue</div>
+                </td>
+            </tr>
+            <tr style="height: 21px;">
+                <td class="top-border right-border bottom-border"></td>
+                <td class="top-border right-border bottom-border text-right description">Total</td>
+                <td class="top-border right-border bottom-border"></td>
+                <td class="top-border right-border bottom-border"></td>
+                <td class="top-border right-border bottom-border"></td>
+                <td class="top-border right-border bottom-border"></td>
+                <td class="top-border bottom-border text-right bold">@Model.Total</td>
+            </tr>
+        </table>
+        <table class="page-width">
+            <tr>
+                <td class="bottom-border">
+                    <div style="display: list-item;">
+                        <div class="float-left">Amount Chargeable (in words)</div>
+                        <div class="float-right">E. & O.E</div>
+                    </div>
+                    <div class="bold" style="padding-top: 5px;">INR @Model.TotalInWords</div>
+                </td>
+            </tr>
+        </table>
+        <table class="page-width tax">
+            <tr>
+                <td class="right-border bottom-border text-center bold" rowspan="2">HSN/SAC</td>
+                <td class="right-border bottom-border text-center bold" rowspan="2">Taxable Value</td>
+                <td class="right-border bottom-border text-center bold cgst" colspan="2">CGST</td>
+                <td class="right-border bottom-border text-center bold sgst" colspan="2">SGST</td>
+                <td class="right-border bottom-border text-center bold igst" colspan="2">IGST</td>
+                <td class="bottom-border text-center bold" rowspan="2">Total Tax Amount</td>
+            </tr>
+            <tr>
+                <td class="right-border bottom-border text-center bold cgst">Rate</td>
+                <td class="right-border bottom-border text-center bold cgst">Amount</td>
+                <td class="right-border bottom-border text-center bold sgst">Rate</td>
+                <td class="right-border bottom-border text-center bold sgst">Amount</td>
+                <td class="right-border bottom-border text-center bold igst">Rate</td>
+                <td class="right-border bottom-border text-center bold igst">Amount</td>
+            </tr>
+            @foreach (var h in @Model.QuotationPrintHsnSacDetails)
+            {
+                <tr>
+                    <td class="right-border">@h.HsnSac</td>
+                    <td class="right-border text-right">@h.TaxableValue</td>
+                    <td class="right-border text-right cgst">@h.CgstRate %</td>
+                    <td class="right-border text-right cgst">@h.CgstAmount</td>
+                    <td class="right-border text-right sgst">@h.SgstRate %</td>
+                    <td class="right-border text-right sgst">@h.SgstAmount</td>
+                    <td class="right-border text-right igst">@h.IgstRate %</td>
+                    <td class="right-border text-right igst">@h.IgstAmount</td>
+                    <td class="text-right">@h.Amount</td>
+                </tr>
+            }
+            <tr>
+                <td class="top-border bottom-border right-border text-right bold">Total</td>
+                <td class="top-border bottom-border right-border text-right bold">@Model.TotalTaxableValue</td>
+                <td class="top-border bottom-border right-border cgst"></td>
+                <td class="top-border bottom-border right-border text-right bold cgst">@Model.TotalCgstAmount</td>
+                <td class="top-border bottom-border right-border sgst"></td>
+                <td class="top-border bottom-border right-border text-right bold sgst">@Model.TotalSgstAmount</td>
+                <td class="top-border bottom-border right-border igst"></td>
+                <td class="top-border bottom-border right-border text-right bold igst">@Model.TotalIgstAmount</td>
+                <td class="top-border bottom-border text-right bold">@Model.TotalTaxValue</td>
+            </tr>
+        </table>
+        <table class="page-width tax">
+            <tr>
+                <td class="bottom-border">
+                    Tax Amount (in words): <span class="bold">INR @Model.TotalTaxInWords</span>
+                </td>
+            </tr>
+        </table>
+        <table class="page-width" style="padding: 10px 0 10px 0;">
+            <tr>
+                <td class="half-width">
+                    <div class="underline">Declaration</div>
+                    We declare that this quotation shows the actual price of the goods<br />described and that all particulars are true and correct.
+                </td>
+                <td class="half-width no-padding">
+                    <table class="full-width bank">
+                        <tr>
+                            <td colspan="2" class="bold">Company's Bank Details</td>
+                        </tr>
+                        <tr class="accountName">
+                            <td>A/C Name</td>
+                            <td>: @Model.CompanyAccountName</td>
+                        </tr>
+                        <tr class="bankName">
+                            <td>Bank Name</td>
+                            <td>: @Model.CompanyBankName</td>
+                        </tr>
+                        <tr class="accountNo">
+                            <td>A/C No</td>
+                            <td>: @Model.CompanyAccountNo</td>
+                        </tr>
+                        <tr class="accountType">
+                            <td>A/C Type</td>
+                            <td>: @Model.CompanyAccountType</td>
+                        </tr>
+                        <tr class="ifsc">
+                            <td>IFSC Code</td>
+                            <td>: @Model.CompanyIfsc</td>
+                        </tr>
+                        <tr class="branch">
+                            <td>Branch</td>
+                            <td>: @Model.CompanyBranch</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="page-width">
+            <tr style="height: 100px;">
+                <td class="top-border text-left"><div class="padding-5">Customer's Seal and Signature</div></td>
+                <td class="top-border text-right">
+                    <div class="padding-5 bold">For @Model.CompanyName</div>
+                    <div class="padding-5"><br /><br /><br />Authorized Signatory</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="full-width text-center bold" style="position: relative; top: -15px;">This is a Computer Generated Quotation</div>
+</div>
+
+<script src="../../Scripts/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        var sessionCompanyState = "@Session["CompanyState"]";
+        var placeOfSupply = "@Model.PlaceOfSupply";
+        var companyGstin = "@Model.CompanyGstin";
+        var customerGstin = "@Model.CustomerGstin";
+
+        var cgst = "@Model.TotalCgstAmount";
+        var sgst = "@Model.TotalSgstAmount";
+        var igst = "@Model.TotalIgstAmount";
+
+        var cess = "@Model.TotalCessRs";
+
+        var roundOff = "@Model.RoundOff";
+
+        var totalDiscountRs = @Model.TotalDiscountRs;
+        var roundOffValue = @Model.RoundOffValue;
+
+        if(placeOfSupply == sessionCompanyState)
+        {
+            $(".cgst").show();
+            $(".sgst").show();
+            $(".igst").hide();
+        }
+        else
+        {
+            $(".cgst").hide();
+            $(".sgst").hide();
+            $(".igst").show();
+        }
+
+        if(companyGstin == "")
+            $(".companyGstin").hide();
+
+        if(customerGstin == "")
+            $(".customerGstin").hide();
+
+        if(cgst == 0)
+            $(".cgst").hide();
+
+        if(sgst == 0)
+            $(".sgst").hide();
+
+        if(igst == 0)
+            $(".igst").hide();
+
+        if(cgst == 0 && sgst == 0 && igst == 0)
+            $(".tax").hide();
+
+        if(cess == 0)
+            $(".cess").hide();
+
+        if(roundOff == "True")
+            $(".roundOff").show();
+        else
+            $(".roundOff").hide();
+
+        if(totalDiscountRs == 0)
+            $(".totalDiscount").hide();
+
+        if(roundOffValue == 0)
+            $(".roundOff").hide();
+
+        if("@Model.CompanyAccountNo" == "")
+            $(".accountNo").hide();
+
+        if("@Model.CompanyAccountName" == "")
+            $(".accountName").hide();
+
+        if("@Model.CompanyAccountType" == "")
+            $(".accountType").hide();
+
+        if("@Model.CompanyBankName" == "")
+            $(".bankName").hide();
+
+        if("@Model.CompanyIfsc" == "")
+            $(".ifsc").hide();
+
+        if("@Model.CompanyBranch" == "")
+            $(".branch").hide();
+
+        if("@Model.CompanyAccountNo" == "" && "@Model.CompanyAccountName" == "" && "@Model.CompanyAccountType" == "" && "@Model.CompanyBankName" == "" && "@Model.CompanyIfsc" == "" && "@Model.CompanyBranch" == "")
+            $(".bank").hide();
+
+        $("#cmbDocumentLabel").change(function(){
+            $(".documentLabel").html($("#cmbDocumentLabel").val());
+        });
+    });
+
+    function printContent(el) {
+        var restorepage = $("body").html();
+        var selectedDocumentLabel = $("#cmbDocumentLabel").val();
+        var printcontent = $("." + el).clone();
+        $("body").empty().html(printcontent);
+        window.print();
+        $("body").html(restorepage);
+        $("#cmbDocumentLabel").val(selectedDocumentLabel);
+    }
+
+    $("#btnDownloadPdf").click(function () {
+        var restorepage = $("body").html();
+        var printcontent = $(".printable").clone();
+        $("body").empty().html(printcontent);
+
+        var logoUrl = @Html.Raw(Json.Encode(@Server.MapPath(Model.CompanyLogo)));
+        $(".logo").attr("src", logoUrl);
+
+        if ("@Model.CompanyLogo" == "")
+            $(".logo").css("display", "none");
+
+        var html = escape($("html").html().toString().replace(/130px/g, "136px").replaceAll("₹", "Rs."));
+        $("body").html(restorepage);
+
+        $.ajax({
+            beforeSend: function () { $("#btnDownloadPdf").val("Please wait.."); $("#btnDownloadPdf").attr("disabled", "disabled"); },
+            complete: function () { $("#btnDownloadPdf").val("Download as PDF"); $("#btnDownloadPdf").removeAttr("disabled"); },
+            context: document.body,
+            data: { Html: html, Title: "Quotation" },
+            success: function (data) {
+                var link = document.createElement('a');
+                link.href = data.FileName;
+                link.download = data.FileName;
+                link.dispatchEvent(new MouseEvent("click"));
+            },
+            dataType: "json",
+            type: "POST",
+            url: "/Home/DownloadPdf"
+        });
+    });
+
+    $("#formEmail").submit(function () {
+        var toAddress = $("#CustomerEmail").val();
+        var subject = $("#txtSubject").val();
+        var message = $("#txtMessage").val();
+
+        var restorepage = $("body").html();
+        var printcontent = $(".printable").clone();
+        $("body").empty().html(printcontent);
+
+        var logoUrl = @Html.Raw(Json.Encode(@Server.MapPath(Model.CompanyLogo)));
+        $(".logo").attr("src", logoUrl);
+
+        if ("@Model.CompanyLogo" == "")
+            $(".logo").css("display", "none");
+
+        var html = escape($("html").html().toString().replace(/130px/g, "136px").replaceAll("₹", "Rs."));
+        $("body").html(restorepage);
+
+        $.ajax({
+            beforeSend: function () { $("#btnSendEmail").val("Please wait.."); $("#btnSendEmail").attr("disabled", "disabled"); },
+            complete: function () { $("#btnSendEmail").val("Send Email"); $("#btnSendEmail").removeAttr("disabled"); },
+            context: document.body,
+            data: { Html: html, Title: "Quotation", ToAddress: toAddress, Subject: subject, Message: message },
+            success: function (data) {
+                if (data.success === true) {
+                    $("#lblMessage").html(data.Message);
+                    $("#lblMessage").css("color", "green");
+                }
+                else if (data.success === false) {
+                    $("#lblMessage").html(data.Message);
+                    $("#lblMessage").css("color", "red");
+                }
+            },
+            dataType: "json",
+            type: "POST",
+            url: "/Home/SendEmail"
+        });
+    });
+</script>

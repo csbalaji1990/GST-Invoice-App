@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Home
+}
+
+@section card_body {
+    <div class="row">
+        <div class="col-lg-3 col-xlg-3">
+            <div class="card card-inverse card-info" style="height: 125px;">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="m-r-20">
+                            <h1 class="text-white"><i class="mdi mdi-nature-people"></i></h1>
+                        </div>
+                        <div>
+                            <h3 class="card-title"><a href="../People/Customer" style="color: white;">Customers</a></h3>
+                            <div><a href="../Sale/QuotationEntry" style="color: white;">Create Quotation</a></div>
+                            <div><a href="../Sale/InvoiceEntry" style="color: white;">Create Sales Invoice</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xlg-3">
+            <div class="card card-inverse card-info" style="height: 125px;">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="m-r-20">
+                            <h1 class="text-white"><i class="mdi mdi-nature-people"></i></h1>
+                        </div>
+                        <div>
+                            <h3 class="card-title"><a href="../People/Supplier" style="color: white;">Suppliers</a></h3>
+                            <div><a href="../Purchase/InvoiceEntry" style="color: white;">Create Purchase Invoice</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xlg-3">
+            <div class="card card-inverse card-info" style="height: 125px;">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="m-r-20">
+                            <h1 class="text-white"><i class="mdi mdi-cube"></i></h1>
+                        </div>
+                        <div>
+                            <h3 class="card-title"><a href="../Item/Item" style="color: white;">Items</a></h3>
+                            <div><a href="../Item/PrintInventory" style="color: white;">Inventory</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xlg-3">
+            <div class="card card-inverse card-info" style="height: 125px;">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="m-r-20">
+                            <h1 class="text-white"><i class="mdi mdi-keyboard-return"></i></h1>
+                        </div>
+                        <div>
+                            <h3 class="card-title">GST Return</h3>
+                            <div><a href="../GstReturn/Gstr1" style="color: white;">GSTR1</a></div>
+                            <div><a href="../GstReturn/Gstr2" style="color: white;">GSTR2</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xlg-3">
+            <div class="card card-inverse card-info" style="height: 125px;">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="m-r-20">
+                            <h1 class="text-white"><i class="mdi mdi-note"></i></h1>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Ledger</h3>
+                            <div><a href="../Ledger/Customer" style="color: white;">Customer Ledger</a></div>
+                            <div><a href="../Ledger/Supplier" style="color: white;">Supplier Ledger</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xlg-3">
+            <div class="card card-inverse card-info" style="height: 125px;">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="m-r-20">
+                            <h1 class="text-white"><i class="mdi mdi-alert-circle-outline"></i></h1>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Pendings</h3>
+                            <div><a href="../Pending/Payable" style="color: white;">Payables</a></div>
+                            <div><a href="../Pending/Receivable" style="color: white;">Receivables</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xlg-3">
+            <div class="card card-inverse card-info" style="height: 125px;">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="m-r-20">
+                            <h1 class="text-white"><i class="mdi mdi-stackexchange"></i></h1>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Transaction</h3>
+                            <div><a href="../Transaction/Payment" style="color: white;">Payment</a></div>
+                            <div><a href="../Transaction/Receipt" style="color: white;">Receipt</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xlg-3">
+            <div class="card card-inverse card-info" style="height: 125px;">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="m-r-20">
+                            <h1 class="text-white"><i class="mdi mdi-bank"></i></h1>
+                        </div>
+                        <div>
+                            <h3 class="card-title"><a href="../Banking/BankAccount" style="color: white;">Bank Accounts</a></h3>
+                            <div><a href="../Banking/Deposit" style="color: white;">Add Deposit</a></div>
+                            <div><a href="../Banking/History" style="color: white;">History</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xlg-3">
+            <div class="card card-inverse card-info" style="height: 125px;">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="m-r-20">
+                            <h1 class="text-white"><i class="mdi mdi-currency-inr"></i></h1>
+                        </div>
+                        <div>
+                            <h3 class="card-title"><a href="../Expense/Index" style="color: white;">Expenses</a></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+}

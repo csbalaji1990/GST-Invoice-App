@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Supplier Ledger";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Supplier Ledger
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Supplier Ledger</h3>
+    </div>
+}
+
+@section card_body {
+    <form id="formLedger">
+        <div class="row form-group">
+            <div class="col-md-4">
+                <input type="number" id="txtYear" class="mt-1 form-control form-control-sm" required />
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownList("cmbSupplier", (SelectList)ViewBag.SupplierList, new { @class = "mt-1 form-control form-control-sm", @required = "required" })
+            </div>
+            <div class="col-md-4">
+                <button type="submit" id="btnSubmit" class="mt-1 btn btn-sm btn-info waves-effect waves-light">Submit</button>
+                <button type="button" id="btnPrint" class="mt-1 btn btn-sm btn-info waves-effect waves-light d-none float-right">Print</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="tblSupplierLedger" class="table-responsive m-t-40 tblLedger"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(ledger) {
+                var $table = $("<table class='display nowrap table table-hover table-striped table-bordered' cellspacing='0' width='100%'>");
+                $table.append("<thead><tr><th>Date</th><th>Details</th><th>Debit</th><th>Credit</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(ledger, function (i, val) {
+                    var $row = "<tr><td>" + ConvertJsonToDate(val.PaymentDate) + "</td><td>" + val.Description + "</td><td>" + val.Debit + "</td><td>" + val.Credit + "</td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblSupplierLedger").html($table);
+
+                $("#tblSupplierLedger table").DataTable({
+                    "ordering": false,
+                    dom: "Bfrtip",
+                    buttons: [
+                        "copy", "csv", "excel"
+                    ]
+                });
+            }
+
+            function ConvertJsonToDate(date) {
+                if(date != "")
+                    return new Date(date).format("dd-mm-yyyy");
+                else
+                    return "";
+            }
+
+            $("#txtYear").val(@Html.Raw(Json.Encode(@ViewBag.CurrentYear)));
+
+            $("#formLedger").submit(function () {
+                $.ajax({
+                    beforeSend: function() { $("#btnSubmit").html("Please wait.."); $("#btnSubmit").attr("disabled", "disabled"); },
+                    complete: function() { $("#btnSubmit").html("Submit"); $("#btnSubmit").removeAttr("disabled"); },
+                    context: document.body,
+                    data: { SupplierId: $("#cmbSupplier").val(), Year: $("#txtYear").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        $("#btnPrint").removeClass("d-none");
+
+                        if (data.success === true)
+                            generateTable(data.Ledger);
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Ledger/GetSupplierLedger"
+                });
+
+                return false;
+            });
+
+            $("#cmbSupplier, #txtYear").change(function () {
+                $("#btnPrint").addClass("d-none");
+            });
+
+            $("#btnPrint").click(function() {
+                if($("#cmbSupplier").val() > 0)
+                    window.open("PrintSupplier?SupplierId=" + $("#cmbSupplier").val() + "&Year=" + $("#txtYear").val(), "_blank");
+            });
+        });
+    </script>
+}

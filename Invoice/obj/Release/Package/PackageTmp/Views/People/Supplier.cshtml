@@ -1,0 +1,271 @@
+﻿@{
+    ViewBag.Title = "Supplier";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Suppliers
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">All your Suppliers</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <button type="button" data-toggle="modal" data-target="#modalSupplier" class="btn btn-info btn-rounded float-right">
+            <i class="fa fa-plus"></i> Add Supplier
+        </button>
+    </div>
+}
+
+@section card_body {
+    <div id="modalSupplier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formSupplier">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add / Edit Supplier</h4>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="hiddenSupplierId" value="0" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtSupplierName" class="control-label">Supplier Name*</label>
+                                    <input type="text" id="txtSupplierName" maxlength="100" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtGstin" class="control-label">GSTIN</label>
+                                    <input type="text" id="txtGstin" maxlength="15" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtPan" class="control-label">PAN</label>
+                                    <input type="text" id="txtPan" maxlength="10" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtAddress" class="control-label">Address</label>
+                                    <input type="text" id="txtAddress" maxlength="100" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtPincode" class="control-label">Pincode</label>
+                                    <input type="text" id="txtPincode" maxlength="50" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cmbCountry" class="control-label">Country</label>
+                                    @Html.DropDownList("cmbCountry", (SelectList)ViewBag.CountryList, new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cmbState" class="control-label">State</label>
+                                    @Html.DropDownList("cmbState", (SelectList)ViewBag.StateList, new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="txtCity" class="control-label">City</label>
+                                    <input type="text" id="txtCity" maxlength="100" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="txtMobile" class="control-label">Mobile</label>
+                                    <input type="tel" id="txtMobile" maxlength="50" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="txtLandline" class="control-label">Landline</label>
+                                    <input type="tel" id="txtLandline" maxlength="50" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="txtEmail" class="control-label">Email</label>
+                                    <input type="email" id="txtEmail" maxlength="100" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSubmit" class="btn btn-info waves-effect waves-light">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="tblSupplierList" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(supplierList) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped'>");
+                $table.append("<thead><tr><th>Supplier Name</th><th>Mobile</th><th>Email</th><th>City</th><th>State</th><th>Action</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(supplierList, function (i, val) {
+                    var $row = "<tr><td>" + val.SupplierName + "</td><td>" + val.Mobile + "</td><td>" + val.Email + "</td><td>" + val.City + "</td><td>" + val.State + "</td><td><input type='hidden' value=" + val.SupplierId + "><button type='button' class='btnEdit btn btn-sm btn-info m-1'><i class='fa fa-edit'></i> Edit</button> <button type='button' class='btnDelete btn btn-sm btn-danger m-1'><i class='fa fa-trash'></i> Delete</button></td></tr>";
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblSupplierList").html($table);
+
+                $("#foo-row-toggler").DataTable({
+                    columnDefs: [{ orderable: false, targets: -1 }]
+                });
+
+                $("#cmbCountry").val("India");
+                $("#cmbState").val("Tamil Nadu");
+            }
+
+            var supplierList = @Html.Raw(Json.Encode(@ViewBag.SupplierList));
+            generateTable(supplierList);
+
+            $("#modalSupplier").on("hide.bs.modal", function (e) {
+                $("#hiddenSupplierId").val("0");
+                $("#txtSupplierName").val("");
+                $("#txtGstin").val("");
+                $("#txtPan").val("");
+                $("#txtMobile").val("");
+                $("#txtLandline").val("");
+                $("#txtEmail").val("");
+                $("#txtAddress").val("");
+                $("#txtPincode").val("");
+                $("#cmbCountry").val("India");
+                $("#cmbState").val("Tamil Nadu");
+                $("#txtCity").val("");
+            });
+
+            $("#cmbCountry").change(function(){
+                if($("#cmbCountry").val() == "India")
+                {
+                    $("#cmbState").prop("disabled", false);
+                }
+                else
+                {
+                    $("#cmbState").val("Others");
+                    $("#cmbState").prop("disabled", true);
+                }
+            });
+
+            $("#tblSupplierList").on("click", ".btnEdit", function () {
+                var supplierId = $("#tblSupplierList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(6) input[type=hidden]").val();
+
+                $.ajax({
+                    context: document.body,
+                    data: { SupplierId: supplierId },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            var supplier = data.Supplier;
+
+                            $("#hiddenSupplierId").val(supplierId);
+                            $("#txtSupplierName").val(supplier.SupplierName);
+                            $("#txtGstin").val(supplier.Gstin);
+                            $("#txtPan").val(supplier.Pan);
+                            $("#txtMobile").val(supplier.Mobile);
+                            $("#txtLandline").val(supplier.Landline);
+                            $("#txtEmail").val(supplier.Email);
+                            $("#txtAddress").val(supplier.Address);
+                            $("#txtPincode").val(supplier.Pincode);
+                            $("#cmbCountry").val(supplier.Country);
+                            $("#cmbState").val(supplier.State);
+                            $("#txtCity").val(supplier.City);
+
+                            $("#modalSupplier").modal("show");
+                        }
+                        else if (data.success === false)
+                            swal(data.Message, "", "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/People/GetSupplier"
+                });
+            });
+
+            $(document).on("submit", "#formSupplier", function() {
+                $.ajax({
+                    beforeSend: function() { $("#btnSubmit").html("Please wait.."); $("#btnSubmit").attr("disabled", "disabled"); },
+                    complete: function() { $("#btnSubmit").html("Save"); $("#btnSubmit").removeAttr("disabled"); },
+                    context: document.body,
+                    data: { SupplierId: $("#hiddenSupplierId").val(), SupplierName: $("#txtSupplierName").val(), Gstin: $("#txtGstin").val(), Pan: $("#txtPan").val(), Mobile: $("#txtMobile").val(), Landline: $("#txtLandline").val(), Email: $("#txtEmail").val(), Address: $("#txtAddress").val(), Pincode: $("#txtPincode").val(), City: $("#txtCity").val(), State: $("#cmbState").val(), Country: $("#cmbCountry").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            $("#modalSupplier").modal("hide");
+                            swal("Saved", "", "success");
+                            generateTable(data.SupplierList);
+                        }
+                        else if (data.success === false)
+                            swal("Cancelled", data.Message, "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/People/SaveSupplier"
+                });
+
+                return false;
+            });
+
+            $("#tblSupplierList").on("click", ".btnDelete", function () {
+                var supplierId = $("#tblSupplierList table tbody tr:nth-child(" + this.closest("tr").rowIndex + ") td:nth-child(6) input[type=hidden]").val();
+
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to delete this supplier?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            data: { SupplierId: supplierId },
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Deleted", "", "success");
+
+                                    generateTable(data.SupplierList);
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/People/DeleteSupplier"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

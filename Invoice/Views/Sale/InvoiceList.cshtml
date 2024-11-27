@@ -1,0 +1,223 @@
+﻿@{
+    ViewBag.Title = "Invoice List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Sales Invoice
+}
+
+@section card_body_header {
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Sales Invoice List</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <a href="~/Sale/InvoiceEntry" class="btn btn-info btn-rounded float-right">
+            <i class="fa fa-plus"></i> New Sales Invoice
+        </a>
+    </div>
+}
+
+@section card_body {
+    <div id="modalPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formPayment">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Payment</h4>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="hiddenInvoiceNo" value="" />
+                        <input type="hidden" id="hiddenCustomerId" value="" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtInvoiceNo" class="control-label">Invoice No</label>
+                                    <input type="text" id="txtInvoiceNo" class="form-control form-control-sm" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="cmbBankAccount" class="control-label">To Bank Account*</label>
+                                    @Html.DropDownList("cmbBankAccount", (SelectList)ViewBag.BankAccountList, new { @class = "form-control form-control-sm", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="cmbPaymentMethod" class="control-label">Payment Method*</label>
+                                    @Html.DropDownList("cmbPaymentMethod", (SelectList)ViewBag.PaymentMethodList, new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtAmount" class="control-label">Amount*</label>
+                                    <input type="number" id="txtAmount" step="0.01" min="1" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtPaymentDate" class="control-label">Date*</label>
+                                    <input type="date" id="txtPaymentDate" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="txtNote" class="control-label">Note</label>
+                                    <input type="text" id="txtNote" maxlength="50" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSubmit" class="btn btn-info waves-effect waves-light">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default waves-effect">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="tblSalesInvoiceList" class="table-responsive"></div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function generateTable(list) {
+                var $table = $("<table id='foo-row-toggler' class='table table-bordered table-striped'>");
+                $table.append("<thead><tr><th>Invoice No</th><th>Date</th><th>Customer</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th><th>Action</th></tr></thead>");
+                var $tbody = $("<tbody>");
+                $.each(list, function (i, val) {
+
+                    if(val.Status == "Pending")
+                        var $row = "<tr><td>" + val.InvoiceName + "</td><td>" + ConvertJsonToDate(val.InvoiceDate) + "</td><td>" + val.CustomerName + "</td><td>" + val.Total + "</td><td>" + val.Paid + "</td><td>" + val.Balance + "</td><td><label class='label label-danger'>" + val.Status + "</label></td><td><input type='hidden' value=" + val.InvoiceNo + "><input type='hidden' value=" + val.CustomerId + "><div class='input-group-btn'><button type='button' class='btn btn-secondary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Action</button><div class='dropdown-menu'><a class='dropdown-item' href='/Sale/InvoiceEntry?InvoiceNo=" + val.InvoiceNo +"'>Edit Invoice</a><button type='button' class='dropdown-item btnDelete'>Delete Invoice</button><button type='button' class='dropdown-item btnPayment'>Add Payment</button><a class='dropdown-item' href='/Sale/PrintInvoiceTemplate1?InvoiceNo=" + val.InvoiceNo +"' target='_blank'>Print</a></div></div></td></tr>";
+
+                    if(val.Status == "Partially")
+                        var $row = "<tr><td>" + val.InvoiceName + "</td><td>" + ConvertJsonToDate(val.InvoiceDate) + "</td><td>" + val.CustomerName + "</td><td>" + val.Total + "</td><td>" + val.Paid + "</td><td>" + val.Balance + "</td><td><label class='label label-info'>" + val.Status + "</label></td><td><input type='hidden' value=" + val.InvoiceNo + "><input type='hidden' value=" + val.CustomerId + "><div class='input-group-btn'><button type='button' class='btn btn-secondary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Action</button><div class='dropdown-menu'><button type='button' class='dropdown-item btnPayment'>Add Payment</button><a class='dropdown-item' href='/Sale/PrintInvoiceTemplate1?InvoiceNo=" + val.InvoiceNo +"' target='_blank'>Print</a></div></div></td></tr>";
+
+                    if(val.Status == "Paid")
+                        var $row = "<tr><td>" + val.InvoiceName + "</td><td>" + ConvertJsonToDate(val.InvoiceDate) + "</td><td>" + val.CustomerName + "</td><td>" + val.Total + "</td><td>" + val.Paid + "</td><td>" + val.Balance + "</td><td><label class='label label-primary'>" + val.Status + "</label></td><td><input type='hidden' value=" + val.InvoiceNo + "><input type='hidden' value=" + val.CustomerId + "><div class='input-group-btn'><button type='button' class='btn btn-secondary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Action</button><div class='dropdown-menu'><a class='dropdown-item' href='/Sale/PrintInvoiceTemplate1?InvoiceNo=" + val.InvoiceNo +"' target='_blank'>Print</a></div></div></td></tr>";
+
+                    $tbody.append($row);
+                });
+                $tbody.append("</tbody>");
+                $table.append($tbody);
+                $table.append("</table>");
+                $("#tblSalesInvoiceList").html($table);
+
+                $("#foo-row-toggler").DataTable({
+                    "order": [[0, "desc"]],
+                    columnDefs: [{ orderable: false, targets: -1 }]
+                });
+            }
+
+            var list = @Html.Raw(Json.Encode(@ViewBag.List));
+            generateTable(list);
+
+            function ConvertJsonToDate(date)
+            {
+                var nowDate = new Date(parseInt(date.substr(6)));
+                return nowDate.format("dd-mm-yyyy");
+            }
+
+            $("#modalPayment").on("hide.bs.modal", function (e) {
+                $("#hiddenInvoiceNo").val("");
+                $("#hiddenCustomerId").val("");
+                $("#txtInvoiceNo").val("");
+                $("#cmbBankAccount").val("");
+                $("#cmbPaymentMethod").val("Cash");
+                $("#txtAmount").val("");
+                $("#txtPaymentDate").val("");
+                $("#txtNote").val("");
+
+                $("#txtAmount").removeAttr("max");
+            });
+
+            $(document).on("submit", "#formPayment", function() {
+                $.ajax({
+                    beforeSend: function() { $("#btnSubmit").html("Please wait.."); $("#btnSubmit").attr("disabled", "disabled"); },
+                    complete: function() { $("#btnSubmit").html("Save"); $("#btnSubmit").removeAttr("disabled"); },
+                    context: document.body,
+                    data: { CustomerId: $("#hiddenCustomerId").val(), InvoiceNo: $("#hiddenInvoiceNo").val(), PaymentMethod: $("#cmbPaymentMethod").val(), PaymentDate: $("#txtPaymentDate").val(), BankAccountId: $("#cmbBankAccount").val(), Amount: $("#txtAmount").val(), Note: $("#txtNote").val() },
+                    error: function (e) { swal(e.Message, "", "error"); },
+                    success: function (data) {
+                        if (data.success === true) {
+                            $("#modalPayment").modal("hide");
+                            swal("Saved!", "Payment added successfully", "success");
+
+                            generateTable(data.List);
+                        }
+                        else if (data.success === false)
+                            swal("Cancelled", data.Message, "error");
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Sale/SaveLedger"
+                });
+
+                return false;
+            });
+
+            $("#tblSalesInvoiceList").on("click", ".btnDelete", function () {
+                var rowIndex = this.closest("tr").rowIndex;
+                var invoiceNo = $("#tblSalesInvoiceList table tbody tr:nth-child(" + rowIndex + ") td:nth-child(8) input[type=hidden]:nth-child(1)").val();
+
+                swal({
+                    title: "Confirmation",
+                    text: "Are you sure want to delete this invoice?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it",
+                    cancelButtonText: "No, cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            context: document.body,
+                            data: { InvoiceNo: invoiceNo },
+                            error: function (e) { swal(e.Message, "", "error"); },
+                            success: function (data) {
+                                if (data.success === true) {
+                                    swal("Deleted", "", "success");
+
+                                    generateTable(data.List);
+                                }
+                                else if (data.success === false)
+                                    swal(data.Message, "", "error");
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Sale/DeleteInvoice"
+                        });
+                    }
+                });
+            });
+
+            $("#tblSalesInvoiceList").on("click", ".btnPayment", function () {
+                var rowIndex = this.closest("tr").rowIndex;
+
+                $("#hiddenInvoiceNo").val($("#tblSalesInvoiceList table tbody tr:nth-child(" + rowIndex + ") td:nth-child(8) input[type=hidden]:nth-child(1)").val());
+                $("#hiddenCustomerId").val($("#tblSalesInvoiceList table tbody tr:nth-child(" + rowIndex + ") td:nth-child(8) input[type=hidden]:nth-child(2)").val());
+                $("#txtInvoiceNo").val($("#tblSalesInvoiceList table tbody tr:nth-child(" + rowIndex + ") td:nth-child(1)").html());
+                $("#txtAmount").val($("#tblSalesInvoiceList table tbody tr:nth-child(" + rowIndex + ") td:nth-child(6)").html());
+                $("#txtAmount").attr("max", $("#tblSalesInvoiceList table tbody tr:nth-child(" + rowIndex + ") td:nth-child(6)").html());
+                $("#txtPaymentDate").val(new Date().toISOString().substring(0, 10));
+
+                $("#modalPayment").modal("show");
+            });
+        });
+    </script>
+}
